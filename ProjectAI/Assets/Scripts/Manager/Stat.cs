@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Stat : MonoBehaviour
 {
@@ -20,8 +19,14 @@ public struct PlayerStat
     public float bulletSpeed;
 }
 
+public enum Type { Touch, Shoot }
+
 [System.Serializable]
 public struct MonsterStat
 {
+    public Type type;
+
     public int damage;
+
+    public float moveSpeed;
 }

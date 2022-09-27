@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
 
     public Stat stat;
     public PoolingManager poolingManager;
-    public PlayerAI playerAI;
+    public UIManager uiManager;
+    [HideInInspector] public PlayerAI playerAI;
 
     public static GameManager Instance
     {

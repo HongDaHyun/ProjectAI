@@ -12,11 +12,8 @@ public class Test : Monster
         }
     }
 
-    protected override IEnumerator TouchAttack()
+    private void Update()
     {
-        playerAI.isHit = true;
-        playerAI.curHP -= damage;
-        yield return new WaitForSeconds(0.5f);
-        playerAI.isHit = false;
+        Follow(playerAI.gameObject);
     }
 }

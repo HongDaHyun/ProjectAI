@@ -8,8 +8,10 @@ public class PlayerAI : MonoBehaviour
 {
     State state;
     Rigidbody2D rigid;
+    GameManager gameManager;
+    UIManager uiManager;
 
-    public int curHP;
+    public int maxHP, curHP;
     public bool isHit;
 
     float curShotTime;
@@ -17,12 +19,14 @@ public class PlayerAI : MonoBehaviour
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        gameManager = GameManager.Instance;
     }
 
     private void Start()
     {
         state = State.Idle;
         SetStat();
+        curHP = maxHP;
     }
 
     private void Update()
@@ -82,6 +86,8 @@ public class PlayerAI : MonoBehaviour
 
     private void SetStat()
     {
-        curHP = GameManager.Instance.stat.playerStat.hp;
+        maxHP = gameManager.stat.playerStat.hp;
+        uiManager = gameManager.uiManager;
+        uiManager.hpBarUI.SetMaxHealth(maxHP);
     }
 }
