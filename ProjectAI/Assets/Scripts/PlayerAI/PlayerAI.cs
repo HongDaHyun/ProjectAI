@@ -2,60 +2,63 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum State { Idle, Walk, Run }
+public enum State { Idle, Walk }
 
-public class PlayerAI : MonoBehaviour
+public abstract class PlayerAI : MonoBehaviour
 {
-    State state;
-    Rigidbody2D rigid;
-    GameManager gameManager;
-    UIManager uiManager;
+    protected State state;
+    protected Rigidbody2D rigid;
+    protected GameManager gameManager;
+    protected CSVReader csvReader;
+    protected UIManager uiManager;
 
+    public string _name;
     public int maxHP, curHP;
+    public int damage;
     public bool isHit;
+    public float walkSpeed, attackSpeed, bulletSpeed;
 
-    float curShotTime;
+    protected float curShotTime;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         gameManager = GameManager.Instance;
+        csvReader = CSVReader.Instance;
     }
 
     private void Start()
     {
         state = State.Idle;
         SetStat();
-        curHP = maxHP;
     }
 
-    private void Update()
+    public virtual void Update()
     {
-        Detecting(5f);
-        curShotTime += Time.deltaTime;
+        gameManager.uiManager.hpBarUI.UpdateHP(curHP, maxHP);
     }
 
     #region Walk
     void R_Walk()
     {
-        rigid.velocity = new Vector2(GameManager.Instance.stat.playerStat.walkSpeed, 0);
+        rigid.velocity = new Vector2(walkSpeed, 0);
     }
     void L_Walk()
     {
-        rigid.velocity = new Vector2(-GameManager.Instance.stat.playerStat.walkSpeed, 0);
+        rigid.velocity = new Vector2(-walkSpeed, 0);
     }
     void T_Walk()
     {
-        rigid.velocity = new Vector2(0, GameManager.Instance.stat.playerStat.walkSpeed);
+        rigid.velocity = new Vector2(0, walkSpeed);
     }
     void D_Walk()
     {
-        rigid.velocity = new Vector2(0, -GameManager.Instance.stat.playerStat.walkSpeed);
+        rigid.velocity = new Vector2(0, -walkSpeed);
     }
     #endregion
 
     #region Attack
-    void Detecting(float radius)
+    protected void Detecting(float radius)
     {
         Collider2D[] colliderArray = Physics2D.OverlapCircleAll(transform.position, radius);
         foreach(Collider2D collider2D in colliderArray)
@@ -66,9 +69,9 @@ public class PlayerAI : MonoBehaviour
 
     }
 
-    void Attack(GameObject target)
+    protected void Attack(GameObject target)
     {
-        if(curShotTime >= GameManager.Instance.stat.playerStat.attackSpeed)
+        if(curShotTime >= attackSpeed)
         {
             GameObject bullet = GameManager.Instance.poolingManager.MakeObj("Bullet");
             bullet.transform.position = transform.position;
@@ -86,8 +89,17 @@ public class PlayerAI : MonoBehaviour
 
     private void SetStat()
     {
-        maxHP = gameManager.stat.playerStat.hp;
+        for(int i = 0; i < csvReader.list.playerStats.Length; i ++)
+        {
+            if(csvReader.list.playerStats[i].name == _name)
+            {
+                maxHP = csvReader.list.playerStats[i].hp;
+                walkSpeed = csvReader.list.playerStats[i].walkSpeed;
+                attackSpeed = csvReader.list.playerStats[i].attackSpeed;
+                bulletSpeed = csvReader.list.playerStats[i].bulletSpeed;
+            }
+        }
         uiManager = gameManager.uiManager;
-        uiManager.hpBarUI.SetMaxHealth(maxHP);
+        uiManager.hpBarUI.SetMaxHP();
     }
 }

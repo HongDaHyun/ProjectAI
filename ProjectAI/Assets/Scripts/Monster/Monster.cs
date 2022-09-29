@@ -7,23 +7,26 @@ public abstract class Monster : MonoBehaviour
     protected PlayerAI playerAI;
     protected GameManager gameManager;
     protected UIManager uiManager;
+    protected CSVReader csvReader;
+
+    public string _name;
 
     public int damage;
     public float moveSpeed;
 
-    public void Start()
+    private void OnEnable()
     {
         gameManager = GameManager.Instance;
+        csvReader = CSVReader.Instance;
         uiManager = gameManager.uiManager;
         playerAI = gameManager.playerAI;
         SetStat();
     }
 
-    protected IEnumerator TouchAttack()
+    protected IEnumerator Attack()
     {
         playerAI.isHit = true;
         playerAI.curHP -= damage;
-        uiManager.hpBarUI.SetHealth(playerAI.curHP);
         yield return new WaitForSeconds(0.5f);
         playerAI.isHit = false;
     }
@@ -36,9 +39,15 @@ public abstract class Monster : MonoBehaviour
         transform.position += dir * moveSpeed * Time.deltaTime;
     }
 
-    private void SetStat()
+    void SetStat()
     {
-        damage = gameManager.stat.monsterStat.damage;
-        moveSpeed = gameManager.stat.monsterStat.moveSpeed;
+        for (int i = 0; i < csvReader.list.monsterStats.Length; i++)
+        {
+            if(csvReader.list.monsterStats[i].name == _name)
+            {
+                damage = csvReader.list.monsterStats[i].damage;
+                moveSpeed = csvReader.list.monsterStats[i].moveSpeed;
+            }
+        }
     }
 }

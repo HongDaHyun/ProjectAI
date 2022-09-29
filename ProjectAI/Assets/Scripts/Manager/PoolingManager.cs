@@ -4,14 +4,28 @@ using UnityEngine;
 
 public class PoolingManager : MonoBehaviour
 {
+    private static PoolingManager instance;
+
     public GameObject bulletPrefab;
+    public GameObject TestPrefab;
 
     GameObject[] targetPool;
+
     GameObject[] bullet;
+    GameObject[] test;
 
     private void Awake()
     {
+        if (instance)
+        {
+            DestroyImmediate(this.gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(this.gameObject);
+
         bullet = Generate(bulletPrefab, 200);
+        test = Generate(TestPrefab, 30);
     }
 
     GameObject[] Generate(GameObject obj, int size)
@@ -19,7 +33,7 @@ public class PoolingManager : MonoBehaviour
         GameObject[] objects = new GameObject[size];
         for(int i = 0; i < size; i++)
         {
-            objects[i] = Instantiate(bulletPrefab);
+            objects[i] = Instantiate(obj);
             objects[i].SetActive(false);
         }
         return objects;
@@ -31,6 +45,9 @@ public class PoolingManager : MonoBehaviour
         {
             case "Bullet":
                 targetPool = bullet;
+                break;
+            case "Test":
+                targetPool = test;
                 break;
         }
 

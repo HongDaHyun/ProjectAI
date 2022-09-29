@@ -8,7 +8,7 @@ public class Test : Monster
     {
         if(collision.gameObject.CompareTag("Player") && !playerAI.isHit)
         {
-            StartCoroutine(TouchAttack());
+            StartCoroutine(Attack());
         }
     }
 

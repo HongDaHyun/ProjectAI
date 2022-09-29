@@ -1,16 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class Stat : MonoBehaviour
-{
-    public PlayerStat playerStat;
-    public MonsterStat monsterStat;
-}
-
-[System.Serializable]
+[Serializable]
 public struct PlayerStat
 {
+    public string name;
+
     public int hp;
     public int damage;
 
@@ -19,14 +16,19 @@ public struct PlayerStat
     public float bulletSpeed;
 }
 
-public enum Type { Touch, Shoot }
-
-[System.Serializable]
+[Serializable]
 public struct MonsterStat
 {
-    public Type type;
+    public string name;
 
     public int damage;
 
     public float moveSpeed;
+}
+
+[Serializable]
+public class List
+{
+    public PlayerStat[] playerStats;
+    public MonsterStat[] monsterStats;
 }

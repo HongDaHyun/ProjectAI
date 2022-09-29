@@ -6,10 +6,10 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
 
-    public Stat stat;
+    public CSVReader csvReader;
     public PoolingManager poolingManager;
     public UIManager uiManager;
-    [HideInInspector] public PlayerAI playerAI;
+    public PlayerAI playerAI;
 
     public static GameManager Instance
     {
