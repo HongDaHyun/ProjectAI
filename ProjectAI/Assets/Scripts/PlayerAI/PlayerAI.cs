@@ -36,6 +36,8 @@ public abstract class PlayerAI : MonoBehaviour
     public virtual void Update()
     {
         gameManager.uiManager.hpBarUI.UpdateHP(curHP, maxHP);
+
+        TestWalk();
     }
 
     #region Walk
@@ -55,6 +57,15 @@ public abstract class PlayerAI : MonoBehaviour
     {
         rigid.velocity = new Vector2(0, -walkSpeed);
     }
+
+    void TestWalk()
+    {
+        Vector2 vector;
+        vector.x = Input.GetAxisRaw("Horizontal");
+        vector.y = Input.GetAxisRaw("Vertical");
+
+        rigid.velocity = vector.normalized * walkSpeed;
+    }    
     #endregion
 
     #region Attack
