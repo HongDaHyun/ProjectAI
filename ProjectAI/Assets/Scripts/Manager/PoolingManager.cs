@@ -9,10 +9,14 @@ public class PoolingManager : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject TestPrefab;
 
+    public GameObject[] tileMaps;
+
     GameObject[] targetPool;
 
     GameObject[] bullet;
     GameObject[] test;
+
+    GameObject[] forestTilemap;
 
     private void Awake()
     {
@@ -26,6 +30,7 @@ public class PoolingManager : MonoBehaviour
 
         bullet = Generate(bulletPrefab, 200);
         test = Generate(TestPrefab, 30);
+        forestTilemap = Generate(tileMaps[0], 9);
     }
 
     GameObject[] Generate(GameObject obj, int size)
@@ -48,6 +53,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "Test":
                 targetPool = test;
+                break;
+            case "Forest":
+                targetPool = forestTilemap;
                 break;
         }
 
