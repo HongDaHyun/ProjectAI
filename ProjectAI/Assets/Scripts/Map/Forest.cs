@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Forest : Map
 {
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         Generate(name);
     }
 }

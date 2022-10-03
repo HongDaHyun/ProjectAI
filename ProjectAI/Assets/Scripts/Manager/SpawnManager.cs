@@ -13,9 +13,9 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
-        GameObject test = gameManager.poolingManager.MakeObj("Test");
+        GameObject test = gameManager.poolingManager.MakeObj("Rabbit");
         test.transform.position = new Vector3(6, 0, 0);
-        test = gameManager.poolingManager.MakeObj("Test");
+        test = gameManager.poolingManager.MakeObj("Rabbit");
         test.transform.position = new Vector3(-6, 0, 0);
     }
 }

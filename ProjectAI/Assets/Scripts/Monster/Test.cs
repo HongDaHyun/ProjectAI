@@ -14,6 +14,7 @@ public class Test : Monster
 
     private void Update()
     {
-        Follow(playerAI.gameObject);
+        LookAt();
+        Follow(1f);
     }
 }

@@ -61,7 +61,7 @@ public class CSVReader : MonoBehaviour
 
     public void MonsterReadCSV()
     {
-        int order = 1;  int size = 3;
+        int order = 1;  int size = 4;
         string[] data = textAssets[order].text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
         int tableSize = data.Length / size - 1;
         list.monsterStats = new MonsterStat[tableSize];
@@ -72,6 +72,7 @@ public class CSVReader : MonoBehaviour
             list.monsterStats[i].name = data[size * (i + 1)];
             list.monsterStats[i].damage = int.Parse(data[size * (i + 1) + 1]);
             list.monsterStats[i].moveSpeed = float.Parse(data[size * (i + 1) + 2]);
+            list.monsterStats[i].range = float.Parse(data[size * (i + 1) + 3]);
         }
     }
     #endregion

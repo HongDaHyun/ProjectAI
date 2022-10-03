@@ -7,29 +7,24 @@ public class PoolingManager : MonoBehaviour
     private static PoolingManager instance;
 
     public GameObject bulletPrefab;
-    public GameObject TestPrefab;
+    public GameObject[] enemyPrefab;
 
     public GameObject[] tileMaps;
 
     GameObject[] targetPool;
 
     GameObject[] bullet;
+
     GameObject[] test;
+    GameObject[] rabbit;
 
     GameObject[] forestTilemap;
 
     private void Awake()
     {
-        if (instance)
-        {
-            DestroyImmediate(this.gameObject);
-            return;
-        }
-        instance = this;
-        DontDestroyOnLoad(this.gameObject);
-
         bullet = Generate(bulletPrefab, 200);
-        test = Generate(TestPrefab, 30);
+        test = Generate(enemyPrefab[0], 30);
+        rabbit = Generate(enemyPrefab[1], 30);
         forestTilemap = Generate(tileMaps[0], 9);
     }
 
@@ -53,6 +48,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "Test":
                 targetPool = test;
+                break;
+            case "Rabbit":
+                targetPool = rabbit;
                 break;
             case "Forest":
                 targetPool = forestTilemap;

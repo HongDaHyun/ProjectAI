@@ -43,19 +43,19 @@ public abstract class PlayerAI : MonoBehaviour
     #region Walk
     void R_Walk()
     {
-        rigid.velocity = new Vector2(walkSpeed, 0);
+        rigid.MovePosition(rigid.position + Vector2.right * walkSpeed * Time.deltaTime);
     }
     void L_Walk()
     {
-        rigid.velocity = new Vector2(-walkSpeed, 0);
+        rigid.MovePosition(rigid.position + Vector2.right * walkSpeed * Time.deltaTime);
     }
     void T_Walk()
     {
-        rigid.velocity = new Vector2(0, walkSpeed);
+        rigid.MovePosition(rigid.position + Vector2.right * walkSpeed * Time.deltaTime);
     }
     void D_Walk()
     {
-        rigid.velocity = new Vector2(0, -walkSpeed);
+        rigid.MovePosition(rigid.position + Vector2.right * walkSpeed * Time.deltaTime);
     }
 
     void TestWalk()
@@ -64,7 +64,7 @@ public abstract class PlayerAI : MonoBehaviour
         vector.x = Input.GetAxisRaw("Horizontal");
         vector.y = Input.GetAxisRaw("Vertical");
 
-        rigid.velocity = vector.normalized * walkSpeed;
+        rigid.MovePosition(rigid.position + vector.normalized * walkSpeed * Time.deltaTime);
     }    
     #endregion
 

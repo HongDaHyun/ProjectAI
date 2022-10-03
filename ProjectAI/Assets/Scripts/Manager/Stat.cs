@@ -24,6 +24,7 @@ public struct MonsterStat
     public int damage;
 
     public float moveSpeed;
+    public float range;
 }
 
 [Serializable]
