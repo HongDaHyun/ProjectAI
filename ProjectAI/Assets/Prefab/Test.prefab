@@ -100,7 +100,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -140,6 +140,7 @@ MonoBehaviour:
   _name: Test
   damage: 0
   moveSpeed: 0
+  range: 0
 --- !u!195 &-5121355907190109323
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class Rabbit : Monster
 {
-    private void OnCollisionStay2D(Collision2D collision)
+    protected override void Update()
     {
-        if (collision.gameObject.CompareTag("Player") && !playerAI.isHit)
-        {
-            StartCoroutine(Attack());
-        }
+        base.Update();
     }
 
-    private void Update()
+    protected override void FixedUpdate()
     {
-        LookAt();
-        Follow(1f);
+        base.FixedUpdate();
+        Follow();
     }
 }

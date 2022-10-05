@@ -10,13 +10,21 @@ public abstract class Monster : MonoBehaviour
     protected UIManager uiManager;
     protected CSVReader csvReader;
     protected NavMeshAgent agent;
+    protected Rigidbody2D rigid;
+    protected SpriteRenderer spriteRenderer;
 
     public string _name;
 
+    public int maxHP, curHP;
     public int damage;
 
     public float moveSpeed;
     public float range;
+    public float atkSpeed;
+
+    public MonsterType type;
+
+    public bool isAttack, isHit, isStun;
 
     private void Awake()
     {
@@ -24,25 +32,53 @@ public abstract class Monster : MonoBehaviour
         csvReader = CSVReader.Instance;
         uiManager = gameManager.uiManager;
         playerAI = gameManager.playerAI;
+        rigid = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         SetAgent();
         SetStat();
     }
 
-    protected IEnumerator Attack()
+    private void OnEnable()
     {
-        playerAI.isHit = true;
-        playerAI.curHP -= damage;
-        yield return new WaitForSeconds(0.5f);
-        playerAI.isHit = false;
+        curHP = maxHP;
+    }
+
+    protected virtual void Update()
+    {
+        rigid.velocity = Vector3.zero;
+        LookAt();
+        AttackPattern(type.ToString());
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        Stun();
+    }    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Bullet") && !isHit)
+            StartCoroutine(Damaged(playerAI.damage));
+    }
+
+    protected IEnumerator Damaged(int dmg)
+    {
+        isHit = true;
+        isStun = true;
+        curHP -= dmg;
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.2f);
+        isHit = false;
+        isStun = false;
+        spriteRenderer.color = Color.white;
     }
 
     protected void LookAt()
     {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         if (transform.position.x > playerAI.transform.position.x)
-            spriteRenderer.flipX = false;
+            transform.localScale = new Vector2(1, 1);
         else
-            spriteRenderer.flipX = true;
+            transform.localScale = new Vector2(-1, 1);
     }
 
     protected void SetAgent()
@@ -52,9 +88,37 @@ public abstract class Monster : MonoBehaviour
         agent.updateUpAxis = false;
     }
 
-    protected void Follow(float distance)
+    protected void Follow()
     {
-        agent.SetDestination(playerAI.transform.position);
+        if(!isStun)
+            agent.SetDestination(playerAI.transform.position);
+    }
+
+    protected void Stun()
+    {
+        if (isStun)
+            agent.enabled = false;
+        else if (!isStun)
+            agent.enabled = true;
+    }
+
+    protected IEnumerator Bite()
+    {
+        GameObject bite = transform.GetChild(0).gameObject;
+        bite.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        bite.SetActive(false);
+        yield return new WaitForSeconds(atkSpeed);
+        isAttack = false;
+    }
+
+    protected void AttackPattern(string name)
+    {
+        if (!isAttack && Vector2.Distance(playerAI.transform.position, transform.position) < range)
+        {
+            isAttack = true;
+            StartCoroutine(name);
+        }
     }
 
     void SetStat()
@@ -63,11 +127,14 @@ public abstract class Monster : MonoBehaviour
         {
             if(csvReader.list.monsterStats[i].name == _name)
             {
+                maxHP = csvReader.list.monsterStats[i].hp;
                 damage = csvReader.list.monsterStats[i].damage;
                 moveSpeed = csvReader.list.monsterStats[i].moveSpeed;
                 agent.speed = moveSpeed;
                 range = csvReader.list.monsterStats[i].range;
                 agent.stoppingDistance = range;
+                atkSpeed = csvReader.list.monsterStats[i].atkSpeed;
+                type = csvReader.list.monsterStats[i].type;
             }
         }
     }

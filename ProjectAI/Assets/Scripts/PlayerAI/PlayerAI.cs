@@ -11,6 +11,7 @@ public abstract class PlayerAI : MonoBehaviour
     protected GameManager gameManager;
     protected CSVReader csvReader;
     protected UIManager uiManager;
+    protected SpriteRenderer spriteRenderer;
 
     public string _name;
     public int maxHP, curHP;
@@ -25,6 +26,7 @@ public abstract class PlayerAI : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         gameManager = GameManager.Instance;
         csvReader = CSVReader.Instance;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -36,8 +38,39 @@ public abstract class PlayerAI : MonoBehaviour
     public virtual void Update()
     {
         gameManager.uiManager.hpBarUI.UpdateHP(curHP, maxHP);
+    }
 
+    private void FixedUpdate()
+    {
         TestWalk();
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Monster") && !isHit)
+        {
+            int dmg = collision.gameObject.GetComponent<Monster>().damage;
+            StartCoroutine(Damaged(dmg));
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("MonsterWeapon") && !isHit)
+        {
+            int dmg = collision.gameObject.GetComponent<Atk>().damage;
+            StartCoroutine(Damaged(dmg));
+        }
+    }
+
+    protected IEnumerator Damaged(int dmg)
+    {
+        isHit = true;
+        curHP -= dmg;
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.5f);
+        isHit = false;
+        spriteRenderer.color = Color.white;
     }
 
     #region Walk
@@ -64,7 +97,7 @@ public abstract class PlayerAI : MonoBehaviour
         vector.x = Input.GetAxisRaw("Horizontal");
         vector.y = Input.GetAxisRaw("Vertical");
 
-        rigid.MovePosition(rigid.position + vector.normalized * walkSpeed * Time.deltaTime);
+        transform.Translate(new Vector2(vector.x, vector.y).normalized * Time.deltaTime * walkSpeed);
     }    
     #endregion
 
@@ -74,8 +107,14 @@ public abstract class PlayerAI : MonoBehaviour
         Collider2D[] colliderArray = Physics2D.OverlapCircleAll(transform.position, radius);
         foreach(Collider2D collider2D in colliderArray)
         {
-            if (collider2D.gameObject.CompareTag("Enemy"))
+            if (collider2D.gameObject.CompareTag("Monster"))
+            {
                 Attack(collider2D.gameObject);
+            }
+            else if(collider2D.gameObject.CompareTag("MonsterWeapon"))
+            {
+
+            }
         }
 
     }
@@ -97,6 +136,8 @@ public abstract class PlayerAI : MonoBehaviour
     }
 
     #endregion
+
+    
 
     private void SetStat()
     {

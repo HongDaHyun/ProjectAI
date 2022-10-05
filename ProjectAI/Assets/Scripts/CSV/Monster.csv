@@ -1,3 +1,3 @@
-Name,Damage,MoveSpeed,Range
-Test,5,2.5,2
-Rabbit,3,2,1
+Name,HP,Damage,MoveSpeed,Range,AtkSpeed,EnemyType
+Test,10,5,2.5,2,2,Bite
+Rabbit,10,3,2,1,2,Bite

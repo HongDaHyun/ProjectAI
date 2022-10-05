@@ -21,10 +21,14 @@ public struct MonsterStat
 {
     public string name;
 
+    public int hp;
     public int damage;
 
     public float moveSpeed;
     public float range;
+    public float atkSpeed;
+
+    public MonsterType type;
 }
 
 [Serializable]

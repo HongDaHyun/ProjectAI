@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
+  - Monster
   - Bullet
+  - MonsterWeapon
   layers:
   - Default
   - TransparentFX

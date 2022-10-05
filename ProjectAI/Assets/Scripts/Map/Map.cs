@@ -22,6 +22,12 @@ public abstract class Map : MonoBehaviour
         surface2D = GetComponent<NavMeshSurface2d>();
     }
 
+    private void Start()
+    {
+        surface2D.BuildNavMesh();
+        StartCoroutine(UpdateNavMesh());
+    }
+
     private void Update()
     {
         MapScrolling();
@@ -39,8 +45,6 @@ public abstract class Map : MonoBehaviour
                 k++;
             }
         }
-
-        surface2D.BuildNavMeshAsync();
     }
 
     void MapScrolling()
@@ -89,7 +93,6 @@ public abstract class Map : MonoBehaviour
     {
         isScrolling = false;
         yield return new WaitForSeconds(0.5f);
-        Debug.Log("a");
         surface2D.UpdateNavMesh(surface2D.navMeshData);
     }
 }
