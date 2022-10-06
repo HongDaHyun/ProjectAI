@@ -40,6 +40,10 @@ public abstract class Monster : MonoBehaviour
 
     private void OnEnable()
     {
+        spriteRenderer.color = Color.white;
+        isStun = false;
+        isAttack = false;
+        isHit = false;
         curHP = maxHP;
     }
 
@@ -66,6 +70,7 @@ public abstract class Monster : MonoBehaviour
         isHit = true;
         isStun = true;
         curHP -= dmg;
+        Die();
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.2f);
         isHit = false;
@@ -100,6 +105,13 @@ public abstract class Monster : MonoBehaviour
             agent.enabled = false;
         else if (!isStun)
             agent.enabled = true;
+    }
+
+    protected void Die()
+    {
+        if (curHP <= 0)
+            gameObject.SetActive(false);
+        return;
     }
 
     protected IEnumerator Bite()

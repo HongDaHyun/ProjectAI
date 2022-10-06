@@ -67,10 +67,17 @@ public abstract class PlayerAI : MonoBehaviour
     {
         isHit = true;
         curHP -= dmg;
+        Die();
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.5f);
         isHit = false;
         spriteRenderer.color = Color.white;
+    }
+
+    protected void Die()
+    {
+        if (curHP <= 0)
+            Debug.Log("GameOver");
     }
 
     #region Walk
@@ -137,8 +144,6 @@ public abstract class PlayerAI : MonoBehaviour
 
     #endregion
 
-    
-
     private void SetStat()
     {
         for(int i = 0; i < csvReader.list.playerStats.Length; i ++)
@@ -146,6 +151,7 @@ public abstract class PlayerAI : MonoBehaviour
             if(csvReader.list.playerStats[i].name == _name)
             {
                 maxHP = csvReader.list.playerStats[i].hp;
+                damage = csvReader.list.playerStats[i].damage;
                 walkSpeed = csvReader.list.playerStats[i].walkSpeed;
                 attackSpeed = csvReader.list.playerStats[i].attackSpeed;
                 bulletSpeed = csvReader.list.playerStats[i].bulletSpeed;
