@@ -70,12 +70,19 @@ public abstract class Monster : MonoBehaviour
         isHit = true;
         isStun = true;
         curHP -= dmg;
+        DmgPopUp();
         Die();
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.2f);
         isHit = false;
         isStun = false;
         spriteRenderer.color = Color.white;
+    }
+
+    void DmgPopUp()
+    {
+        GameObject dmgPopUp = gameManager.poolingManager.MakeObj("DmgPopUp");
+        dmgPopUp.transform.position = new Vector2(transform.position.x, transform.position.y + 0.8f);
     }
 
     protected void LookAt()

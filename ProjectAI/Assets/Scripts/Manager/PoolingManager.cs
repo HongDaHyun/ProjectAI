@@ -11,6 +11,8 @@ public class PoolingManager : MonoBehaviour
 
     public GameObject[] tileMaps;
 
+    public GameObject dmgPopUpPrefab;
+
     GameObject[] targetPool;
 
     GameObject[] bullet;
@@ -20,12 +22,15 @@ public class PoolingManager : MonoBehaviour
 
     GameObject[] forestTilemap;
 
+    GameObject[] dmgPopUp;
+
     private void Awake()
     {
         bullet = Generate(bulletPrefab, 200);
         test = Generate(enemyPrefab[0], 30);
         rabbit = Generate(enemyPrefab[1], 30);
         forestTilemap = Generate(tileMaps[0], 9);
+        dmgPopUp = Generate(dmgPopUpPrefab, 200);
     }
 
     GameObject[] Generate(GameObject obj, int size)
@@ -54,6 +59,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "Forest":
                 targetPool = forestTilemap;
+                break;
+            case "DmgPopUp":
+                targetPool = dmgPopUp;
                 break;
         }
 
