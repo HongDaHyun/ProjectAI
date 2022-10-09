@@ -16,7 +16,7 @@ public abstract class PlayerAI : MonoBehaviour
     public string _name;
     public int maxHP, curHP;
     public int damage;
-    public bool isHit;
+    public bool isHit, isDead;
     public float walkSpeed, attackSpeed, bulletSpeed;
 
     protected float curShotTime;
@@ -38,6 +38,7 @@ public abstract class PlayerAI : MonoBehaviour
     public virtual void Update()
     {
         gameManager.uiManager.hpBarUI.UpdateHP(curHP, maxHP);
+        Die();
     }
 
     private void FixedUpdate()
@@ -67,7 +68,6 @@ public abstract class PlayerAI : MonoBehaviour
     {
         isHit = true;
         curHP -= dmg;
-        Die();
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.5f);
         isHit = false;
@@ -77,7 +77,7 @@ public abstract class PlayerAI : MonoBehaviour
     protected void Die()
     {
         if (curHP <= 0)
-            Debug.Log("GameOver");
+            isDead = true;
     }
 
     #region Walk

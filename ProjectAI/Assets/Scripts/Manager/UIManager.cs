@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public Camera UICam;
     public HpBarUI hpBarUI;
+    public GameObject GameOver;
 
     private static UIManager instance = null;
 
@@ -23,6 +24,15 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         gameManager = GameManager.Instance;
+    }
+
+    private void Update()
+    {
+        if (gameManager.playerAI.isDead)
+        {
+            gameManager.playerAI.isDead = false;
+            GameOver.SetActive(true);
+        }
     }
 }
 
