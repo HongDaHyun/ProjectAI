@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public Camera UICam;
     public HpBarUI hpBarUI;
     public GameObject GameOver;
+    public GameObject[] Shop;
 
     private static UIManager instance = null;
 
@@ -32,7 +33,15 @@ public class UIManager : MonoBehaviour
         {
             gameManager.playerAI.isDead = false;
             GameOver.SetActive(true);
-        }
+        } //게임오버 조건 반대임(수정해야함)
+    }
+
+    public void Shopping()
+    {
+        if (Shop[0].activeSelf)
+            Shop[0].SetActive(false);
+        else if (!Shop[0].activeSelf)
+            Shop[0].SetActive(true);
     }
 }
 

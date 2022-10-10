@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public CSVReader csvReader;
     public PoolingManager poolingManager;
     public UIManager uiManager;
+    public BtnManager btnManager;
     public PlayerAI playerAI;
 
     public static GameManager Instance
