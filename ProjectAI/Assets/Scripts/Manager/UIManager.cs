@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     public HpBarUI hpBarUI;
     public GameObject GameOver;
     public GameObject[] Shop;
+    public Text[] Soul;
 
     private static UIManager instance = null;
 
@@ -29,11 +30,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (gameManager.playerAI.isDead)
-        {
-            gameManager.playerAI.isDead = false;
-            GameOver.SetActive(true);
-        } //게임오버 조건 반대임(수정해야함)
+        SecSoul();
     }
 
     public void Shopping()
@@ -42,6 +39,11 @@ public class UIManager : MonoBehaviour
             Shop[0].SetActive(false);
         else if (!Shop[0].activeSelf)
             Shop[0].SetActive(true);
+    }
+
+    public void SecSoul()
+    {
+        Soul[0].text = gameManager.money.ToString();
     }
 }
 

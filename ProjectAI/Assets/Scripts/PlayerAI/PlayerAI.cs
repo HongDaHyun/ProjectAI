@@ -138,8 +138,18 @@ public abstract class PlayerAI : MonoBehaviour
             Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
             bullet.transform.rotation = rotation;
 
+            Look(direction);
+
             curShotTime = 0;
         }
+    }
+
+    protected void Look(Vector2 direction)
+    {
+        if (direction.x > 0)
+            transform.localScale = new Vector3(1, 1, 1);
+        else if (direction.x < 0)
+            transform.localScale = new Vector3(-1, 1, 1);
     }
 
     #endregion
