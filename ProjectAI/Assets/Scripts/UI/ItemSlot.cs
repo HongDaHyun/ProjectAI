@@ -9,6 +9,9 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     {
         Debug.Log("OnDrop");
         if (eventData.pointerDrag != null)
+        {
+            eventData.pointerDrag.transform.parent = transform;
             eventData.pointerDrag.transform.position = transform.position;
+        }
     }
 }

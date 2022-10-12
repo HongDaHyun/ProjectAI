@@ -32,8 +32,28 @@ public struct MonsterStat
 }
 
 [Serializable]
+public struct CardStat
+{
+    public string name;
+
+    public int dmg;
+    public int hp;
+
+    public MonsterType atkType;
+}
+
+[Serializable]
+public struct SpriteStat
+{
+    public string name;
+    public Sprite sprite;
+}
+
+[Serializable]
 public class List
 {
     public PlayerStat[] playerStats;
     public MonsterStat[] monsterStats;
+    public CardStat[] cardStats;
+    public SpriteStat[] spriteStats;
 }

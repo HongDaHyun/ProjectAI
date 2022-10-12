@@ -78,5 +78,21 @@ public class CSVReader : MonoBehaviour
             list.monsterStats[i].type = (MonsterType)Enum.Parse(typeof(MonsterType), (data[size * (i + 1) + 6]));
         }
     }
+
+    public void CardDeck()
+    {
+        int size = list.monsterStats.Length;
+        list.cardStats = new CardStat[size];
+
+        for (int i = 0; i < size; i++)
+        {
+            list.cardStats[i] = new CardStat();
+
+            list.cardStats[i].name = list.monsterStats[i].name;
+            list.cardStats[i].dmg = list.monsterStats[i].damage;
+            list.cardStats[i].hp = list.monsterStats[i].hp;
+            list.cardStats[i].atkType = list.monsterStats[i].type;
+        }
+    }
     #endregion
 }
