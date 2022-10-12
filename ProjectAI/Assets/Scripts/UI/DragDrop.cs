@@ -18,6 +18,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        transform.parent.GetComponent<ItemSlot>().isDropped = false;
         canvasGroup.alpha = .6f;
         canvasGroup.blocksRaycasts = false;
         transform.parent = transform.root;
@@ -36,5 +37,6 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
     public void OnPointerDown(PointerEventData eventData)
     {
+
     }
 }

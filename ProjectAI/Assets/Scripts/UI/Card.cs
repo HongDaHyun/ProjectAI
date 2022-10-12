@@ -36,19 +36,7 @@ public class Card : MonoBehaviour
     private void OnMouseUp()
     {
         ActiveFalseCard();
-        for (int i = 0; i < gameManager.uiManager.slotsUI.inventorys.Count; i++)
-        {
-            if(!gameManager.uiManager.slotsUI.inventorys[i].GetComponent<ItemSlot>().isDropped)
-            {
-                gameManager.uiManager.slotsUI.inventorys[i].GetComponent<ItemSlot>().isDropped = true;
-                GameObject monsterUI = gameManager.poolingManager.MakeObj("MonsterUI");
-                monsterUI.GetComponent<MonsterUI>()._name = cardUI.name.text.ToString();
-                monsterUI.transform.parent = gameManager.uiManager.slotsUI.inventorys[i].transform;
-                monsterUI.transform.localScale = new Vector3(1, 1, 1);
-                monsterUI.transform.position = gameManager.uiManager.slotsUI.inventorys[i].transform.position;
-                return;
-            }
-        }
+        InstantiateMonsterUI();
     }
 
     void SetCard()
@@ -82,6 +70,23 @@ public class Card : MonoBehaviour
         for (int i = 0; i < gameManager.uiManager.deckList.Count; i++)
             gameManager.uiManager.deckList[i].SetActive(false);
         gameManager.uiManager.Shop[2].SetActive(false);
+    }
+
+    void InstantiateMonsterUI()
+    {
+        for (int i = 0; i < gameManager.uiManager.slotsUI.inventorys.Count; i++)
+        {
+            if (!gameManager.uiManager.slotsUI.inventorys[i].GetComponent<ItemSlot>().isDropped)
+            {
+                gameManager.uiManager.slotsUI.inventorys[i].GetComponent<ItemSlot>().isDropped = true;
+                GameObject monsterUI = gameManager.poolingManager.MakeObj("MonsterUI");
+                monsterUI.GetComponent<MonsterUI>()._name = cardUI.name.text.ToString();
+                monsterUI.transform.parent = gameManager.uiManager.slotsUI.inventorys[i].transform;
+                monsterUI.transform.localScale = new Vector3(1, 1, 1);
+                monsterUI.transform.position = gameManager.uiManager.slotsUI.inventorys[i].transform.position;
+                return;
+            }
+        }
     }
 }
 
