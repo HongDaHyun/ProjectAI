@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     public GameObject[] Shop;
     public Text[] Soul;
 
+    public bool isInventroyFull, isEquipmentFull;
+
     private static UIManager instance = null;
 
     GameManager gameManager;
@@ -34,6 +36,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         SecSoul();
+        FullSlot();
     }
 
     public void Shopping()
@@ -47,6 +50,24 @@ public class UIManager : MonoBehaviour
     public void SecSoul()
     {
         Soul[0].text = gameManager.money.ToString();
+    }
+
+    public void FullSlot()
+    {
+        for(int i = 0; i < slotsUI.inventorys.Count; i++)
+        {
+            if (!slotsUI.inventorys[i].GetComponent<ItemSlot>().isDropped)
+                isInventroyFull = false;
+            else
+                isInventroyFull = true;
+        }
+        for (int i = 0; i < slotsUI.equipments.Count; i++)
+        {
+            if (!slotsUI.equipments[i].GetComponent<ItemSlot>().isDropped)
+                isEquipmentFull = false;
+            else
+                isEquipmentFull = true;
+        }
     }
 }
 

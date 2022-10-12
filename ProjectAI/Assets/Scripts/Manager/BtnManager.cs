@@ -41,6 +41,8 @@ public class BtnManager : MonoBehaviour
 
     public void CardBoxClk()
     {
+        if (gameManager.uiManager.isInventroyFull)
+            return;
         gameManager.uiManager.Shop[2].SetActive(true);
         for (int i = 0; i < gameManager.uiManager.deckList.Count; i++)
             gameManager.uiManager.deckList[i].SetActive(true);

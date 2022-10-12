@@ -21,6 +21,8 @@ public class PoolingManager : MonoBehaviour
     GameObject[] test;
     GameObject[] rabbit;
     GameObject[] chicken;
+    GameObject[] pig;
+    GameObject[] deer;
 
     GameObject[] forestTilemap;
 
@@ -33,6 +35,8 @@ public class PoolingManager : MonoBehaviour
         test = Generate(enemyPrefab[0], 30);
         rabbit = Generate(enemyPrefab[1], 30);
         chicken = Generate(enemyPrefab[2], 30);
+        pig = Generate(enemyPrefab[3], 30);
+        deer = Generate(enemyPrefab[4], 30);
         forestTilemap = Generate(tileMaps[0], 9);
         dmgPopUp = Generate(dmgPopUpPrefab, 200);
         monsterUI = Generate(monsterUIPrefab, 30);
@@ -64,6 +68,12 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "Chicken":
                 targetPool = chicken;
+                break;
+            case "Pig":
+                targetPool = pig;
+                break;
+            case "Deer":
+                targetPool = deer;
                 break;
             case "Forest":
                 targetPool = forestTilemap;

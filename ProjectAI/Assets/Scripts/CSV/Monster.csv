@@ -2,3 +2,5 @@ Name,HP,Damage,MoveSpeed,Range,AtkDelay,EnemyType
 Test,10,5,2.5,2,2,Melee
 Rabbit,10,3,4,0.7,2,Melee
 Chicken,8,2,2.5,0.6,0.5,Melee
+Pig,10,10,2,0.7,2,Melee
+Deer,10,10,2,0.7,2,Melee
