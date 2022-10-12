@@ -11,7 +11,7 @@ public class Camera : MonoBehaviour
         gameManager = GameManager.Instance;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         transform.position = gameManager.playerAI.transform.position + new Vector3(0, 0, -10);
     }

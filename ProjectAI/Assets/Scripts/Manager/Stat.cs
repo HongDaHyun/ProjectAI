@@ -26,7 +26,7 @@ public struct MonsterStat
 
     public float moveSpeed;
     public float range;
-    public float atkSpeed;
+    public float atkDelay;
 
     public MonsterType type;
 }

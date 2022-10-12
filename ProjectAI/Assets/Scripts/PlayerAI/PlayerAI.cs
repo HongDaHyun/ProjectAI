@@ -50,7 +50,7 @@ public abstract class PlayerAI : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Monster") && !isHit)
         {
-            int dmg = collision.gameObject.GetComponent<Monster>().damage;
+            int dmg = collision.gameObject.GetComponent<Monster>().stat.damage;
             StartCoroutine(Damaged(dmg));
         }
     }

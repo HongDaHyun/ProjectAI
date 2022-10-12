@@ -1,3 +1,4 @@
-Name,HP,Damage,MoveSpeed,Range,AtkSpeed,EnemyType
-Test,10,5,2.5,2,2,Bite
-Rabbit,10,3,2,1,2,Bite
+Name,HP,Damage,MoveSpeed,Range,AtkDelay,EnemyType
+Test,10,5,2.5,2,2,Melee
+Rabbit,10,3,4,0.7,2,Melee
+Chicken,8,2,2.5,0.6,0.5,Melee

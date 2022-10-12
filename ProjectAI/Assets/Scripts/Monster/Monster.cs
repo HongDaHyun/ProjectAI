@@ -13,16 +13,14 @@ public abstract class Monster : MonoBehaviour
     protected Rigidbody2D rigid;
     protected SpriteRenderer spriteRenderer;
 
+    protected Vector2 scale;
+    public Atk[] weapons;
+
     public string _name;
 
-    public int maxHP, curHP;
-    public int damage;
+    public int curHP;
 
-    public float moveSpeed;
-    public float range;
-    public float atkSpeed;
-
-    public MonsterType type;
+    public MonsterStat stat;
 
     public bool isAttack, isHit, isStun;
 
@@ -44,14 +42,16 @@ public abstract class Monster : MonoBehaviour
         isStun = false;
         isAttack = false;
         isHit = false;
-        curHP = maxHP;
+        curHP = stat.hp;
+        for (int i = 0; i < weapons.Length; i++)
+            weapons[i].gameObject.SetActive(false);
     }
 
     protected virtual void Update()
     {
         rigid.velocity = Vector3.zero;
         LookAt();
-        AttackPattern(type.ToString());
+        AttackPattern(stat.type.ToString());
     }
 
     protected virtual void FixedUpdate()
@@ -88,9 +88,9 @@ public abstract class Monster : MonoBehaviour
     protected void LookAt()
     {
         if (transform.position.x > playerAI.transform.position.x)
-            transform.localScale = new Vector2(1, 1);
+            transform.localScale = new Vector2(scale.x, scale.y);
         else
-            transform.localScale = new Vector2(-1, 1);
+            transform.localScale = new Vector2(-scale.x, scale.y);
     }
 
     protected void SetAgent()
@@ -121,19 +121,24 @@ public abstract class Monster : MonoBehaviour
         return;
     }
 
-    protected IEnumerator Bite()
+    protected IEnumerator Melee()
     {
-        GameObject bite = transform.GetChild(0).gameObject;
-        bite.SetActive(true);
+        if (Vector2.Distance(new Vector2(0, playerAI.transform.position.y), new Vector2(0, transform.position.y)) < 0.3f)
+            weapons[0].gameObject.SetActive(true);
+        else if(transform.position.y < playerAI.transform.position.y)
+            weapons[1].gameObject.SetActive(true);
+        else if(transform.position.y > playerAI.transform.position.y)
+            weapons[2].gameObject.SetActive(true);
         yield return new WaitForSeconds(0.5f);
-        bite.SetActive(false);
-        yield return new WaitForSeconds(atkSpeed);
+        for (int i = 0; i < weapons.Length; i++)
+            weapons[i].gameObject.SetActive(false);
+        yield return new WaitForSeconds(stat.atkDelay);
         isAttack = false;
     }
 
     protected void AttackPattern(string name)
     {
-        if (!isAttack && Vector2.Distance(playerAI.transform.position, transform.position) < range)
+        if (!isAttack && Vector2.Distance(playerAI.transform.position, transform.position) < stat.range)
         {
             isAttack = true;
             StartCoroutine(name);
@@ -142,18 +147,21 @@ public abstract class Monster : MonoBehaviour
 
     void SetStat()
     {
+        scale = transform.localScale;
+        weapons = GetComponentsInChildren<Melee>();
         for (int i = 0; i < csvReader.list.monsterStats.Length; i++)
         {
             if(csvReader.list.monsterStats[i].name == _name)
             {
-                maxHP = csvReader.list.monsterStats[i].hp;
-                damage = csvReader.list.monsterStats[i].damage;
-                moveSpeed = csvReader.list.monsterStats[i].moveSpeed;
-                agent.speed = moveSpeed;
-                range = csvReader.list.monsterStats[i].range;
-                agent.stoppingDistance = range;
-                atkSpeed = csvReader.list.monsterStats[i].atkSpeed;
-                type = csvReader.list.monsterStats[i].type;
+                stat.name = csvReader.list.monsterStats[i].name;
+                stat.hp = csvReader.list.monsterStats[i].hp;
+                stat.damage = csvReader.list.monsterStats[i].damage;
+                stat.moveSpeed = csvReader.list.monsterStats[i].moveSpeed;
+                agent.speed = stat.moveSpeed;
+                stat.range = csvReader.list.monsterStats[i].range;
+                agent.stoppingDistance = stat.range;
+                stat.atkDelay = csvReader.list.monsterStats[i].atkDelay;
+                stat.type = csvReader.list.monsterStats[i].type;
             }
         }
     }

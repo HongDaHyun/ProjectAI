@@ -74,7 +74,7 @@ public class CSVReader : MonoBehaviour
             list.monsterStats[i].damage = int.Parse(data[size * (i + 1) + 2]);
             list.monsterStats[i].moveSpeed = float.Parse(data[size * (i + 1) + 3]);
             list.monsterStats[i].range = float.Parse(data[size * (i + 1) + 4]);
-            list.monsterStats[i].atkSpeed = float.Parse(data[size * (i + 1) + 5]);
+            list.monsterStats[i].atkDelay = float.Parse(data[size * (i + 1) + 5]);
             list.monsterStats[i].type = (MonsterType)Enum.Parse(typeof(MonsterType), (data[size * (i + 1) + 6]));
         }
     }

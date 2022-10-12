@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class UIManager : MonoBehaviour
 {
     public Camera UICam;
     public HpBarUI hpBarUI;
+    public SlotsUI slotsUI;
+    public List<GameObject> deckList;
     public GameObject GameOver;
     public GameObject[] Shop;
     public Text[] Soul;
@@ -47,7 +50,7 @@ public class UIManager : MonoBehaviour
     }
 }
 
-[System.Serializable]
+[Serializable]
 public struct HpBarUI
 {
     public Slider hpBar;
@@ -72,4 +75,11 @@ public struct HpBarUI
 
         fill.color = gradient.Evaluate(hpBar.normalizedValue);
     }
+}
+
+[Serializable]
+public struct SlotsUI
+{
+    public List<GameObject> inventorys;
+    public List<GameObject> equipments;
 }
