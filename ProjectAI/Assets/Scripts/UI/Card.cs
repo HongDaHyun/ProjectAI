@@ -81,7 +81,7 @@ public class Card : MonoBehaviour
                 gameManager.uiManager.slotsUI.inventorys[i].GetComponent<ItemSlot>().isDropped = true;
                 GameObject monsterUI = gameManager.poolingManager.MakeObj("MonsterUI");
                 monsterUI.GetComponent<MonsterUI>()._name = cardUI.name.text.ToString();
-                monsterUI.transform.parent = gameManager.uiManager.slotsUI.inventorys[i].transform;
+                monsterUI.transform.SetParent(gameManager.uiManager.slotsUI.inventorys[i].transform);
                 monsterUI.transform.localScale = new Vector3(1, 1, 1);
                 monsterUI.transform.position = gameManager.uiManager.slotsUI.inventorys[i].transform.position;
                 return;

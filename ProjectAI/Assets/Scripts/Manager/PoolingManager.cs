@@ -32,14 +32,20 @@ public class PoolingManager : MonoBehaviour
     private void Awake()
     {
         bullet = Generate(bulletPrefab, 200);
+        forestTilemap = Generate(tileMaps[0], 9);
+        dmgPopUp = Generate(dmgPopUpPrefab, 200);
+        monsterUI = Generate(monsterUIPrefab, 30);
+        StartCoroutine(DelayMonster());
+    }
+
+    IEnumerator DelayMonster()
+    {
+        yield return new WaitForSeconds(1f);
         test = Generate(enemyPrefab[0], 30);
         rabbit = Generate(enemyPrefab[1], 30);
         chicken = Generate(enemyPrefab[2], 30);
         pig = Generate(enemyPrefab[3], 30);
         deer = Generate(enemyPrefab[4], 30);
-        forestTilemap = Generate(tileMaps[0], 9);
-        dmgPopUp = Generate(dmgPopUpPrefab, 200);
-        monsterUI = Generate(monsterUIPrefab, 30);
     }
 
     GameObject[] Generate(GameObject obj, int size)

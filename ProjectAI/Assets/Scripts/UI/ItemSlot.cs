@@ -11,7 +11,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         isDropped = true;
         if (eventData.pointerDrag != null)
         {
-            eventData.pointerDrag.transform.parent = transform;
+            eventData.pointerDrag.transform.SetParent(transform);
             eventData.pointerDrag.transform.position = transform.position;
         }
     }
