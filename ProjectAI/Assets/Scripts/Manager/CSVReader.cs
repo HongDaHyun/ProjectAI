@@ -79,6 +79,21 @@ public class CSVReader : MonoBehaviour
         }
     }
 
+    public void PriceReadCSV()
+    {
+        int order = 2; int size = 2;
+        string[] data = textAssets[order].text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+        int tableSize = data.Length / size - 1;
+        list.prices = new Price[tableSize];
+
+        for (int i = 0; i < tableSize; i++)
+        {
+            list.prices[i] = new Price();
+            list.prices[i].name = data[size * (i + 1)];
+            list.prices[i].price = int.Parse(data[size * (i + 1) + 1]);
+        }
+    }
+
     public void CardDeck()
     {
         int size = list.monsterStats.Length;

@@ -32,6 +32,13 @@ public struct MonsterStat
 }
 
 [Serializable]
+public struct Price
+{
+    public string name;
+    public int price;
+}
+
+[Serializable]
 public struct CardStat
 {
     public string name;
@@ -54,6 +61,7 @@ public class List
 {
     public PlayerStat[] playerStats;
     public MonsterStat[] monsterStats;
+    public Price[] prices;
     public CardStat[] cardStats;
     public SpriteStat[] spriteStats;
 }
