@@ -8,6 +8,7 @@ public class Card : MonoBehaviour
 {
     public int id;
 
+    public MonsterStat monsterStat;
     public CardUI cardUI;
 
     GameManager gameManager;
@@ -42,17 +43,15 @@ public class Card : MonoBehaviour
     void SetCard()
     {
         id = Random.Range(0, gameManager.csvReader.list.monsterStats.Length);
-        cardUI.name.text = gameManager.csvReader.list.cardStats[id].name;
-        cardUI.hp.text = gameManager.csvReader.list.cardStats[id].hp.ToString();
-        cardUI.atk.text = gameManager.csvReader.list.cardStats[id].dmg.ToString();
-        for (int i = 0; i < gameManager.csvReader.list.cardStats.Length; i++)
-        {
-            if (gameManager.csvReader.list.cardStats[id].name == gameManager.csvReader.list.spriteStats[i].name)
-                cardUI.img.sprite = gameManager.csvReader.list.spriteStats[i].sprite;
-            if (gameManager.csvReader.list.cardStats[id].atkType.ToString() == gameManager.csvReader.list.spriteStats[i].name)
-                cardUI.atkType.sprite = gameManager.csvReader.list.spriteStats[i].sprite;
-                
-        }
+        monsterStat = gameManager.csvReader.monsterExportData(gameManager.csvReader.list.monsterStats[id].name);
+        SpriteStat spriteStat = gameManager.csvReader.spriteExportData(monsterStat.name);
+        SpriteStat atkSpriteStat = gameManager.csvReader.spriteExportData(monsterStat.type.ToString());
+
+        cardUI.name.text = monsterStat.name;
+        cardUI.hp.text = monsterStat.hp.ToString();
+        cardUI.atk.text = monsterStat.damage.ToString();
+        cardUI.img.sprite = spriteStat.sprite;
+        cardUI.atkType.sprite = atkSpriteStat.sprite;
     }
 
     void SetCardUI()
@@ -78,12 +77,14 @@ public class Card : MonoBehaviour
         {
             if (!gameManager.uiManager.slotsUI.inventorys[i].GetComponent<ItemSlot>().isDropped)
             {
-                gameManager.uiManager.slotsUI.inventorys[i].GetComponent<ItemSlot>().isDropped = true;
+                ItemSlot itemSlot = gameManager.uiManager.slotsUI.inventorys[i].GetComponent<ItemSlot>();
+                itemSlot.isDropped = true;
+                itemSlot.stat = monsterStat;
                 GameObject monsterUI = gameManager.poolingManager.MakeObj("MonsterUI");
-                monsterUI.GetComponent<MonsterUI>()._name = cardUI.name.text.ToString();
+                monsterUI.GetComponent<MonsterUI>().stat = monsterStat;
                 monsterUI.transform.SetParent(gameManager.uiManager.slotsUI.inventorys[i].transform);
                 monsterUI.transform.localScale = new Vector3(1, 1, 1);
-                monsterUI.transform.position = gameManager.uiManager.slotsUI.inventorys[i].transform.position;
+                monsterUI.GetComponent<RectTransform>().position = gameManager.uiManager.slotsUI.inventorys[i].GetComponent<RectTransform>().position;
                 return;
             }
         }

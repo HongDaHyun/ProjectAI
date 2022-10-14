@@ -15,7 +15,6 @@ public class CSVBtn : Editor
             csvReader.PlayerReadCSV();
             csvReader.MonsterReadCSV();
             csvReader.PriceReadCSV();
-            csvReader.CardDeck();
         }
     }
 }

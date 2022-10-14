@@ -9,7 +9,6 @@ public abstract class PlayerAI : MonoBehaviour
     protected State state;
     protected Rigidbody2D rigid;
     protected GameManager gameManager;
-    protected CSVReader csvReader;
     protected UIManager uiManager;
     protected SpriteRenderer spriteRenderer;
 
@@ -25,7 +24,6 @@ public abstract class PlayerAI : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         gameManager = GameManager.Instance;
-        csvReader = CSVReader.Instance;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -156,17 +154,13 @@ public abstract class PlayerAI : MonoBehaviour
 
     private void SetStat()
     {
-        for(int i = 0; i < csvReader.list.playerStats.Length; i ++)
-        {
-            if(csvReader.list.playerStats[i].name == _name)
-            {
-                maxHP = csvReader.list.playerStats[i].hp;
-                damage = csvReader.list.playerStats[i].damage;
-                walkSpeed = csvReader.list.playerStats[i].walkSpeed;
-                attackSpeed = csvReader.list.playerStats[i].attackSpeed;
-                bulletSpeed = csvReader.list.playerStats[i].bulletSpeed;
-            }
-        }
+        PlayerStat playerStat = gameManager.csvReader.PlayerExportData(_name);
+        maxHP = playerStat.hp;
+        damage = playerStat.damage;
+        walkSpeed = playerStat.walkSpeed;
+        attackSpeed = playerStat.attackSpeed;
+        bulletSpeed = playerStat.bulletSpeed;
+
         uiManager = gameManager.uiManager;
         uiManager.hpBarUI.SetMaxHP();
     }

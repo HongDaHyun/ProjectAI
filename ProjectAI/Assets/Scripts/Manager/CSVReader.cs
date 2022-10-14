@@ -61,7 +61,7 @@ public class CSVReader : MonoBehaviour
 
     public void MonsterReadCSV()
     {
-        int order = 1;  int size = 7;
+        int order = 1;  int size = 8;
         string[] data = textAssets[order].text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
         int tableSize = data.Length / size - 1;
         list.monsterStats = new MonsterStat[tableSize];
@@ -75,7 +75,8 @@ public class CSVReader : MonoBehaviour
             list.monsterStats[i].moveSpeed = float.Parse(data[size * (i + 1) + 3]);
             list.monsterStats[i].range = float.Parse(data[size * (i + 1) + 4]);
             list.monsterStats[i].atkDelay = float.Parse(data[size * (i + 1) + 5]);
-            list.monsterStats[i].type = (MonsterType)Enum.Parse(typeof(MonsterType), (data[size * (i + 1) + 6]));
+            list.monsterStats[i].coolTime = float.Parse(data[size * (i + 1) + 6]);
+            list.monsterStats[i].type = (MonsterType)Enum.Parse(typeof(MonsterType), (data[size * (i + 1) + 7]));
         }
     }
 
@@ -94,20 +95,47 @@ public class CSVReader : MonoBehaviour
         }
     }
 
-    public void CardDeck()
+    #endregion
+
+    #region Name 
+    public PlayerStat PlayerExportData(string name)
     {
-        int size = list.monsterStats.Length;
-        list.cardStats = new CardStat[size];
-
-        for (int i = 0; i < size; i++)
+        for(int i = 0; i < list.playerStats.Length; i++)
         {
-            list.cardStats[i] = new CardStat();
-
-            list.cardStats[i].name = list.monsterStats[i].name;
-            list.cardStats[i].dmg = list.monsterStats[i].damage;
-            list.cardStats[i].hp = list.monsterStats[i].hp;
-            list.cardStats[i].atkType = list.monsterStats[i].type;
+            if (name == list.playerStats[i].name)
+                return list.playerStats[i];
         }
+        return new PlayerStat();
+    }
+
+    public MonsterStat monsterExportData(string name)
+    {
+        for (int i = 0; i < list.monsterStats.Length; i++)
+        {
+            if (name == list.monsterStats[i].name)
+                return list.monsterStats[i];
+        }
+        return new MonsterStat();
+    }
+
+    public Price PriceExportData(string name)
+    {
+        for (int i = 0; i < list.prices.Length; i++)
+        {
+            if (name == list.prices[i].name)
+                return list.prices[i];
+        }
+        return new Price();
+    }
+
+    public SpriteStat spriteExportData(string name)
+    {
+        for (int i = 0; i < list.spriteStats.Length; i++)
+        {
+            if (name == list.spriteStats[i].name)
+                return list.spriteStats[i];
+        }
+        return new SpriteStat();
     }
     #endregion
 }

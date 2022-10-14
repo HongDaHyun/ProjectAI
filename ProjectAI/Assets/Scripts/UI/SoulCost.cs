@@ -13,10 +13,7 @@ public class SoulCost : MonoBehaviour
     {
         text = GetComponent<Text>();
         gameManager = GameManager.Instance;
-        for(int i = 0; i < gameManager.csvReader.list.prices.Length; i++)
-        {
-            if (_name == gameManager.csvReader.list.prices[i].name)
-                text.text = gameManager.csvReader.list.prices[i].price.ToString();
-        }
+        Price price = gameManager.csvReader.PriceExportData(_name);
+        text.text = price.price.ToString();
     }
 }

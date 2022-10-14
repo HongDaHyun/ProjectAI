@@ -8,17 +8,24 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     Canvas canvas;
     RectTransform rect;
     CanvasGroup canvasGroup;
+    Transform preParent;
+    ItemSlot itemSlot;
+    MonsterUI monsterUI;
 
     private void Awake()
     {
         rect = GetComponent<RectTransform>();
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
+        monsterUI = GetComponent<MonsterUI>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        transform.parent.GetComponent<ItemSlot>().isDropped = false;
+        preParent = transform.parent;
+        itemSlot = preParent.GetComponent<ItemSlot>();
+        itemSlot.isDropped = false;
+        itemSlot.stat = new MonsterStat();
         canvasGroup.alpha = .6f;
         canvasGroup.blocksRaycasts = false;
         transform.SetParent(transform.root);
@@ -31,6 +38,13 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (transform.parent.name == canvas.name)
+        {
+            transform.SetParent(preParent);
+            rect.position = preParent.GetComponent<RectTransform>().position;
+            itemSlot.isDropped = true;
+            itemSlot.stat = monsterUI.stat;
+        }
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
     }

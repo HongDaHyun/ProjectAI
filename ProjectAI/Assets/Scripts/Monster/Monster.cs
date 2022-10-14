@@ -8,7 +8,6 @@ public abstract class Monster : MonoBehaviour
     protected PlayerAI playerAI;
     protected GameManager gameManager;
     protected UIManager uiManager;
-    protected CSVReader csvReader;
     protected NavMeshAgent agent;
     protected Rigidbody2D rigid;
     protected SpriteRenderer spriteRenderer;
@@ -27,7 +26,6 @@ public abstract class Monster : MonoBehaviour
     private void Awake()
     {
         gameManager = GameManager.Instance;
-        csvReader = CSVReader.Instance;
         uiManager = gameManager.uiManager;
         playerAI = gameManager.playerAI;
         rigid = GetComponent<Rigidbody2D>();
@@ -149,20 +147,6 @@ public abstract class Monster : MonoBehaviour
     {
         scale = transform.localScale;
         weapons = GetComponentsInChildren<Melee>();
-        for (int i = 0; i < csvReader.list.monsterStats.Length; i++)
-        {
-            if(csvReader.list.monsterStats[i].name == _name)
-            {
-                stat.name = csvReader.list.monsterStats[i].name;
-                stat.hp = csvReader.list.monsterStats[i].hp;
-                stat.damage = csvReader.list.monsterStats[i].damage;
-                stat.moveSpeed = csvReader.list.monsterStats[i].moveSpeed;
-                agent.speed = stat.moveSpeed;
-                stat.range = csvReader.list.monsterStats[i].range;
-                agent.stoppingDistance = stat.range;
-                stat.atkDelay = csvReader.list.monsterStats[i].atkDelay;
-                stat.type = csvReader.list.monsterStats[i].type;
-            }
-        }
+        stat = gameManager.csvReader.monsterExportData(_name);
     }
 }

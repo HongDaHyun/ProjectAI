@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MonsterUI : MonoBehaviour
 {
-    public string _name;
+    public MonsterStat stat;
 
     GameManager gameManager;
     Image img;
@@ -18,16 +18,13 @@ public class MonsterUI : MonoBehaviour
 
     private void Start()
     {
-        if (_name != null)
+        if (stat.name != null)
             SetUI();
     }
 
     void SetUI()
     {
-        for(int i = 0; i < gameManager.csvReader.list.spriteStats.Length; i++)
-        {
-            if (_name == gameManager.csvReader.list.spriteStats[i].name)
-                img.sprite = gameManager.csvReader.list.spriteStats[i].sprite;
-        }
+        SpriteStat sprite = gameManager.csvReader.spriteExportData(stat.name);
+        img.sprite = sprite.sprite;
     }
 }
