@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public abstract class Monster : MonoBehaviour
 {
-    protected PlayerAI playerAI;
     protected GameManager gameManager;
     protected UIManager uiManager;
     protected NavMeshAgent agent;
@@ -27,7 +26,6 @@ public abstract class Monster : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         uiManager = gameManager.uiManager;
-        playerAI = gameManager.playerAI;
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         SetAgent();
@@ -47,20 +45,19 @@ public abstract class Monster : MonoBehaviour
 
     protected virtual void Update()
     {
-        rigid.velocity = Vector3.zero;
-        LookAt();
         AttackPattern(stat.type.ToString());
     }
 
     protected virtual void FixedUpdate()
     {
+        LookAt();
         Stun();
-    }    
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Bullet") && !isHit)
-            StartCoroutine(Damaged(playerAI.damage));
+            StartCoroutine(Damaged(gameManager.playerAI.damage));
     }
 
     protected IEnumerator Damaged(int dmg)
@@ -85,7 +82,7 @@ public abstract class Monster : MonoBehaviour
 
     protected void LookAt()
     {
-        if (transform.position.x > playerAI.transform.position.x)
+        if (transform.position.x > gameManager.playerAI.transform.position.x)
             transform.localScale = new Vector2(scale.x, scale.y);
         else
             transform.localScale = new Vector2(-scale.x, scale.y);
@@ -96,12 +93,13 @@ public abstract class Monster : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        agent.velocity = Vector3.zero;
     }
 
     protected void Follow()
     {
         if(!isStun)
-            agent.SetDestination(playerAI.transform.position);
+            agent.SetDestination(gameManager.playerAI.transform.position);
     }
 
     protected void Stun()
@@ -121,23 +119,25 @@ public abstract class Monster : MonoBehaviour
 
     protected IEnumerator Melee()
     {
-        if (Vector2.Distance(new Vector2(0, playerAI.transform.position.y), new Vector2(0, transform.position.y)) < 0.3f)
+        if (Vector2.Distance(new Vector2(0, gameManager.playerAI.transform.position.y), new Vector2(0, transform.position.y)) < 0.3f)
             weapons[0].gameObject.SetActive(true);
-        else if(transform.position.y < playerAI.transform.position.y)
+        else if(transform.position.y < gameManager.playerAI.transform.position.y)
             weapons[1].gameObject.SetActive(true);
-        else if(transform.position.y > playerAI.transform.position.y)
+        else if(transform.position.y > gameManager.playerAI.transform.position.y)
             weapons[2].gameObject.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         for (int i = 0; i < weapons.Length; i++)
             weapons[i].gameObject.SetActive(false);
         yield return new WaitForSeconds(stat.atkDelay);
+        isStun = false;
         isAttack = false;
     }
 
     protected void AttackPattern(string name)
     {
-        if (!isAttack && Vector2.Distance(playerAI.transform.position, transform.position) < stat.range)
+        if (!isAttack && Vector2.Distance(transform.position, gameManager.playerAI.transform.position) < stat.range)
         {
+            isStun = true;
             isAttack = true;
             StartCoroutine(name);
         }
@@ -148,5 +148,7 @@ public abstract class Monster : MonoBehaviour
         scale = transform.localScale;
         weapons = GetComponentsInChildren<Melee>();
         stat = gameManager.csvReader.monsterExportData(_name);
+        agent.speed = stat.moveSpeed;
+        agent.stoppingDistance = stat.range;
     }
 }

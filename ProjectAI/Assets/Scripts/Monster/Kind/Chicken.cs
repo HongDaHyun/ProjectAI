@@ -8,7 +8,6 @@ public class Chicken : Monster
     {
         base.Update();
     }
-
     protected override void FixedUpdate()
     {
         base.FixedUpdate();

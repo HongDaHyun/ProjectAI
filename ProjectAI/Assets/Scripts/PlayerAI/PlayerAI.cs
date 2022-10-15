@@ -37,11 +37,12 @@ public abstract class PlayerAI : MonoBehaviour
     {
         gameManager.uiManager.hpBarUI.UpdateHP(curHP, maxHP);
         Die();
+        TestWalk();
     }
 
     private void FixedUpdate()
     {
-        TestWalk();
+
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -98,11 +99,10 @@ public abstract class PlayerAI : MonoBehaviour
 
     void TestWalk()
     {
-        Vector2 vector;
-        vector.x = Input.GetAxisRaw("Horizontal");
-        vector.y = Input.GetAxisRaw("Vertical");
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputY = Input.GetAxisRaw("Vertical");
 
-        transform.Translate(new Vector2(vector.x, vector.y).normalized * Time.deltaTime * walkSpeed);
+        transform.Translate(new Vector2(inputX, inputY).normalized * Time.deltaTime * walkSpeed);
     }    
     #endregion
 

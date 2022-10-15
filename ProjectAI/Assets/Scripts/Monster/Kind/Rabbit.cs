@@ -8,7 +8,6 @@ public class Rabbit : Monster
     {
         base.Update();
     }
-
     protected override void FixedUpdate()
     {
         base.FixedUpdate();

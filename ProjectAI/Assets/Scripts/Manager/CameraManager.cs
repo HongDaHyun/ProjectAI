@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+public class CameraManager : MonoBehaviour
 {
     GameManager gameManager;
 
@@ -11,8 +11,8 @@ public class Camera : MonoBehaviour
         gameManager = GameManager.Instance;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        transform.position = gameManager.playerAI.transform.position + new Vector3(0, 0, -10);
+        transform.position = gameManager.playerAI.transform.position;
     }
 }
