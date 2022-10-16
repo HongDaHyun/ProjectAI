@@ -16,15 +16,10 @@ public class MonsterUI : MonoBehaviour
         img = GetComponent<Image>();
     }
 
-    private void Start()
+    public void SetUI(MonsterStat monsterStat)
     {
-        if (stat.name != null)
-            SetUI();
-    }
+        stat = monsterStat;
+        img.sprite = gameManager.csvReader.spriteExportData(stat.name).sprite;
 
-    void SetUI()
-    {
-        SpriteStat sprite = gameManager.csvReader.spriteExportData(stat.name);
-        img.sprite = sprite.sprite;
     }
 }

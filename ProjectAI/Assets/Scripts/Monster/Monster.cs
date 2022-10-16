@@ -76,8 +76,8 @@ public abstract class Monster : MonoBehaviour
 
     void DmgPopUp()
     {
-        GameObject dmgPopUp = gameManager.poolingManager.MakeObj("DmgPopUp");
-        dmgPopUp.transform.position = new Vector2(transform.position.x, transform.position.y + 0.8f);
+        GameObject dmgDmgPopUp = gameManager.poolingManager.MakeObj("DmgPopUp");
+        dmgDmgPopUp.transform.position = new Vector2(transform.position.x, transform.position.y + 0.8f);
     }
 
     protected void LookAt()
@@ -93,13 +93,13 @@ public abstract class Monster : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        agent.velocity = Vector3.zero;
     }
 
     protected void Follow()
     {
         if(!isStun)
             agent.SetDestination(gameManager.playerAI.transform.position);
+        rigid.velocity = Vector3.zero;
     }
 
     protected void Stun()

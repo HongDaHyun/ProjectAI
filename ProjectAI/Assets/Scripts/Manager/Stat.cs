@@ -30,6 +30,7 @@ public struct MonsterStat
     public float coolTime;
 
     public MonsterType type;
+    public Tier tier;
 }
 
 [Serializable]

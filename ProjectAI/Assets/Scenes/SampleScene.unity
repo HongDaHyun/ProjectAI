@@ -842,7 +842,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 10000
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -2001,8 +2001,8 @@ MonoBehaviour:
   uiManager: {fileID: 1072427952}
   btnManager: {fileID: 849820272}
   playerAI: {fileID: 0}
-  money: 0
-  secMoneySize: 10
+  money: 10
+  secMoneySize: 1
   secMoney: 2
   isGameOver: 0
 --- !u!4 &904553107
@@ -3244,6 +3244,7 @@ MonoBehaviour:
   tileMaps:
   - {fileID: 5081655027593198842, guid: 2e7d90f9bf5be4f4c9a44110fcefd6b9, type: 3}
   dmgPopUpPrefab: {fileID: 2429354406939232664, guid: d5302d64fbd905e448a3b6d80dd3228a, type: 3}
+  uiPopUpPrefab: {fileID: 913321878492645542, guid: f564570fa6fa7b04d97a10d011923e74, type: 3}
   monsterUIPrefab: {fileID: 4473072673051085636, guid: 3d02ebe784a49204d84a5f0221497d0f, type: 3}
 --- !u!4 &1231099118
 Transform:
@@ -3944,6 +3945,95 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1376163373}
   m_CullTransparentMesh: 1
+--- !u!1 &1413207963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1413207964}
+  - component: {fileID: 1413207967}
+  - component: {fileID: 1413207966}
+  - component: {fileID: 1413207965}
+  m_Layer: 5
+  m_Name: TrashCan
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1413207964
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413207963}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1624839437}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 880, y: 60}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1413207965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413207963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb002cffc68530459177f003c4c3015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1413207966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413207963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 276bb7fdcd5dfc44d913e34aada27ab1, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1413207967
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413207963}
+  m_CullTransparentMesh: 1
 --- !u!1 &1438793066
 GameObject:
   m_ObjectHideFlags: 0
@@ -4259,6 +4349,7 @@ RectTransform:
   m_Children:
   - {fileID: 1344092123}
   - {fileID: 1217817890}
+  - {fileID: 1413207964}
   m_Father: {fileID: 938763990}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4340,6 +4431,7 @@ MonoBehaviour:
       atkDelay: 2
       coolTime: 1
       type: 0
+      tier: 0
     - name: Rabbit
       hp: 10
       damage: 3
@@ -4348,6 +4440,7 @@ MonoBehaviour:
       atkDelay: 2
       coolTime: 3
       type: 0
+      tier: 0
     - name: Chicken
       hp: 8
       damage: 2
@@ -4356,6 +4449,7 @@ MonoBehaviour:
       atkDelay: 0.5
       coolTime: 1
       type: 0
+      tier: 0
     - name: Pig
       hp: 10
       damage: 10
@@ -4364,6 +4458,7 @@ MonoBehaviour:
       atkDelay: 2
       coolTime: 1
       type: 0
+      tier: 1
     - name: Deer
       hp: 10
       damage: 10
@@ -4372,6 +4467,7 @@ MonoBehaviour:
       atkDelay: 2
       coolTime: 1
       type: 0
+      tier: 1
     prices:
     - name: MonsterBox
       price: 10

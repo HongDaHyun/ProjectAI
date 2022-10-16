@@ -12,6 +12,7 @@ public class PoolingManager : MonoBehaviour
     public GameObject[] tileMaps;
 
     public GameObject dmgPopUpPrefab;
+    public GameObject uiPopUpPrefab;
     public GameObject monsterUIPrefab;
 
     GameObject[] targetPool;
@@ -27,13 +28,15 @@ public class PoolingManager : MonoBehaviour
     GameObject[] forestTilemap;
 
     GameObject[] dmgPopUp;
+    GameObject[] uiPopUp;
     GameObject[] monsterUI;
 
     private void Awake()
     {
-        bullet = Generate(bulletPrefab, 200);
+        bullet = Generate(bulletPrefab, 100);
         forestTilemap = Generate(tileMaps[0], 9);
-        dmgPopUp = Generate(dmgPopUpPrefab, 200);
+        dmgPopUp = Generate(dmgPopUpPrefab, 50);
+        uiPopUp = Generate(uiPopUpPrefab, 50);
         monsterUI = Generate(monsterUIPrefab, 30);
         StartCoroutine(DelayMonster());
     }
@@ -86,6 +89,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "DmgPopUp":
                 targetPool = dmgPopUp;
+                break;
+            case "UIPopUp":
+                targetPool = uiPopUp;
                 break;
             case "MonsterUI":
                 targetPool = monsterUI;

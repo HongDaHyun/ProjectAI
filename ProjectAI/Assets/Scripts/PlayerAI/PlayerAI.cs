@@ -37,6 +37,7 @@ public abstract class PlayerAI : MonoBehaviour
     {
         gameManager.uiManager.hpBarUI.UpdateHP(curHP, maxHP);
         Die();
+        rigid.velocity = Vector3.zero;
         TestWalk();
     }
 

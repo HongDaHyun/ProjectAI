@@ -20,6 +20,13 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         monsterUI = GetComponent<MonsterUI>();
     }
 
+    private void OnDisable()
+    {
+        monsterUI.stat = new MonsterStat();
+        canvasGroup.alpha = 1;
+        canvasGroup.blocksRaycasts = true;
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         preParent = transform.parent;
