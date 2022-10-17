@@ -13,15 +13,24 @@ public class SpawnManager : MonoBehaviour
         gameManager = GameManager.Instance;
     }
 
-    public IEnumerator Spawn(EquipSlot equip)
+    public void Spawn(EquipSlot equip)
     {
         if (equip.isDropped && !equip.isSpawn)
         {
             equip.isSpawn = true;
+            equip.img.fillAmount = 1;
             GameObject obj = gameManager.poolingManager.MakeObj(equip.stat.name);
             obj.transform.position = RanPos();
-            yield return new WaitForSeconds(equip.stat.coolTime);
-            equip.isSpawn = false;
+        }
+        if(equip.isDropped && equip.isSpawn)
+        {
+            equip.img.fillAmount -= 1 / equip.stat.coolTime * Time.deltaTime;
+
+            if(equip.img.fillAmount <= 0)
+            {
+                equip.img.fillAmount = 0;
+                equip.isSpawn = false;
+            }
         }
     }
 

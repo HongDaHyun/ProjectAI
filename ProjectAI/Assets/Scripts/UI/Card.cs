@@ -19,11 +19,6 @@ public class Card : MonoBehaviour
         SetCardUI();
     }
 
-    private void OnEnable()
-    {
-        SetCard();
-    }
-
     private void OnMouseEnter()
     {
         gameObject.transform.localScale = new Vector3(8.5f, 8.5f, 1);
@@ -40,7 +35,7 @@ public class Card : MonoBehaviour
         InstantiateMonsterUI();
     }
 
-    void SetCard()
+    public void SetCard()
     {
         id = Random.Range(0, gameManager.csvReader.list.monsterStats.Length);
         monsterStat = gameManager.csvReader.monsterExportData(gameManager.csvReader.list.monsterStats[id].name);

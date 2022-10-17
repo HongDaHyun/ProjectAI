@@ -8,8 +8,8 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     Canvas canvas;
     RectTransform rect;
     CanvasGroup canvasGroup;
-    Transform preParent;
-    ItemSlot itemSlot;
+    public Transform preParent;
+    public ItemSlot itemSlot;
     MonsterUI monsterUI;
 
     private void Awake()
@@ -52,6 +52,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             itemSlot.isDropped = true;
             itemSlot.stat = monsterUI.stat;
         }
+
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
     }
