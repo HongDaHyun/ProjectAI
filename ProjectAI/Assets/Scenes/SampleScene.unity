@@ -892,7 +892,7 @@ GameObject:
   - component: {fileID: 450255923}
   - component: {fileID: 450255922}
   - component: {fileID: 450255921}
-  - component: {fileID: 450255920}
+  - component: {fileID: 450255925}
   - component: {fileID: 450255924}
   m_Layer: 6
   m_Name: Player
@@ -901,32 +901,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &450255920
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 450255918}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.5}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!50 &450255921
 Rigidbody2D:
   serializedVersion: 4
@@ -1036,6 +1010,22 @@ MonoBehaviour:
   walkSpeed: 0
   attackSpeed: 0
   bulletSpeed: 0
+--- !u!70 &450255925
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450255918}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.5}
+  m_Size: {x: 0.8, y: 0.8}
+  m_Direction: 0
 --- !u!1 &465590432
 GameObject:
   m_ObjectHideFlags: 0
@@ -3068,9 +3058,9 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
+  m_XDamping: 3
+  m_YDamping: 3
+  m_ZDamping: 3
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
@@ -3249,8 +3239,14 @@ MonoBehaviour:
   - {fileID: 4216956034388105023, guid: 89581c03fcfc4fd4e86024a1d3a446fe, type: 3}
   - {fileID: 4216956034388105023, guid: 8ddf22fc1827aa1489e6413329d31bc7, type: 3}
   - {fileID: 4216956034388105023, guid: 32c32f6414174aa41b38c8b3c089e2e4, type: 3}
+  - {fileID: 4216956034388105023, guid: 55e595fbf1ae9ed40b9c38aea162f69c, type: 3}
   - {fileID: 4216956034388105023, guid: da14274cbb9f7484fbfc2af1aa7b5d03, type: 3}
   - {fileID: 4216956034388105023, guid: c8a7c21f2e92d0e4a8267aed9c80748f, type: 3}
+  - {fileID: 4216956034388105023, guid: de552338e1d6199499b137e2023803a2, type: 3}
+  - {fileID: 4216956034388105023, guid: 646fc525ea36f3a4b977757d4599b06a, type: 3}
+  - {fileID: 4216956034388105023, guid: a0288330395f4a04f9c096f8825aef1d, type: 3}
+  - {fileID: 4216956034388105023, guid: 2ee1b0d3ca217c244afc481e4a7ea793, type: 3}
+  - {fileID: 4216956034388105023, guid: 85e246709a30a474f844067ddedd235d, type: 3}
   tileMaps:
   - {fileID: 5081655027593198842, guid: 2e7d90f9bf5be4f4c9a44110fcefd6b9, type: 3}
   dmgPopUpPrefab: {fileID: 2429354406939232664, guid: d5302d64fbd905e448a3b6d80dd3228a, type: 3}
@@ -4450,6 +4446,15 @@ MonoBehaviour:
       coolTime: 1
       type: 0
       tier: 0
+    - name: Mouse
+      hp: 5
+      damage: 1
+      moveSpeed: 3
+      range: 0.5
+      atkDelay: 0.5
+      coolTime: 0.3
+      type: 0
+      tier: 0
     - name: Pig
       hp: 10
       damage: 10
@@ -4468,6 +4473,51 @@ MonoBehaviour:
       coolTime: 1
       type: 0
       tier: 1
+    - name: Fox
+      hp: 20
+      damage: 10
+      moveSpeed: 1.5
+      range: 1.3
+      atkDelay: 2
+      coolTime: 3
+      type: 0
+      tier: 2
+    - name: Monkey
+      hp: 20
+      damage: 10
+      moveSpeed: 1.2
+      range: 1.3
+      atkDelay: 2
+      coolTime: 4
+      type: 0
+      tier: 2
+    - name: Bear
+      hp: 50
+      damage: 20
+      moveSpeed: 1.5
+      range: 2
+      atkDelay: 4
+      coolTime: 10
+      type: 0
+      tier: 3
+    - name: Lion
+      hp: 40
+      damage: 15
+      moveSpeed: 2
+      range: 1.8
+      atkDelay: 3
+      coolTime: 8
+      type: 0
+      tier: 3
+    - name: Elephant
+      hp: 100
+      damage: 25
+      moveSpeed: 1.2
+      range: 2.2
+      atkDelay: 3.5
+      coolTime: 15
+      type: 0
+      tier: 3
     prices:
     - name: MonsterBox
       price: 10
@@ -4478,10 +4528,22 @@ MonoBehaviour:
       sprite: {fileID: 21300000, guid: 823d768bd2e3aa94ea0a59204e0a19f2, type: 3}
     - name: Chicken
       sprite: {fileID: 21300000, guid: f96e7e45ca1ae9e45ab3644074fdeb69, type: 3}
+    - name: Mouse
+      sprite: {fileID: 21300000, guid: 6dfa27fbf2b47de42898643acf9a732f, type: 3}
     - name: Pig
       sprite: {fileID: 21300000, guid: d4a3dfa7a0aa03d41afc11945455bbe3, type: 3}
     - name: Deer
       sprite: {fileID: 21300000, guid: fb2d8526984e9964bb9959c5289313da, type: 3}
+    - name: Fox
+      sprite: {fileID: 21300000, guid: 00f58e34e36184942abb5db55821d17b, type: 3}
+    - name: Monkey
+      sprite: {fileID: 21300000, guid: 20eb5a3896da6a64daa4f833f9389750, type: 3}
+    - name: Bear
+      sprite: {fileID: 21300000, guid: c5ba7158eb0b2ac4099a13d9b1c6451e, type: 3}
+    - name: Lion
+      sprite: {fileID: 21300000, guid: 051a45e4ce5c17f4cba25bc44566c681, type: 3}
+    - name: Elephant
+      sprite: {fileID: 21300000, guid: 936bd2ce3878acc439783a91958c4cc1, type: 3}
     - name: Melee
       sprite: {fileID: 21300000, guid: 4422f42e79ce7c84e9c37586d4786aab, type: 3}
 --- !u!1001 &1666619541
@@ -5428,6 +5490,10 @@ PrefabInstance:
     - target: {fileID: 1692794101551732022, guid: 8cd35f7aa43e79641993d68ebc62dcaa, type: 3}
       propertyPath: m_Name
       value: EquipSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2509291691304349007, guid: 8cd35f7aa43e79641993d68ebc62dcaa, type: 3}
+      propertyPath: m_FillAmount
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cd35f7aa43e79641993d68ebc62dcaa, type: 3}

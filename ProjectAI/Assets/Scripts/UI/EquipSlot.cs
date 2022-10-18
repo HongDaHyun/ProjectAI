@@ -7,13 +7,6 @@ using UnityEngine.UI;
 public class EquipSlot : ItemSlot
 {
     public bool isSpawn;
-    public Image img;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        img = transform.GetChild(0).GetComponent<Image>();
-    }
 
     private void Update()
     {
@@ -23,7 +16,8 @@ public class EquipSlot : ItemSlot
     public override void OnDrop(PointerEventData eventData)
     {
         base.OnDrop(eventData);
-        if(preSlot != null && stat.name != null)
+        preSlot.img.fillAmount = 0;
+        if (preSlot != null && stat.name != null)
             if (preSlot.stat.name != stat.name)
                 img.fillAmount = 1;
         img.transform.SetAsFirstSibling();

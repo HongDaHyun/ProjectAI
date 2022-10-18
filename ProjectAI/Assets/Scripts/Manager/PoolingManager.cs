@@ -22,8 +22,14 @@ public class PoolingManager : MonoBehaviour
     GameObject[] test;
     GameObject[] rabbit;
     GameObject[] chicken;
+    GameObject[] mouse;
     GameObject[] pig;
     GameObject[] deer;
+    GameObject[] fox;
+    GameObject[] monkey;
+    GameObject[] bear;
+    GameObject[] lion;
+    GameObject[] elephant;
 
     GameObject[] forestTilemap;
 
@@ -47,8 +53,14 @@ public class PoolingManager : MonoBehaviour
         test = Generate(enemyPrefab[0], 30);
         rabbit = Generate(enemyPrefab[1], 30);
         chicken = Generate(enemyPrefab[2], 30);
-        pig = Generate(enemyPrefab[3], 30);
-        deer = Generate(enemyPrefab[4], 30);
+        mouse = Generate(enemyPrefab[3], 30);
+        pig = Generate(enemyPrefab[4], 30);
+        deer = Generate(enemyPrefab[5], 30);
+        fox = Generate(enemyPrefab[6], 30);
+        monkey = Generate(enemyPrefab[7], 30);
+        bear = Generate(enemyPrefab[8], 30);
+        lion = Generate(enemyPrefab[9], 30);
+        elephant = Generate(enemyPrefab[10], 30);
     }
 
     GameObject[] Generate(GameObject obj, int size)
@@ -78,11 +90,29 @@ public class PoolingManager : MonoBehaviour
             case "Chicken":
                 targetPool = chicken;
                 break;
+            case "Mouse":
+                targetPool = mouse;
+                break;
             case "Pig":
                 targetPool = pig;
                 break;
             case "Deer":
                 targetPool = deer;
+                break;
+            case "Fox":
+                targetPool = fox;
+                break;
+            case "Monkey":
+                targetPool = monkey;
+                break;
+            case "Bear":
+                targetPool = bear;
+                break;
+            case "Lion":
+                targetPool = lion;
+                break;
+            case "Elephant":
+                targetPool = elephant;
                 break;
             case "Forest":
                 targetPool = forestTilemap;

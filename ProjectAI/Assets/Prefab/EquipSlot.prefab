@@ -69,7 +69,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 2102336055, guid: fb9206a9ddd1d5c4ba9f8b656b3c3f19, type: 3}
-  m_Type: 3
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -101,8 +101,8 @@ MonoBehaviour:
     coolTime: 0
     type: 0
     tier: 0
-  isSpawn: 0
   img: {fileID: 0}
+  isSpawn: 1
 --- !u!1 &4937170860480654340
 GameObject:
   m_ObjectHideFlags: 0

@@ -194,6 +194,7 @@ MonoBehaviour:
     atkDelay: 0
     coolTime: 0
     type: 0
+    tier: 0
   isAttack: 0
   isHit: 0
   isStun: 0

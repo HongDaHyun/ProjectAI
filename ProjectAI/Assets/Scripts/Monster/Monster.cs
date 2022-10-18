@@ -52,6 +52,7 @@ public abstract class Monster : MonoBehaviour
     {
         LookAt();
         Stun();
+        Follow();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
