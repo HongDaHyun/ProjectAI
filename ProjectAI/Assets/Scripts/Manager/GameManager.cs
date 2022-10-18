@@ -8,9 +8,14 @@ public class GameManager : MonoBehaviour
 
     public CSVReader csvReader;
     public PoolingManager poolingManager;
+    public SpawnManager spawnManager;
     public UIManager uiManager;
     public BtnManager btnManager;
     public PlayerAI playerAI;
+
+    public int money, secMoneySize, secMoney;
+
+    public bool isGameOver;
 
     public static GameManager Instance
     {
@@ -42,8 +47,25 @@ public class GameManager : MonoBehaviour
         FindPlayerAI();
     }
 
+    private void Start()
+    {
+        StartCoroutine(SecPerMoney(secMoneySize, secMoney));
+    }
+
     public void FindPlayerAI()
     {
         playerAI = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAI>();
+    }
+
+    public void EarnMoney(int size)
+    {
+        money += size;
+    }
+
+    public IEnumerator SecPerMoney(int size, float sec)
+    {
+        EarnMoney(size);
+        yield return new WaitForSeconds(sec);
+        StartCoroutine(SecPerMoney(size, sec));
     }
 }
