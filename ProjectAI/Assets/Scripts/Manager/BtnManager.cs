@@ -43,10 +43,12 @@ public class BtnManager : MonoBehaviour
     {
         if (gameManager.uiManager.isInventroyFull)
             return;
-        
+
         Price price = gameManager.csvReader.PriceExportData("MonsterBox");
         if (gameManager.money < price.price)
             return;
+
+        gameManager.soundManager.SFXPlayer(SoundManager.SFX.CardOpen);
         gameManager.uiManager.Shop[2].SetActive(true);
         gameManager.money -= price.price;
 

@@ -136,6 +136,7 @@ public abstract class PlayerAI : MonoBehaviour
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
             bullet.transform.rotation = rotation;
+            gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
 
             Look(direction);
 

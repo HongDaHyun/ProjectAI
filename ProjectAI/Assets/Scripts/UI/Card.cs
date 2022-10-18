@@ -31,6 +31,7 @@ public class Card : MonoBehaviour
 
     private void OnMouseUp()
     {
+        gameManager.soundManager.SFXPlayer(SoundManager.SFX.SelectCard);
         ActiveFalseCard();
         InstantiateMonsterUI();
     }

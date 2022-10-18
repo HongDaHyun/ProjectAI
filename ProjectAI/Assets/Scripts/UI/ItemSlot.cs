@@ -24,6 +24,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     {
         if (eventData.pointerDrag != null)
         {
+            gameManager.soundManager.SFXPlayer(SoundManager.SFX.DropSlot);
             eventData.pointerDrag.transform.SetParent(transform);
             eventData.pointerDrag.GetComponent<RectTransform>().position = rect.position;
 
@@ -41,6 +42,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             }
             stat = eventData.pointerDrag.GetComponent<MonsterUI>().stat;
             isDropped = true;
+            preSlot.img.fillAmount = 0;
         }
     }
 

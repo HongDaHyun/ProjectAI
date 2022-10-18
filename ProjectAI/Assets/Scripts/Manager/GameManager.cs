@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
 
+    public SoundManager soundManager;
     public CSVReader csvReader;
     public PoolingManager poolingManager;
     public SpawnManager spawnManager;
