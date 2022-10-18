@@ -23,7 +23,7 @@ public class DmgPopUp : MonoBehaviour
 
     private void OnEnable()
     {
-        StartCoroutine(PopUp());
+        StartCoroutine(Pop());
     }
 
     private void Update()
@@ -33,7 +33,7 @@ public class DmgPopUp : MonoBehaviour
         text.color = alpha;
     }
 
-    IEnumerator PopUp()
+    IEnumerator Pop()
     {
         alpha.a = 1;
         text.text = gameManager.playerAI.damage.ToString();

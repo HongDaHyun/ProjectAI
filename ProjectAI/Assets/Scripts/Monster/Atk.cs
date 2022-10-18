@@ -10,6 +10,6 @@ public abstract class Atk : MonoBehaviour
     private void Awake()
     {
         monster = GetComponentInParent<Monster>();
-        damage = monster.damage;
+        damage = monster.stat.damage;
     }
 }

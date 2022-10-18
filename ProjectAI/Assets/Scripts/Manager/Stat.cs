@@ -26,9 +26,25 @@ public struct MonsterStat
 
     public float moveSpeed;
     public float range;
-    public float atkSpeed;
+    public float atkDelay;
+    public float coolTime;
 
     public MonsterType type;
+    public Tier tier;
+}
+
+[Serializable]
+public struct Price
+{
+    public string name;
+    public int price;
+}
+
+[Serializable]
+public struct SpriteStat
+{
+    public string name;
+    public Sprite sprite;
 }
 
 [Serializable]
@@ -36,4 +52,6 @@ public class List
 {
     public PlayerStat[] playerStats;
     public MonsterStat[] monsterStats;
+    public Price[] prices;
+    public SpriteStat[] spriteStats;
 }

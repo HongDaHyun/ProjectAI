@@ -9,7 +9,6 @@ public abstract class PlayerAI : MonoBehaviour
     protected State state;
     protected Rigidbody2D rigid;
     protected GameManager gameManager;
-    protected CSVReader csvReader;
     protected UIManager uiManager;
     protected SpriteRenderer spriteRenderer;
 
@@ -25,7 +24,6 @@ public abstract class PlayerAI : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         gameManager = GameManager.Instance;
-        csvReader = CSVReader.Instance;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -39,18 +37,20 @@ public abstract class PlayerAI : MonoBehaviour
     {
         gameManager.uiManager.hpBarUI.UpdateHP(curHP, maxHP);
         Die();
+        rigid.velocity = Vector3.zero;
+        TestWalk();
     }
 
     private void FixedUpdate()
     {
-        TestWalk();
+
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Monster") && !isHit)
         {
-            int dmg = collision.gameObject.GetComponent<Monster>().damage;
+            int dmg = collision.gameObject.GetComponent<Monster>().stat.damage;
             StartCoroutine(Damaged(dmg));
         }
     }
@@ -100,11 +100,10 @@ public abstract class PlayerAI : MonoBehaviour
 
     void TestWalk()
     {
-        Vector2 vector;
-        vector.x = Input.GetAxisRaw("Horizontal");
-        vector.y = Input.GetAxisRaw("Vertical");
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputY = Input.GetAxisRaw("Vertical");
 
-        transform.Translate(new Vector2(vector.x, vector.y).normalized * Time.deltaTime * walkSpeed);
+        transform.Translate(new Vector2(inputX, inputY).normalized * Time.deltaTime * walkSpeed);
     }    
     #endregion
 
@@ -138,25 +137,31 @@ public abstract class PlayerAI : MonoBehaviour
             Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
             bullet.transform.rotation = rotation;
 
+            Look(direction);
+
             curShotTime = 0;
         }
+    }
+
+    protected void Look(Vector2 direction)
+    {
+        if (direction.x > 0)
+            transform.localScale = new Vector3(1, 1, 1);
+        else if (direction.x < 0)
+            transform.localScale = new Vector3(-1, 1, 1);
     }
 
     #endregion
 
     private void SetStat()
     {
-        for(int i = 0; i < csvReader.list.playerStats.Length; i ++)
-        {
-            if(csvReader.list.playerStats[i].name == _name)
-            {
-                maxHP = csvReader.list.playerStats[i].hp;
-                damage = csvReader.list.playerStats[i].damage;
-                walkSpeed = csvReader.list.playerStats[i].walkSpeed;
-                attackSpeed = csvReader.list.playerStats[i].attackSpeed;
-                bulletSpeed = csvReader.list.playerStats[i].bulletSpeed;
-            }
-        }
+        PlayerStat playerStat = gameManager.csvReader.PlayerExportData(_name);
+        maxHP = playerStat.hp;
+        damage = playerStat.damage;
+        walkSpeed = playerStat.walkSpeed;
+        attackSpeed = playerStat.attackSpeed;
+        bulletSpeed = playerStat.bulletSpeed;
+
         uiManager = gameManager.uiManager;
         uiManager.hpBarUI.SetMaxHP();
     }

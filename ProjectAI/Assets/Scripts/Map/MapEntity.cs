@@ -46,7 +46,7 @@ public class MapEntity : MonoBehaviour
 
             savePos.Add(pos);
             obj[i] = Instantiate(objects[ranObj]);
-            obj[i].transform.parent = transform;
+            obj[i].transform.SetParent(transform);
             obj[i].transform.localPosition = pos;
         }
     }
