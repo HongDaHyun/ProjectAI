@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public GameObject GameOver;
     public GameObject[] Shop;
     public Text[] Soul;
+    public Timer timer;
 
     public bool isInventroyFull, isEquipmentFull;
 
@@ -33,10 +34,16 @@ public class UIManager : MonoBehaviour
         gameManager = GameManager.Instance;
     }
 
+    private void Start()
+    {
+        timer.SetTimer();
+    }
+
     private void Update()
     {
         SecSoul();
         FullSlot();
+        timer.UpdateTimer();
     }
 
     public void Shopping()
@@ -103,4 +110,33 @@ public struct SlotsUI
 {
     public List<GameObject> inventorys;
     public List<GameObject> equipments;
+}
+
+[Serializable]
+public struct Timer
+{
+    public Text timerUI;
+    public float setTime;
+    public Gradient gradient;
+    public float curTime;
+    public float min, sec;
+
+    public void SetTimer()
+    {
+        curTime = setTime;
+        timerUI.color = gradient.Evaluate(1f);
+    }
+
+    public void UpdateTimer()
+    {
+        if (curTime > 0)
+            curTime -= Time.deltaTime;
+        else if (curTime == 0)
+            curTime = 0f;
+
+        sec = (int)(curTime % 60);
+        min = (int)(curTime / 60 % 60);
+        timerUI.text = string.Format("{0:0}:{1:0}", min, sec);
+        timerUI.color = gradient.Evaluate(curTime / setTime);
+    }
 }

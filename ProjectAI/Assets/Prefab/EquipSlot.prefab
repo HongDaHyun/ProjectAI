@@ -91,6 +91,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDropped: 0
+  isEquip: 1
+  img: {fileID: 0}
   stat:
     name: 
     hp: 0
@@ -101,7 +103,6 @@ MonoBehaviour:
     coolTime: 0
     type: 0
     tier: 0
-  img: {fileID: 0}
   isSpawn: 1
 --- !u!1 &4937170860480654340
 GameObject:

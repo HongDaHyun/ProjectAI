@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public bool isDropped;
+    public bool isDropped, isEquip;
+    public Image img;
     public MonsterStat stat;
     protected RectTransform rect;
     protected GameManager gameManager;
     protected ItemSlot preSlot;
-    public Image img;
 
     protected void Awake()
     {
@@ -34,15 +34,18 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             if (isDropped)
             {
                 GameObject obj = transform.GetChild(1).gameObject;
-
                 obj.transform.SetParent(dd.preParent);
                 obj.GetComponent<RectTransform>().position = dd.preParent.GetComponent<RectTransform>().position;
                 preSlot.isDropped = true;
                 preSlot.stat = stat;
             }
             stat = eventData.pointerDrag.GetComponent<MonsterUI>().stat;
+            if(preSlot.isEquip)
+            {
+                preSlot.img.fillAmount = 0;
+                img.transform.SetAsFirstSibling();
+            }
             isDropped = true;
-            preSlot.img.fillAmount = 0;
         }
     }
 

@@ -41,7 +41,6 @@ public class SoundManager : MonoBehaviour
                 break;
             case SFX.SelectCard:
                 sfx[sfxCursor].clip = sfxClip[Random.Range(6, 8)];
-                Debug.Log(sfx[sfxCursor].clip);
                 break;
             case SFX.DropSlot:
                 sfx[sfxCursor].clip = sfxClip[Random.Range(8, 14)];
