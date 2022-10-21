@@ -43,7 +43,6 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             if(preSlot.isEquip)
             {
                 preSlot.img.fillAmount = 0;
-                img.transform.SetAsFirstSibling();
             }
             isDropped = true;
         }

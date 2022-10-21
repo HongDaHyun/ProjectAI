@@ -1,22 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public enum State { Idle, Walk }
 
-public abstract class PlayerAI : MonoBehaviour
+public abstract class PlayerAI : MonoBehaviourPunCallbacks
 {
     protected State state;
     protected Rigidbody2D rigid;
     protected GameManager gameManager;
     protected UIManager uiManager;
     protected SpriteRenderer spriteRenderer;
+    protected GameObject reload;
+    protected PhotonView pv;
 
+    public PlayerStat stat;
     public string _name;
-    public int maxHP, curHP;
-    public int damage;
-    public bool isHit, isDead;
-    public float walkSpeed, attackSpeed, bulletSpeed;
+    public int curHP, curBulletNum;
+    public bool isHit, isDead, isReload;
 
     protected float curShotTime;
 
@@ -25,6 +28,8 @@ public abstract class PlayerAI : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         gameManager = GameManager.Instance;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        reload = transform.GetChild(0).gameObject;
+        pv = GetComponent<PhotonView>();
     }
 
     private void Start()
@@ -35,10 +40,13 @@ public abstract class PlayerAI : MonoBehaviour
 
     public virtual void Update()
     {
-        gameManager.uiManager.hpBarUI.UpdateHP(curHP, maxHP);
-        Die();
+        gameManager.uiManager.hpBarUI.UpdateHP(curHP, stat.hp);
+        curShotTime += Time.deltaTime;
         rigid.velocity = Vector3.zero;
+        Die();
         TestWalk();
+        Detecting(5f);
+        Reload();
     }
 
     private void FixedUpdate()
@@ -83,27 +91,33 @@ public abstract class PlayerAI : MonoBehaviour
     #region Walk
     void R_Walk()
     {
-        rigid.MovePosition(rigid.position + Vector2.right * walkSpeed * Time.deltaTime);
+        rigid.MovePosition(rigid.position + Vector2.right * stat.walkSpeed * Time.deltaTime);
     }
     void L_Walk()
     {
-        rigid.MovePosition(rigid.position + Vector2.right * walkSpeed * Time.deltaTime);
+        rigid.MovePosition(rigid.position + Vector2.right * stat.walkSpeed * Time.deltaTime);
     }
     void T_Walk()
     {
-        rigid.MovePosition(rigid.position + Vector2.right * walkSpeed * Time.deltaTime);
+        rigid.MovePosition(rigid.position + Vector2.right * stat.walkSpeed * Time.deltaTime);
     }
     void D_Walk()
     {
-        rigid.MovePosition(rigid.position + Vector2.right * walkSpeed * Time.deltaTime);
+        rigid.MovePosition(rigid.position + Vector2.right * stat.walkSpeed * Time.deltaTime);
     }
 
     void TestWalk()
     {
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputY = Input.GetAxisRaw("Vertical");
+        if (gameManager.isGameOver)
+            return;
 
-        transform.Translate(new Vector2(inputX, inputY).normalized * Time.deltaTime * walkSpeed);
+        if(pv.IsMine)
+        {
+            float inputX = Input.GetAxisRaw("Horizontal");
+            float inputY = Input.GetAxisRaw("Vertical");
+
+            transform.Translate(new Vector2(inputX, inputY).normalized * Time.deltaTime * stat.walkSpeed);
+        }
     }    
     #endregion
 
@@ -125,9 +139,17 @@ public abstract class PlayerAI : MonoBehaviour
 
     }
 
+    protected void Reload()
+    {
+        if(curBulletNum <= 0)
+        {
+            reload.SetActive(true);
+        }
+    }
+
     protected void Attack(GameObject target)
     {
-        if(curShotTime >= attackSpeed)
+        if(curShotTime >= stat.attackSpeed && !isReload)
         {
             GameObject bullet = GameManager.Instance.poolingManager.MakeObj("Bullet");
             bullet.transform.position = transform.position;
@@ -138,6 +160,8 @@ public abstract class PlayerAI : MonoBehaviour
             bullet.transform.rotation = rotation;
             gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
 
+            curBulletNum -= 1;
+
             Look(direction);
 
             curShotTime = 0;
@@ -147,23 +171,19 @@ public abstract class PlayerAI : MonoBehaviour
     protected void Look(Vector2 direction)
     {
         if (direction.x > 0)
-            transform.localScale = new Vector3(1, 1, 1);
+            spriteRenderer.flipX = false;
         else if (direction.x < 0)
-            transform.localScale = new Vector3(-1, 1, 1);
+            spriteRenderer.flipX = true;
     }
 
     #endregion
 
     private void SetStat()
     {
-        PlayerStat playerStat = gameManager.csvReader.PlayerExportData(_name);
-        maxHP = playerStat.hp;
-        damage = playerStat.damage;
-        walkSpeed = playerStat.walkSpeed;
-        attackSpeed = playerStat.attackSpeed;
-        bulletSpeed = playerStat.bulletSpeed;
+        stat = gameManager.csvReader.PlayerExportData(_name);
 
         uiManager = gameManager.uiManager;
         uiManager.hpBarUI.SetMaxHP();
+        curBulletNum = stat.bulletNum;
     }
 }

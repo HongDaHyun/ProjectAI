@@ -50,7 +50,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(SecPerMoney(secMoneySize, secMoney));
+        if(!isGameOver)
+        {
+        }
     }
 
     public void FindPlayerAI()

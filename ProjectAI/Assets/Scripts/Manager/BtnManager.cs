@@ -29,6 +29,8 @@ public class BtnManager : MonoBehaviour
 
     public void ShopBtn()
     {
+        if (gameManager.isGameOver)
+            return;
         if(Input.GetKeyDown(KeyCode.P))
         {
             gameManager.uiManager.Shopping();

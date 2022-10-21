@@ -48,7 +48,9 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         if (transform.parent.name == canvas.name)
         {
             transform.SetParent(preParent);
-            transform.SetAsFirstSibling();
+            if (preParent.GetComponent<ItemSlot>().isEquip)
+                transform.SetAsFirstSibling();
+
             rect.position = preParent.GetComponent<RectTransform>().position;
             itemSlot.isDropped = true;
             itemSlot.stat = monsterUI.stat;

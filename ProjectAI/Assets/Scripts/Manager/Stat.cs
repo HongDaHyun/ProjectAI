@@ -10,10 +10,12 @@ public struct PlayerStat
 
     public int hp;
     public int damage;
+    public int bulletNum;
 
     public float walkSpeed;
     public float attackSpeed;
     public float bulletSpeed;
+    public float reloadSpeed;
 }
 
 [Serializable]

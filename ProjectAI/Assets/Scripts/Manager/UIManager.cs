@@ -43,7 +43,10 @@ public class UIManager : MonoBehaviour
     {
         SecSoul();
         FullSlot();
-        timer.UpdateTimer();
+        if(!gameManager.isGameOver)
+        {
+            timer.UpdateTimer();
+        }
     }
 
     public void Shopping()
@@ -90,7 +93,7 @@ public struct HpBarUI
     public void SetMaxHP()
     {
         GameManager gameManager = GameManager.Instance;
-        gameManager.playerAI.curHP = gameManager.playerAI.maxHP;
+        gameManager.playerAI.curHP = gameManager.playerAI.stat.hp;
         hpBar.value = 1f;
         fill.color = gradient.Evaluate(1f);
     }

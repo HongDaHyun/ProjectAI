@@ -1,10 +1,2 @@
-Name,HP,Damage,WalkSpeed,AttackSpeed,BulletSpeed
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-Test,100,5,5,0.5,5
-=======
-Test,100,5,3,0.7,7
->>>>>>> Stashed changes
-=======
-Test,100,5,3,0.5,5
->>>>>>> main
+Name,HP,Damage,BulletNum,WalkSpeed,AttackSpeed,BulletSpeed,ReloadSpeed
+Test,100,5,8,3,0.7,7,2

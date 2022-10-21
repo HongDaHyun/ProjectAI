@@ -177,7 +177,6 @@ GameObject:
   - component: {fileID: 7083017216183309100}
   - component: {fileID: 7083017216183309103}
   - component: {fileID: 881331524809875724}
-  - component: {fileID: 9107315408062511019}
   m_Layer: 0
   m_Name: ForestTilemap
   m_TagString: Untagged
@@ -268,19 +267,3 @@ MonoBehaviour:
   - {fileID: 2386485959999937473, guid: 3680476d7541cd74eba54b7122d53f43, type: 3}
   count: 100
   errorRange: 50
---- !u!114 &9107315408062511019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7083017216183309102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 0
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff

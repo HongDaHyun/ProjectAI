@@ -42,7 +42,7 @@ public class CSVReader : MonoBehaviour
     #region ReadCSV
     public void PlayerReadCSV()
     {
-        int order = 0; int size = 6;
+        int order = 0; int size = 8;
         string[] data = textAssets[order].text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
         int tableSize = data.Length / size - 1;
         list.playerStats = new PlayerStat[tableSize];
@@ -53,9 +53,11 @@ public class CSVReader : MonoBehaviour
             list.playerStats[i].name = data[size * (i + 1)];
             list.playerStats[i].hp = int.Parse(data[size * (i + 1) + 1]);
             list.playerStats[i].damage = int.Parse(data[size * (i + 1) + 2]);
-            list.playerStats[i].walkSpeed = float.Parse(data[size * (i + 1) + 3]);
-            list.playerStats[i].attackSpeed = float.Parse(data[size * (i + 1) + 4]);
-            list.playerStats[i].bulletSpeed = float.Parse(data[size * (i + 1) + 5]);
+            list.playerStats[i].bulletNum = int.Parse(data[size * (i + 1) + 3]);
+            list.playerStats[i].walkSpeed = float.Parse(data[size * (i + 1) + 4]);
+            list.playerStats[i].attackSpeed = float.Parse(data[size * (i + 1) + 5]);
+            list.playerStats[i].bulletSpeed = float.Parse(data[size * (i + 1) + 6]);
+            list.playerStats[i].reloadSpeed = float.Parse(data[size * (i + 1) + 7]);
         }
     }
 
