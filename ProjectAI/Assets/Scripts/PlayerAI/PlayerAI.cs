@@ -6,7 +6,7 @@ using Photon.Realtime;
 
 public enum State { Idle, Walk }
 
-public abstract class PlayerAI : MonoBehaviourPunCallbacks
+public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
 {
     protected State state;
     protected Rigidbody2D rigid;
@@ -15,6 +15,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks
     protected SpriteRenderer spriteRenderer;
     protected GameObject reload;
     protected PhotonView pv;
+    protected Vector3 curPos;
 
     public PlayerStat stat;
     public string _name;
@@ -118,6 +119,8 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks
 
             transform.Translate(new Vector2(inputX, inputY).normalized * Time.deltaTime * stat.walkSpeed);
         }
+        else if ((transform.position - curPos).sqrMagnitude >= 100) transform.position = curPos;
+        else transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
     }    
     #endregion
 
@@ -151,7 +154,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks
     {
         if(curShotTime >= stat.attackSpeed && !isReload)
         {
-            GameObject bullet = GameManager.Instance.poolingManager.MakeObj("Bullet");
+            GameObject bullet = gameManager.poolingManager.MakeObj("Bullet");
             bullet.transform.position = transform.position;
 
             Vector2 direction = target.transform.position - transform.position;
@@ -185,5 +188,17 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks
         uiManager = gameManager.uiManager;
         uiManager.hpBarUI.SetMaxHP();
         curBulletNum = stat.bulletNum;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(transform.position);
+        }
+        else
+        {
+            curPos = (Vector3)stream.ReceiveNext();
+        }
     }
 }

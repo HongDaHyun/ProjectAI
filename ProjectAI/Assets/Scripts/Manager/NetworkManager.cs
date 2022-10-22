@@ -63,6 +63,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
         gameManager = GameManager.Instance;
+        Screen.SetResolution(960, 540, false);
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
     }
@@ -159,18 +160,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void StartRPC()
     {
-        if (PhotonNetwork.PlayerList.Length == 2)
-        {
-            network.networkPannel.SetActive(false);
-            gameManager.isGameOver = false;
-            gameManager.soundManager.bgm.Play();
-            StartCoroutine(gameManager.SecPerMoney(gameManager.secMoneySize, gameManager.secMoney));
-        }
+        network.networkPannel.SetActive(false);
+        gameManager.isGameOver = false;
+        gameManager.soundManager.bgm.Play();
+        StartCoroutine(gameManager.SecPerMoney(gameManager.secMoneySize, gameManager.secMoney));
     }
 
     public void StartBtn()
     {
-        network.PV.RPC("StartRPC", RpcTarget.All);
+        if (PhotonNetwork.PlayerList.Length == 2 && PhotonNetwork.IsMasterClient)
+        {
+            network.PV.RPC("StartRPC", RpcTarget.All);
+        }
     }
 }
 

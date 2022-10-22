@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PoolingManager : MonoBehaviour
+public class PoolingManager : MonoBehaviour, IPunPrefabPool
 {
     private static PoolingManager instance;
 
     public GameObject bulletPrefab;
+
     public GameObject[] enemyPrefab;
 
     public GameObject[] tileMaps;
@@ -44,12 +46,6 @@ public class PoolingManager : MonoBehaviour
         dmgPopUp = Generate(dmgPopUpPrefab, 50);
         uiPopUp = Generate(uiPopUpPrefab, 50);
         monsterUI = Generate(monsterUIPrefab, 30);
-        StartCoroutine(DelayMonster());
-    }
-
-    IEnumerator DelayMonster()
-    {
-        yield return new WaitForSeconds(1f);
         test = Generate(enemyPrefab[0], 30);
         rabbit = Generate(enemyPrefab[1], 30);
         chicken = Generate(enemyPrefab[2], 30);
@@ -73,6 +69,22 @@ public class PoolingManager : MonoBehaviour
         }
         return objects;
     }
+
+    //GameObject[] GeneratePhoton(string name, int size)
+    //{
+    //    GameObject[] objects = new GameObject[size];
+    //    for (int i = 0; i < size; i++)
+    //    {
+    //        objects[i] = PhotonNetwork.Instantiate(name, Vector3.zero, Quaternion.identity);
+    //        objects[i].SetActive(false);
+    //    }
+    //    return objects;
+    //}
+
+    //public void PoolingPhoton()
+    //{
+    //    bullet = GeneratePhoton("Bullet", 100);
+    //}
 
     public GameObject MakeObj(string type)
     {
@@ -137,5 +149,18 @@ public class PoolingManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public GameObject Instantiate(string prefabId, Vector3 position, Quaternion rotation)
+    {
+        GameObject prefab = MakeObj(prefabId);
+        prefab.transform.position = position;
+        prefab.transform.rotation = rotation;
+        return prefab;
+    }
+
+    public void Destroy(GameObject gameObject)
+    {
+        gameObject.SetActive(false);
     }
 }

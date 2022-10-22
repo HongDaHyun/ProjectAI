@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IPunObservable
 {
     private void Update()
     {
@@ -13,5 +15,9 @@ public class Bullet : MonoBehaviour
     {
         if (collision.CompareTag("Monster"))
             gameObject.SetActive(false);
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
     }
 }
