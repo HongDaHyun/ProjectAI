@@ -61,5 +61,13 @@ public class BtnManager : MonoBehaviour
         }
     }
 
+    public void TestStart()
+    {
+        gameManager.networkManager.network.networkPannel.SetActive(false);
+        gameManager.isGameOver = false;
+        gameManager.soundManager.bgm.Play();
+        StartCoroutine(gameManager.SecPerMoney(gameManager.secMoneySize, gameManager.secMoney));
+    }
+
     #endregion
 }
