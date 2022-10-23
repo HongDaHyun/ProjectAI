@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public abstract class Monster : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public abstract class Monster : MonoBehaviour
     protected UIManager uiManager;
     protected Rigidbody2D rigid;
     protected SpriteRenderer spriteRenderer;
+    protected PhotonView pv;
 
     protected Vector2 scale;
     public Atk[] weapons;
@@ -26,6 +28,7 @@ public abstract class Monster : MonoBehaviour
         uiManager = gameManager.uiManager;
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        pv = GetComponent<PhotonView>();
         SetStat();
     }
 
@@ -95,9 +98,17 @@ public abstract class Monster : MonoBehaviour
     protected void Die()
     {
         if (curHP <= 0)
-            gameObject.SetActive(false);
+        {
+            if (PhotonNetwork.IsConnected && pv.IsMine)
+                Destroy(gameObject);
+            else
+                gameObject.SetActive(false);
+        }
         return;
     }
+
+    [PunRPC]
+    void DestroyRPC() => Destroy(gameObject);
 
     protected IEnumerator Melee()
     {

@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 
 public enum State { Idle, Walk }
 
-public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
+public abstract class PlayerAI : MonoBehaviour, IPunObservable
 {
     protected State state;
     protected Rigidbody2D rigid;
@@ -14,7 +13,6 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
     protected UIManager uiManager;
     protected SpriteRenderer spriteRenderer;
     protected GameObject reload;
-    protected PhotonView pv;
     protected Vector3 curPos;
 
     public PlayerStat stat;
@@ -30,7 +28,6 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         gameManager = GameManager.Instance;
         spriteRenderer = GetComponent<SpriteRenderer>();
         reload = transform.GetChild(0).gameObject;
-        pv = GetComponent<PhotonView>();
     }
 
     private void Start()
@@ -112,7 +109,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         if (gameManager.isGameOver)
             return;
 
-        if(pv.IsMine)
+        if(gameManager.networkManager.network.PV.IsMine)
         {
             float inputX = Input.GetAxisRaw("Horizontal");
             float inputY = Input.GetAxisRaw("Vertical");
@@ -154,13 +151,17 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
     {
         if(curShotTime >= stat.attackSpeed && !isReload)
         {
-            GameObject bullet = gameManager.poolingManager.MakeObj("Bullet");
-            bullet.transform.position = transform.position;
-
             Vector2 direction = target.transform.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-            bullet.transform.rotation = rotation;
+            if(PhotonNetwork.IsConnected && gameManager.networkManager.network.PV.IsMine)
+                PhotonNetwork.Instantiate("Bullet", transform.position, rotation);
+            else if(!PhotonNetwork.IsConnected)
+            {
+                GameObject bullet = gameManager.poolingManager.MakeObj("Bullet");
+                bullet.transform.position = transform.position;
+                bullet.transform.rotation = rotation;
+            }
             gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
 
             curBulletNum -= 1;

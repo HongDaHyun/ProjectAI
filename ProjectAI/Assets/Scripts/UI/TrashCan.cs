@@ -18,7 +18,9 @@ public class TrashCan : MonoBehaviour, IDropHandler
     {
         if (eventData.pointerDrag != null)
         {
-            switch(eventData.pointerDrag.GetComponent<MonsterUI>().stat.tier)
+            MonsterUI monsterUI = eventData.pointerDrag.GetComponent<MonsterUI>();
+            DragDrop dragDrop = monsterUI.GetComponent<DragDrop>();
+            switch (monsterUI.stat.tier)
             {
                 case Tier.Common:
                     Dump(1);
@@ -33,6 +35,8 @@ public class TrashCan : MonoBehaviour, IDropHandler
                     Dump(5);
                     break;
             }
+            if (dragDrop.itemSlot.isEquip)
+                dragDrop.itemSlot.img.fillAmount = 0;
             eventData.pointerDrag.SetActive(false);
         }
     }

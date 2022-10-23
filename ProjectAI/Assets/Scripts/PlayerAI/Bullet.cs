@@ -2,10 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 
-public class Bullet : MonoBehaviour, IPunObservable
+public class Bullet : MonoBehaviourPunCallbacks, IPunObservable
 {
+    PhotonView pv;
+    GameManager gameManager;
+
+    private void Awake()
+    {
+        gameManager = GameManager.Instance;
+        pv = GetComponent<PhotonView>();
+    }
+
     private void Update()
     {
         transform.Translate(Vector2.up * GameManager.Instance.playerAI.stat.bulletSpeed * Time.deltaTime);
@@ -14,8 +22,16 @@ public class Bullet : MonoBehaviour, IPunObservable
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster"))
-            gameObject.SetActive(false);
+        {
+            if (PhotonNetwork.IsConnected && !pv.IsMine)
+                pv.RPC("DestroyRPC", RpcTarget.AllBuffered);
+            else
+                gameObject.SetActive(false);
+        }
     }
+
+    [PunRPC]
+    void DestroyRPC() => Destroy(gameObject);
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

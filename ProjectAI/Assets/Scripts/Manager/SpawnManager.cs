@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -19,8 +20,13 @@ public class SpawnManager : MonoBehaviour
         {
             equip.isSpawn = true;
             equip.img.fillAmount = 1;
-            GameObject obj = gameManager.poolingManager.MakeObj(equip.stat.name);
-            obj.transform.position = RanPos();
+            if (PhotonNetwork.IsConnected && !gameManager.networkManager.network.PV.IsMine)
+                PhotonNetwork.Instantiate(equip.stat.name, RanPos(), Quaternion.identity);
+            else if(!PhotonNetwork.IsConnected)
+            {
+                GameObject obj = gameManager.poolingManager.MakeObj(equip.stat.name);
+                obj.transform.position = RanPos();
+            }
         }
         if(equip.isDropped && equip.isSpawn)
         {

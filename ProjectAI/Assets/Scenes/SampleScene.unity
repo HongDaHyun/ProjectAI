@@ -2039,6 +2039,7 @@ MonoBehaviour:
     - {fileID: 2133249135}
     - {fileID: 1944175571}
     PV: {fileID: 333548486}
+  playerPV: {fileID: 5258003461314690554}
 --- !u!4 &333548485
 Transform:
   m_ObjectHideFlags: 0
