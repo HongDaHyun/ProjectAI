@@ -100,7 +100,7 @@ public abstract class Monster : MonoBehaviour
         if (curHP <= 0)
         {
             if (PhotonNetwork.IsConnected && pv.IsMine)
-                Destroy(gameObject);
+                PhotonNetwork.Destroy(gameObject);
             else
                 gameObject.SetActive(false);
         }

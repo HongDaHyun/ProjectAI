@@ -20,7 +20,7 @@ public class SpawnManager : MonoBehaviour
         {
             equip.isSpawn = true;
             equip.img.fillAmount = 1;
-            if (PhotonNetwork.IsConnected && !gameManager.networkManager.network.PV.IsMine)
+            if (PhotonNetwork.IsConnected && !PhotonNetwork.IsMasterClient)
                 PhotonNetwork.Instantiate(equip.stat.name, RanPos(), Quaternion.identity);
             else if(!PhotonNetwork.IsConnected)
             {

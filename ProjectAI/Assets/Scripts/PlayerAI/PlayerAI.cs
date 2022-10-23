@@ -13,6 +13,7 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
     protected UIManager uiManager;
     protected SpriteRenderer spriteRenderer;
     protected GameObject reload;
+    protected PhotonView pv;
     protected Vector3 curPos;
 
     public PlayerStat stat;
@@ -28,6 +29,7 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
         gameManager = GameManager.Instance;
         spriteRenderer = GetComponent<SpriteRenderer>();
         reload = transform.GetChild(0).gameObject;
+        pv = GetComponent<PhotonView>();
     }
 
     private void Start()
@@ -109,7 +111,7 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
         if (gameManager.isGameOver)
             return;
 
-        if(gameManager.networkManager.network.PV.IsMine)
+        if(pv.IsMine)
         {
             float inputX = Input.GetAxisRaw("Horizontal");
             float inputY = Input.GetAxisRaw("Vertical");
@@ -154,7 +156,7 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
             Vector2 direction = target.transform.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-            if(PhotonNetwork.IsConnected && gameManager.networkManager.network.PV.IsMine)
+            if(PhotonNetwork.IsConnected && !pv.IsMine)
                 PhotonNetwork.Instantiate("Bullet", transform.position, rotation);
             else if(!PhotonNetwork.IsConnected)
             {

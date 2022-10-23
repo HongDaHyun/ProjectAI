@@ -23,8 +23,8 @@ public class Bullet : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (collision.CompareTag("Monster"))
         {
-            if (PhotonNetwork.IsConnected && !pv.IsMine)
-                pv.RPC("DestroyRPC", RpcTarget.AllBuffered);
+            if (PhotonNetwork.IsConnected && pv.IsMine)
+                PhotonNetwork.Destroy(gameObject);
             else
                 gameObject.SetActive(false);
         }
