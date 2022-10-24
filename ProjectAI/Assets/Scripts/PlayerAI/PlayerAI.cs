@@ -143,15 +143,23 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
 
     protected void Reload()
     {
-        if(curBulletNum <= 0)
+        if(!isReload)
+            StartCoroutine(DelayReload());
+    }
+
+    IEnumerator DelayReload()
+    {
+        if (curBulletNum <= 0)
         {
+            isReload = true;
+            yield return new WaitForSeconds(stat.attackSpeed);
             reload.SetActive(true);
         }
     }
 
     protected void Attack(GameObject target)
     {
-        if(curShotTime >= stat.attackSpeed && !isReload)
+        if(curShotTime >= stat.attackSpeed && !isReload && !target.GetComponent<Monster>().isDie)
         {
             Vector2 direction = target.transform.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2588377863870245735}
   - component: {fileID: 6679301323491544241}
   - component: {fileID: -1059863160313964603}
+  - component: {fileID: 7603987010687245681}
   m_Layer: 7
   m_Name: Lion
   m_TagString: Monster
@@ -155,6 +156,7 @@ MonoBehaviour:
     tier: 0
   isAttack: 0
   isHit: 0
+  isDie: 0
 --- !u!114 &-1059863160313964603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +179,26 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!95 &7603987010687245681
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4216956034388105023}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6266764997237426560
 GameObject:
   m_ObjectHideFlags: 0

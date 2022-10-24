@@ -7,9 +7,11 @@ public abstract class Monster : MonoBehaviour
 {
     protected GameManager gameManager;
     protected UIManager uiManager;
+    protected CircleCollider2D col;
     protected Rigidbody2D rigid;
-    protected SpriteRenderer spriteRenderer;
     protected PhotonView pv;
+    protected Animator anim;
+    protected SpriteRenderer sprite;
 
     protected Vector2 scale;
     public Atk[] weapons;
@@ -20,23 +22,27 @@ public abstract class Monster : MonoBehaviour
 
     public MonsterStat stat;
 
-    public bool isAttack, isHit;
+    public bool isAttack, isHit, isDie;
 
     private void Awake()
     {
         gameManager = GameManager.Instance;
         uiManager = gameManager.uiManager;
+        col = GetComponent<CircleCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         pv = GetComponent<PhotonView>();
+        anim = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
         SetStat();
     }
 
     private void OnEnable()
     {
-        spriteRenderer.color = Color.white;
+        sprite.color = new Color(1, 1, 1, 1);
+        col.enabled = true;
         isAttack = false;
         isHit = false;
+        isDie = false;
         curHP = stat.hp;
         for (int i = 0; i < weapons.Length; i++)
             weapons[i].gameObject.SetActive(false);
@@ -55,22 +61,31 @@ public abstract class Monster : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Bullet") && !isHit)
+        if (collision.CompareTag("Bullet") && !isHit && !isDie)
+        {
             StartCoroutine(Damaged(gameManager.playerAI.stat.damage, collision));
+        }
     }
 
     protected IEnumerator Damaged(int dmg, Collider2D collision)
     {
         isHit = true;
         curHP -= dmg;
-        Die();
+        if (curHP <= 0)
+        {
+            anim.SetTrigger("IsDie");
+            StartCoroutine(FadeOut());
+            col.enabled = false;
+            isDie = true;
+            yield break;
+        }
+        anim.SetInteger("State", 1);
         Vector2 direction = (transform.position - collision.transform.position).normalized;
         rigid.AddForce(direction * 0.0001f, ForceMode2D.Impulse);
         DmgPopUp();
-        spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.2f);
+        anim.SetInteger("State", 0);
         isHit = false;
-        spriteRenderer.color = Color.white;
     }
 
     void DmgPopUp()
@@ -95,23 +110,29 @@ public abstract class Monster : MonoBehaviour
         rigid.velocity = Vector2.zero;
     }
 
-    protected void Die()
+    public void Die()
     {
-        if (curHP <= 0)
-        {
-            if (PhotonNetwork.IsConnected && pv.IsMine)
-                PhotonNetwork.Destroy(gameObject);
-            else
-                gameObject.SetActive(false);
-        }
-        return;
+        if (PhotonNetwork.IsConnected && pv.IsMine)
+            PhotonNetwork.Destroy(gameObject);
+        else
+            gameObject.SetActive(false);
     }
 
-    [PunRPC]
-    void DestroyRPC() => Destroy(gameObject);
+    IEnumerator FadeOut()
+    {
+        for (int i = 10; i >= 0; i--)
+        {
+            float f = i / 10.0f;
+            Color c = sprite.color;
+            c.a = f;
+            sprite.color = c;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
 
     protected IEnumerator Melee()
     {
+        anim.SetInteger("State", 2);
         if (Vector2.Distance(new Vector2(0, gameManager.playerAI.transform.position.y), new Vector2(0, transform.position.y)) < 0.3f)
             weapons[0].gameObject.SetActive(true);
         else if(transform.position.y < gameManager.playerAI.transform.position.y)
@@ -122,12 +143,13 @@ public abstract class Monster : MonoBehaviour
         for (int i = 0; i < weapons.Length; i++)
             weapons[i].gameObject.SetActive(false);
         yield return new WaitForSeconds(stat.atkDelay);
+        anim.SetInteger("State", 0);
         isAttack = false;
     }
 
     protected void AttackPattern(string name)
     {
-        if (!isAttack && Vector2.Distance(transform.position, gameManager.playerAI.transform.position) <= stat.range)
+        if (!isAttack && Vector2.Distance(transform.position, gameManager.playerAI.transform.position) <= stat.range &&!isDie)
         {
             isAttack = true;
             StartCoroutine(name);

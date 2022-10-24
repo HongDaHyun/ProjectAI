@@ -264,6 +264,7 @@ GameObject:
   - component: {fileID: 4992938611119253890}
   - component: {fileID: 1093062115014318093}
   - component: {fileID: -976324322669340678}
+  - component: {fileID: 961459970424192113}
   m_Layer: 7
   m_Name: Fox
   m_TagString: Monster
@@ -405,6 +406,7 @@ MonoBehaviour:
     tier: 0
   isAttack: 0
   isHit: 0
+  isDie: 0
 --- !u!114 &-976324322669340678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +429,26 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!95 &961459970424192113
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4216956034388105023}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4486702612781729573
 GameObject:
   m_ObjectHideFlags: 0

@@ -2039,7 +2039,6 @@ MonoBehaviour:
     - {fileID: 2133249135}
     - {fileID: 1944175571}
     PV: {fileID: 333548486}
-  playerPV: {fileID: 5258003461314690554}
 --- !u!4 &333548485
 Transform:
   m_ObjectHideFlags: 0
@@ -9652,6 +9651,15 @@ MonoBehaviour:
       coolTime: 1
       type: 0
       tier: 0
+    - name: Mouse
+      hp: 5
+      damage: 3
+      moveSpeed: 2
+      range: 1.2
+      atkDelay: 2
+      coolTime: 1
+      type: 0
+      tier: 0
     - name: Pig
       hp: 10
       damage: 8
@@ -13143,12 +13151,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1182197429, guid: 994a5d713bc99cb4dbb1974a15c64b07, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7e26be905504f384eb2345def6d23975, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

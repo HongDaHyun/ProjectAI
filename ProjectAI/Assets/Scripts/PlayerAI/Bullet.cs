@@ -30,9 +30,6 @@ public class Bullet : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    [PunRPC]
-    void DestroyRPC() => Destroy(gameObject);
-
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
     }

@@ -51,8 +51,8 @@ public class SoundManager : MonoBehaviour
                 break;
         }
         if(sfx[sfxCursor].isPlaying)
-            sfxCursor = (sfxCursor + 1) & sfx.Length;
+            sfxCursor = (sfxCursor + 1) % sfx.Length;
         sfx[sfxCursor].Play();
-        sfxCursor = (sfxCursor + 1) & sfx.Length;
+        sfxCursor = (sfxCursor + 1) % sfx.Length;
     }
 }

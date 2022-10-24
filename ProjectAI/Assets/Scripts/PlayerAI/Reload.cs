@@ -23,7 +23,6 @@ public class Reload : MonoBehaviour
 
     IEnumerator Reloading()
     {
-        gameManager.playerAI.isReload = true;
         curReload = 0;
         gauge.localPosition = startPos;
         gameManager.soundManager.SFXPlayer(SoundManager.SFX.Reload);
