@@ -91,16 +91,21 @@ public struct SlotsUI
         for (int i = 0; i < inventorys.Count; i++)
         {
             if (!inventorys[i].isDropped)
+            {
                 isInventroyFull = false;
-            else
-                isInventroyFull = true;
+                break;
+            }
+            isInventroyFull = true;
+            
         }
         for (int i = 0; i < equipments.Count; i++)
         {
             if (!equipments[i].isDropped)
+            {
                 isEquipmentFull = false;
-            else
-                isEquipmentFull = true;
+                break;
+            }
+            isEquipmentFull = true;
         }
     }
 

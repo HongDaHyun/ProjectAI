@@ -103,7 +103,7 @@ MonoBehaviour:
     coolTime: 0
     type: 0
     tier: 0
-  isSpawn: 1
+  isSpawn: 0
 --- !u!1 &4937170860480654340
 GameObject:
   m_ObjectHideFlags: 0

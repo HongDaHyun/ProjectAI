@@ -11,10 +11,6 @@ public class EquipSlot : ItemSlot
     private void Update()
     {
         gameManager.spawnManager.Spawn(this);
-        if(stat.name == null)
-        {
-            isSpawn = true;
-        }
     }
 
     public override void OnDrop(PointerEventData eventData)

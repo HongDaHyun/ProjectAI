@@ -16,9 +16,9 @@ public class SpawnManager : MonoBehaviour
 
     public void Spawn(EquipSlot equip)
     {
-        if (equip.isDropped && !equip.isSpawn)
+        if (equip.isDropped && equip.isSpawn)
         {
-            equip.isSpawn = true;
+            equip.isSpawn = false;
             equip.img.fillAmount = 1;
             if (PhotonNetwork.IsConnected && !PhotonNetwork.IsMasterClient)
                 PhotonNetwork.Instantiate(equip.stat.name, RanPos(), Quaternion.identity);
@@ -28,14 +28,14 @@ public class SpawnManager : MonoBehaviour
                 obj.transform.position = RanPos();
             }
         }
-        if(equip.isDropped && equip.isSpawn)
+        if(equip.isDropped && !equip.isSpawn)
         {
             equip.img.fillAmount -= 1 / equip.stat.coolTime * Time.deltaTime;
 
             if(equip.img.fillAmount <= 0)
             {
                 equip.img.fillAmount = 0;
-                equip.isSpawn = false;
+                equip.isSpawn = true;
             }
         }
     }

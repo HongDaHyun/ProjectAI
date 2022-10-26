@@ -42,9 +42,18 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             stat = eventData.pointerDrag.GetComponent<MonsterUI>().stat;
             if(preSlot.isEquip)
             {
-                preSlot.img.fillAmount = 0;
+                if (!isEquip)
+                    preSlot.img.fillAmount = 0;
+                else if (preSlot == this)
+                { }
+                else if (isEquip)
+                    if(preSlot.isDropped)
+                        preSlot.img.fillAmount = 1;
+                    else if(!preSlot.isDropped)
+                        preSlot.img.fillAmount = 0;
             }
             isDropped = true;
+            gameManager.uiManager.slotsUI.FullSlot();
         }
     }
 

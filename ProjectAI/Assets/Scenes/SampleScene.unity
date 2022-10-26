@@ -1179,6 +1179,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EquipSlot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4376162566387405359, guid: 8cd35f7aa43e79641993d68ebc62dcaa, type: 3}
+      propertyPath: isSpawn
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cd35f7aa43e79641993d68ebc62dcaa, type: 3}
 --- !u!1 &143652420
@@ -8928,6 +8932,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EquipSlot (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4376162566387405359, guid: 8cd35f7aa43e79641993d68ebc62dcaa, type: 3}
+      propertyPath: isSpawn
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cd35f7aa43e79641993d68ebc62dcaa, type: 3}
 --- !u!1 &1100344114
@@ -10155,6 +10163,10 @@ PrefabInstance:
     - target: {fileID: 1692794101551732022, guid: 8cd35f7aa43e79641993d68ebc62dcaa, type: 3}
       propertyPath: m_Name
       value: EquipSlot (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4376162566387405359, guid: 8cd35f7aa43e79641993d68ebc62dcaa, type: 3}
+      propertyPath: isSpawn
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cd35f7aa43e79641993d68ebc62dcaa, type: 3}
@@ -12636,6 +12648,10 @@ PrefabInstance:
     - target: {fileID: 1692794101551732022, guid: 8cd35f7aa43e79641993d68ebc62dcaa, type: 3}
       propertyPath: m_Name
       value: EquipSlot (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4376162566387405359, guid: 8cd35f7aa43e79641993d68ebc62dcaa, type: 3}
+      propertyPath: isSpawn
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cd35f7aa43e79641993d68ebc62dcaa, type: 3}
@@ -16826,6 +16842,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2509291691304349007, guid: 8cd35f7aa43e79641993d68ebc62dcaa, type: 3}
       propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4376162566387405359, guid: 8cd35f7aa43e79641993d68ebc62dcaa, type: 3}
+      propertyPath: isSpawn
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

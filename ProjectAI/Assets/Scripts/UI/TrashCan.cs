@@ -35,8 +35,8 @@ public class TrashCan : MonoBehaviour, IDropHandler
                     Dump(5);
                     break;
             }
-            if (dragDrop.itemSlot.isEquip)
-                dragDrop.itemSlot.img.fillAmount = 0;
+            if (dragDrop.preSlot.isEquip)
+                dragDrop.preSlot.img.fillAmount = 0;
             gameManager.uiManager.slotsUI.FullSlot();
             eventData.pointerDrag.SetActive(false);
         }
