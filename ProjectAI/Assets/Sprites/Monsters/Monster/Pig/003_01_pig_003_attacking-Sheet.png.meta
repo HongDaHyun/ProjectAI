@@ -142,8 +142,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a86fae165fac35e4398da7264b1c88cb
-      internalID: -1030429428
+      spriteID: 2b5142a76c8e73843abf953c42007ec9
+      internalID: -901426857
       vertices: []
       indices: 
       edges: []
@@ -163,8 +163,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 43dfb7b8f300c41499e165480fc0ef5e
-      internalID: -627761410
+      spriteID: c7db0eda518d6764dac729573653841d
+      internalID: 666748651
       vertices: []
       indices: 
       edges: []
@@ -184,29 +184,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6e7d6972c767c146b1bccc2501a843c
-      internalID: -1334271409
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 003_01_pig_003_attacking-Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e72f2fe0c13600f4e96f83bc6e1254ab
-      internalID: 2036124250
+      spriteID: defa1fce4fa918c47bbb3a76753a1943
+      internalID: -2038892607
       vertices: []
       indices: 
       edges: []
@@ -222,10 +201,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      003_01_pig_003_attacking-Sheet_2: -1334271409
-      003_01_pig_003_attacking-Sheet_1: -627761410
-      003_01_pig_003_attacking-Sheet_3: 2036124250
-      003_01_pig_003_attacking-Sheet_0: -1030429428
+      003_01_pig_003_attacking-Sheet_2: -2038892607
+      003_01_pig_003_attacking-Sheet_1: 666748651
+      003_01_pig_003_attacking-Sheet_0: -901426857
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

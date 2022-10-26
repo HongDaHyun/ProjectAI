@@ -79,12 +79,11 @@ public abstract class Monster : MonoBehaviour
             isDie = true;
             yield break;
         }
-        anim.SetInteger("State", 1);
+        anim.SetTrigger("IsHit");
         Vector2 direction = (transform.position - collision.transform.position).normalized;
         rigid.AddForce(direction * 0.0001f, ForceMode2D.Impulse);
         DmgPopUp();
         yield return new WaitForSeconds(0.2f);
-        anim.SetInteger("State", 0);
         isHit = false;
     }
 
@@ -132,7 +131,8 @@ public abstract class Monster : MonoBehaviour
 
     protected IEnumerator Melee()
     {
-        anim.SetInteger("State", 2);
+        isAttack = true;
+        anim.SetTrigger("IsAtk");
         if (Vector2.Distance(new Vector2(0, gameManager.playerAI.transform.position.y), new Vector2(0, transform.position.y)) < 0.3f)
             weapons[0].gameObject.SetActive(true);
         else if(transform.position.y < gameManager.playerAI.transform.position.y)
@@ -143,15 +143,13 @@ public abstract class Monster : MonoBehaviour
         for (int i = 0; i < weapons.Length; i++)
             weapons[i].gameObject.SetActive(false);
         yield return new WaitForSeconds(stat.atkDelay);
-        anim.SetInteger("State", 0);
         isAttack = false;
     }
 
     protected void AttackPattern(string name)
     {
-        if (!isAttack && Vector2.Distance(transform.position, gameManager.playerAI.transform.position) <= stat.range &&!isDie)
+        if (!isAttack && Vector2.Distance(transform.position, gameManager.playerAI.transform.position) <= stat.range && !isDie)
         {
-            isAttack = true;
             StartCoroutine(name);
         }
     }

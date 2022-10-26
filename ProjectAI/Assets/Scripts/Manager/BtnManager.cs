@@ -33,7 +33,7 @@ public class BtnManager : MonoBehaviour
             return;
         if(Input.GetKeyDown(KeyCode.P))
         {
-            gameManager.uiManager.Shopping();
+            ShopClk();
         }
     }
 
@@ -41,9 +41,22 @@ public class BtnManager : MonoBehaviour
 
     #region Click
 
+    public void ShopClk()
+    {
+        if (gameManager.uiManager.Shop[0].activeSelf)
+            gameManager.uiManager.Shop[0].SetActive(false);
+        else if (!gameManager.uiManager.Shop[0].activeSelf)
+            gameManager.uiManager.Shop[0].SetActive(true);
+    }
+
+    public void DeckExit()
+    {
+        gameManager.uiManager.Shop[2].SetActive(false);
+    }
+
     public void CardBoxClk()
     {
-        if (gameManager.uiManager.isInventroyFull)
+        if (gameManager.uiManager.slotsUI.isInventroyFull)
             return;
 
         Price price = gameManager.csvReader.PriceExportData("MonsterBox");

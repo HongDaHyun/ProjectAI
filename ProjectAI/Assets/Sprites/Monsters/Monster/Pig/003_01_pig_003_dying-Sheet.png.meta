@@ -142,8 +142,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 842b681acc936b44590f9b6ddbc1afb4
-      internalID: 1613982640
+      spriteID: a46eec0db63774547a5aedaaaba3e439
+      internalID: -1175226704
       vertices: []
       indices: 
       edges: []
@@ -163,8 +163,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72d15bdbec5f90446a14b3392f60c546
-      internalID: 782200409
+      spriteID: 078e3ec090b6f254dbd24e37ad2283ce
+      internalID: -329523294
       vertices: []
       indices: 
       edges: []
@@ -184,8 +184,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a9fbff58e683b0429728a55f8c6b992
-      internalID: 1449382976
+      spriteID: 341038b7827b9c5499bbbef43fbf3cce
+      internalID: -465691103
       vertices: []
       indices: 
       edges: []
@@ -205,8 +205,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c25f550530971c646b68f4b7c539d56b
-      internalID: -259615331
+      spriteID: a374e451879a7bf45bcb3ef00de563a8
+      internalID: -1116771301
       vertices: []
       indices: 
       edges: []
@@ -226,8 +226,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5f3c162f98b5f554c88bdccac00b12fe
-      internalID: -1196568440
+      spriteID: 4d8fc2b093fb19245baa0fcfbdb033e7
+      internalID: 1180934439
       vertices: []
       indices: 
       edges: []
@@ -243,11 +243,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      003_01_pig_003_dying-Sheet_1: 782200409
-      003_01_pig_003_dying-Sheet_2: 1449382976
-      003_01_pig_003_dying-Sheet_0: 1613982640
-      003_01_pig_003_dying-Sheet_3: -259615331
-      003_01_pig_003_dying-Sheet_4: -1196568440
+      003_01_pig_003_dying-Sheet_1: -329523294
+      003_01_pig_003_dying-Sheet_2: -465691103
+      003_01_pig_003_dying-Sheet_0: -1175226704
+      003_01_pig_003_dying-Sheet_3: -1116771301
+      003_01_pig_003_dying-Sheet_4: 1180934439
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

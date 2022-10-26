@@ -156,6 +156,7 @@ MonoBehaviour:
     tier: 0
   isAttack: 0
   isHit: 0
+  isDie: 0
 --- !u!114 &3579892101842436094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,7 +189,7 @@ Animator:
   m_GameObject: {fileID: 4216956034388105023}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dae3c867a4b8a95498811e6969cbb7af, type: 2}
+  m_Controller: {fileID: 9100000, guid: daf8ca3357814bb40b9947f6fe0ddd70, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

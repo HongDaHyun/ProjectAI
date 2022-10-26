@@ -142,8 +142,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5fd551626e6dbb4a9c51d9719437208
-      internalID: -70161613
+      spriteID: f70e2bfd5a4bb4341886542332f110db
+      internalID: 917401072
       vertices: []
       indices: 
       edges: []
@@ -163,8 +163,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57d8d0bf7ed228e488e0dbc456f099fb
-      internalID: 1287721083
+      spriteID: 4957ba4f2c9ef1a4da399d0ebb793ae2
+      internalID: 958023164
       vertices: []
       indices: 
       edges: []
@@ -184,8 +184,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1017aae7724fe54bb0b46efba507be2
-      internalID: -1043439358
+      spriteID: d54f06af7958ff945a01e2522e044951
+      internalID: -1523907403
       vertices: []
       indices: 
       edges: []
@@ -205,8 +205,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 64305215e638b9d4ab0dfec74cc44e12
-      internalID: -243638826
+      spriteID: eddb9678323df08439ee537a953ea86c
+      internalID: -332151085
       vertices: []
       indices: 
       edges: []
@@ -222,10 +222,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      004_01_deer_001_dying-Sheet_0: -70161613
-      004_01_deer_001_dying-Sheet_1: 1287721083
-      004_01_deer_001_dying-Sheet_2: -1043439358
-      004_01_deer_001_dying-Sheet_3: -243638826
+      004_01_deer_001_dying-Sheet_0: 917401072
+      004_01_deer_001_dying-Sheet_1: 958023164
+      004_01_deer_001_dying-Sheet_2: -1523907403
+      004_01_deer_001_dying-Sheet_3: -332151085
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

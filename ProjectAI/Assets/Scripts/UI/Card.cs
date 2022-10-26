@@ -81,6 +81,8 @@ public class Card : MonoBehaviour
                 monsterUI.transform.SetParent(gameManager.uiManager.slotsUI.inventorys[i].transform);
                 monsterUI.transform.localScale = new Vector3(1, 1, 1);
                 monsterUI.GetComponent<RectTransform>().position = gameManager.uiManager.slotsUI.inventorys[i].GetComponent<RectTransform>().position;
+                gameManager.uiManager.slotsUI.FullSlot();
+                gameManager.uiManager.slotsUI.Evolution();
                 return;
             }
         }

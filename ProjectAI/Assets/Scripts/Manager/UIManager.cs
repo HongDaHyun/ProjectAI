@@ -15,8 +15,6 @@ public class UIManager : MonoBehaviour
     public Text[] Soul;
     public Timer timer;
 
-    public bool isInventroyFull, isEquipmentFull;
-
     private static UIManager instance = null;
 
     GameManager gameManager;
@@ -42,42 +40,15 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         SecSoul();
-        FullSlot();
         if(!gameManager.isGameOver)
         {
             timer.UpdateTimer();
         }
     }
 
-    public void Shopping()
-    {
-        if (Shop[0].activeSelf)
-            Shop[0].SetActive(false);
-        else if (!Shop[0].activeSelf)
-            Shop[0].SetActive(true);
-    }
-
     public void SecSoul()
     {
         Soul[0].text = gameManager.money.ToString();
-    }
-
-    public void FullSlot()
-    {
-        for(int i = 0; i < slotsUI.inventorys.Count; i++)
-        {
-            if (!slotsUI.inventorys[i].GetComponent<ItemSlot>().isDropped)
-                isInventroyFull = false;
-            else
-                isInventroyFull = true;
-        }
-        for (int i = 0; i < slotsUI.equipments.Count; i++)
-        {
-            if (!slotsUI.equipments[i].GetComponent<ItemSlot>().isDropped)
-                isEquipmentFull = false;
-            else
-                isEquipmentFull = true;
-        }
     }
 }
 
@@ -111,8 +82,45 @@ public struct HpBarUI
 [Serializable]
 public struct SlotsUI
 {
-    public List<GameObject> inventorys;
-    public List<GameObject> equipments;
+    public List<ItemSlot> inventorys;
+    public List<ItemSlot> equipments;
+    public bool isInventroyFull, isEquipmentFull;
+
+    public void FullSlot()
+    {
+        for (int i = 0; i < inventorys.Count; i++)
+        {
+            if (!inventorys[i].isDropped)
+                isInventroyFull = false;
+            else
+                isInventroyFull = true;
+        }
+        for (int i = 0; i < equipments.Count; i++)
+        {
+            if (!equipments[i].isDropped)
+                isEquipmentFull = false;
+            else
+                isEquipmentFull = true;
+        }
+    }
+
+    public void Evolution()
+    {
+        int k = 0;
+        for(int i = 0; i < inventorys.Count; i++)
+        {
+            for(int j = 0; j < inventorys.Count; j++)
+            {
+                if (inventorys[i].stat.name == inventorys[j].stat.name && inventorys[i].stat.name != "")
+                    k++;
+            }
+            if(k >= 3)
+            {
+                Debug.Log("ÁøÈ­ " + inventorys[i].stat.name);
+            }
+            k = 0;
+        }
+    }
 }
 
 [Serializable]

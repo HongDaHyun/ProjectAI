@@ -142,8 +142,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: beffaacc3c0c84b4ba7b45b317b1a316
-      internalID: 1949097690
+      spriteID: 9fa6cf30885ef22449762376a228574a
+      internalID: 1128840851
       vertices: []
       indices: 
       edges: []
@@ -163,50 +163,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9b99e040f65b9f46bba3dd554298791
-      internalID: 1962277081
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 003_01_pig_003_moving-Sheet_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 80fb541bea4ce654ca13eb2bf66452e1
-      internalID: 1801364565
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 003_01_pig_003_moving-Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3cae17568d73bc04690bfe1b2a6fdd00
-      internalID: -1010073533
+      spriteID: d5d9989924ffe9e4cb8487376467bb35
+      internalID: 315334369
       vertices: []
       indices: 
       edges: []
@@ -222,10 +180,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      003_01_pig_003_moving-Sheet_0: 1949097690
-      003_01_pig_003_moving-Sheet_3: -1010073533
-      003_01_pig_003_moving-Sheet_2: 1801364565
-      003_01_pig_003_moving-Sheet_1: 1962277081
+      003_01_pig_003_moving-Sheet_0: 1128840851
+      003_01_pig_003_moving-Sheet_1: 315334369
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
