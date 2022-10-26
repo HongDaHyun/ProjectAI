@@ -13334,13 +13334,13 @@ MonoBehaviour:
       tier: 3
     percentages:
     - tier: 3
-      weight: 5
+      weight: 3
     - tier: 2
-      weight: 10
+      weight: 7
     - tier: 1
       weight: 30
     - tier: 0
-      weight: 55
+      weight: 60
     prices:
     - name: MonsterBox
       price: 10
