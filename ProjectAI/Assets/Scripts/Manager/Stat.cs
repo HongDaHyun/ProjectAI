@@ -36,6 +36,13 @@ public struct MonsterStat
 }
 
 [Serializable]
+public struct Percentage
+{
+    public Tier tier;
+    public int weight;
+}
+
+[Serializable]
 public struct Price
 {
     public string name;
@@ -54,6 +61,7 @@ public class List
 {
     public PlayerStat[] playerStats;
     public MonsterStat[] monsterStats;
+    public Percentage[] percentages;
     public Price[] prices;
     public SpriteStat[] spriteStats;
 }

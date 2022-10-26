@@ -70,7 +70,6 @@ public class BtnManager : MonoBehaviour
         for (int i = 0; i < gameManager.uiManager.deckList.Count; i++)
         {
             gameManager.uiManager.deckList[i].SetActive(true);
-            gameManager.uiManager.deckList[i].GetComponent<Card>().SetCard();
         }
     }
 

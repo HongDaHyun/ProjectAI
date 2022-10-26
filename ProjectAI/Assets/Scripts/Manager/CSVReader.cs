@@ -8,6 +8,7 @@ public class CSVReader : MonoBehaviour
 {
     private static CSVReader _instance;
     public TextAsset[] textAssets;
+    [HideInInspector]public int percentTotal;
 
     public List list = new List();
 
@@ -37,6 +38,8 @@ public class CSVReader : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+        for (int i = 0; i < list.percentages.Length; i++)
+            percentTotal += list.percentages[i].weight;
     }
 
     #region ReadCSV

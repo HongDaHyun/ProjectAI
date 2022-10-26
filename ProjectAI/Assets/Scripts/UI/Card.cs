@@ -19,6 +19,11 @@ public class Card : MonoBehaviour
         SetCardUI();
     }
 
+    private void OnEnable()
+    {
+        SetCard();
+    }
+
     private void OnMouseEnter()
     {
         gameObject.transform.localScale = new Vector3(8.5f, 8.5f, 1);
@@ -36,10 +41,9 @@ public class Card : MonoBehaviour
         InstantiateMonsterUI();
     }
 
-    public void SetCard()
+    void SetCard()
     {
-        id = Random.Range(0, gameManager.csvReader.list.monsterStats.Length);
-        monsterStat = gameManager.csvReader.monsterExportData(gameManager.csvReader.list.monsterStats[id].name);
+        monsterStat = MakeRanCard(RanCard());
         SpriteStat spriteStat = gameManager.csvReader.spriteExportData(monsterStat.name);
         SpriteStat atkSpriteStat = gameManager.csvReader.spriteExportData(monsterStat.type.ToString());
 
@@ -48,6 +52,36 @@ public class Card : MonoBehaviour
         cardUI.atk.text = monsterStat.damage.ToString();
         cardUI.img.sprite = spriteStat.sprite;
         cardUI.atkType.sprite = atkSpriteStat.sprite;
+    }
+
+    Tier RanCard()
+    {
+        int weight = 0;
+        int selectNum = 0;
+
+        selectNum = Mathf.RoundToInt(gameManager.csvReader.percentTotal * Random.Range(0.0f, 1.0f));
+
+        for (int i = 0; i < gameManager.csvReader.list.percentages.Length; i++)
+        {
+            weight += gameManager.csvReader.list.percentages[i].weight;
+            if(selectNum <= weight)
+            {
+                return gameManager.csvReader.list.percentages[i].tier;
+            }
+        }
+        return 0;
+    }
+
+    MonsterStat MakeRanCard(Tier _tier)
+    {
+        List<MonsterStat> list = new List<MonsterStat>();
+        for(int i = 0; i < gameManager.csvReader.list.monsterStats.Length; i++)
+        {
+            if (_tier == gameManager.csvReader.list.monsterStats[i].tier)
+                list.Add(gameManager.csvReader.list.monsterStats[i]);
+        }
+        int ran = Random.Range(0, list.Count);
+        return list[ran];
     }
 
     void SetCardUI()
