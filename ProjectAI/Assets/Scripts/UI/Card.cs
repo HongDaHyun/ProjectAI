@@ -110,11 +110,13 @@ public class Card : MonoBehaviour
                 ItemSlot itemSlot = gameManager.uiManager.slotsUI.inventorys[i].GetComponent<ItemSlot>();
                 itemSlot.isDropped = true;
                 itemSlot.stat = monsterStat;
-                GameObject monsterUI = gameManager.poolingManager.MakeObj("MonsterUI");
-                monsterUI.GetComponent<MonsterUI>().SetUI(monsterStat);
+                MonsterUI monsterUI = gameManager.poolingManager.MakeObj("MonsterUI").GetComponent<MonsterUI>();
+                DragDrop dragDrop = monsterUI.GetComponent<DragDrop>();
+                dragDrop.curSlot = itemSlot;
+                monsterUI.SetUI(monsterStat);
                 monsterUI.transform.SetParent(gameManager.uiManager.slotsUI.inventorys[i].transform);
                 monsterUI.transform.localScale = new Vector3(1, 1, 1);
-                monsterUI.GetComponent<RectTransform>().position = gameManager.uiManager.slotsUI.inventorys[i].GetComponent<RectTransform>().position;
+                dragDrop.rect.position = gameManager.uiManager.slotsUI.inventorys[i].rect.position;
                 gameManager.uiManager.slotsUI.FullSlot();
                 gameManager.uiManager.slotsUI.Evolution();
                 return;

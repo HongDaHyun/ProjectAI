@@ -50,6 +50,33 @@ public class UIManager : MonoBehaviour
     {
         Soul[0].text = gameManager.money.ToString();
     }
+
+    int sell;
+    public void Dump(Tier tier, RectTransform rect)
+    {
+        switch(tier)
+        {
+            case Tier.Common:
+                sell = 1;
+                break;
+            case Tier.Rare:
+                sell = 2;
+                break;
+            case Tier.Epic:
+                sell = 3;
+                break;
+            case Tier.Legend:
+                sell = 5;
+                break;
+        }
+        gameManager.money += sell;
+
+        GameObject obj = gameManager.poolingManager.MakeObj("UIPopUp");
+        obj.transform.SetParent(rect.transform);
+        obj.transform.localScale = new Vector3(1, 1, 1);
+        obj.GetComponent<RectTransform>().position = rect.position;
+        StartCoroutine(obj.GetComponent<UIPopUp>().Pop(sell));
+    }
 }
 
 [Serializable]

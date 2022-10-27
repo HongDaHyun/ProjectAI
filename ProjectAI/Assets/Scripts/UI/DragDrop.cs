@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DragDrop : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
+    GameManager gameManager;
     Canvas canvas;
-    RectTransform rect;
+    [HideInInspector]public RectTransform rect;
     CanvasGroup canvasGroup;
     public Transform preParent;
+    public ItemSlot curSlot;
     public ItemSlot preSlot;
     MonsterUI monsterUI;
 
     private void Awake()
     {
+        gameManager = GameManager.Instance;
         rect = GetComponent<RectTransform>();
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
@@ -60,8 +63,24 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         canvasGroup.blocksRaycasts = true;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
+        if (eventData.pointerClick != null)
+        {
+            if (Input.GetMouseButtonUp(1))
+            {
+                gameManager.uiManager.Dump(monsterUI.stat.tier, curSlot.rect);
 
+                if (curSlot.isEquip)
+                {
+                    curSlot.img.fillAmount = 0;
+                }
+                curSlot.isDropped = false;
+                curSlot.stat = new MonsterStat();
+
+                gameManager.uiManager.slotsUI.FullSlot();
+                eventData.pointerDrag.SetActive(false);
+            }
+        }
     }
 }

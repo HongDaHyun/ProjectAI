@@ -9,7 +9,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     public bool isDropped, isEquip;
     public Image img;
     public MonsterStat stat;
-    protected RectTransform rect;
+    public RectTransform rect;
     protected GameManager gameManager;
     protected ItemSlot preSlot;
 
@@ -26,10 +26,11 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         {
             gameManager.soundManager.SFXPlayer(SoundManager.SFX.DropSlot);
             eventData.pointerDrag.transform.SetParent(transform);
-            eventData.pointerDrag.GetComponent<RectTransform>().position = rect.position;
-
             DragDrop dd = eventData.pointerDrag.GetComponent<DragDrop>();
+            dd.rect.position = rect.position;
+
             preSlot = dd.preParent.GetComponent<ItemSlot>();
+            dd.curSlot = this;
 
             if (isDropped)
             {
