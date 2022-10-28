@@ -10,7 +10,7 @@ public class DmgPopUp : MonoBehaviour
     public float activeTime;
 
     GameManager gameManager;
-    TextMeshPro text;
+    public TextMeshPro text;
     Color alpha;
 
 
@@ -36,7 +36,6 @@ public class DmgPopUp : MonoBehaviour
     IEnumerator Pop()
     {
         alpha.a = 1;
-        text.text = gameManager.playerAI.stat.ammo.damage.ToString();
         yield return new WaitForSeconds(activeTime);
         gameObject.SetActive(false);
     }

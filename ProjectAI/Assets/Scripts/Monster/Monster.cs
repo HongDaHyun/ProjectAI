@@ -63,7 +63,7 @@ public abstract class Monster : MonoBehaviour
     {
         if (collision.CompareTag("Bullet") && !isHit && !isDie)
         {
-            StartCoroutine(Damaged(gameManager.playerAI.stat.ammo.damage, collision));
+            StartCoroutine(Damaged(collision.GetComponent<Bullet>().dmg, collision));
         }
     }
 
@@ -77,6 +77,7 @@ public abstract class Monster : MonoBehaviour
             StartCoroutine(FadeOut());
             col.enabled = false;
             isDie = true;
+            gameManager.playerAI.curExp += stat.exp;
             yield break;
         }
         anim.SetTrigger("IsHit");

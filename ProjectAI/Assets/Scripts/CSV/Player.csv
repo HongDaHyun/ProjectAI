@@ -1,2 +1,2 @@
-Name,Weapon,HP,WalkSpeed,AttackSpeed,BulletSpeed,ReloadSpeed
-Test,LongGun,1000,3,0.7,7,2
+Name,Weapon,HP,Exp,Damage,WalkSpeed,AttackSpeed,BulletSpeed,ReloadSpeed
+Test,LongGun,1000,10,2,3,0.7,7,2

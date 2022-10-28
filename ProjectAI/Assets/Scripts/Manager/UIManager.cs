@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
 {
     public Camera UICam;
     public HpBarUI hpBarUI;
+    public ExpBarUI expBarUI;
     public SlotsUI slotsUI;
     public List<GameObject> deckList;
     public GameObject GameOver;
@@ -103,6 +104,41 @@ public struct HpBarUI
         hpBar.value = Mathf.Lerp(hpBar.value, imsi, Time.deltaTime * 10);
 
         fill.color = gradient.Evaluate(hpBar.normalizedValue);
+    }
+}
+
+[Serializable]
+public struct ExpBarUI
+{
+    public Slider expBar;
+    public Image fill;
+    public Text levelTxt;
+
+    float imsi;
+
+    public void SetExp()
+    {
+        GameManager gameManager = GameManager.Instance;
+        gameManager.playerAI.curExp = 0;
+        expBar.value = 0f;
+    }
+
+    public void UpdateExp(PlayerAI ai)
+    {
+        imsi = (float)ai.curExp / (float)ai.stat.exp;
+
+        expBar.value = Mathf.Lerp(expBar.value, imsi, Time.deltaTime * 10);
+
+        if (ai.curExp >= ai.stat.exp)
+        {
+            ai.curExp -= ai.stat.exp;
+            ai.level++;
+            ai.stat.exp = (ai.level * ai.level + ai.level) * 5;
+            levelTxt.text = ai.level.ToString();
+
+            ai.stat.damage += 1;
+            ai.stat.walkSpeed += 0.1f;
+        }
     }
 }
 

@@ -17,11 +17,12 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
     protected Vector3 curPos;
 
     public PlayerStat stat;
-    public string _name;
-    public int curHP, longGunAmmo;
-    public bool isHit, isDead, isReload;
 
-    protected float curShotTime;
+    public string _name;
+    public int curHP, curExp, level;
+    public bool isHit, isDead, isLongGunReload;
+
+    protected float longGunCurShotTime;
 
     private void Awake()
     {
@@ -41,12 +42,12 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
     public virtual void Update()
     {
         gameManager.uiManager.hpBarUI.UpdateHP(curHP, stat.hp);
-        curShotTime += Time.deltaTime;
+        gameManager.uiManager.expBarUI.UpdateExp(this);
+        longGunCurShotTime += Time.deltaTime;
         rigid.velocity = Vector3.zero;
         Die();
         TestWalk();
         Detecting(5f);
-        Reload();
     }
 
     private void FixedUpdate()
@@ -124,6 +125,7 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
     #endregion
 
     #region Attack
+
     protected void Detecting(float radius)
     {
         Collider2D[] colliderArray = Physics2D.OverlapCircleAll(transform.position, radius);
@@ -131,7 +133,7 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
         {
             if (collider2D.gameObject.CompareTag("Monster"))
             {
-                LongGun(collider2D.gameObject);
+                GunShot(collider2D.gameObject);
             }
             else if(collider2D.gameObject.CompareTag("MonsterWeapon"))
             {
@@ -141,46 +143,48 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
 
     }
 
-    protected void Reload()
+    void Reload()
     {
-        if(!isReload)
-            StartCoroutine(DelayReload());
-    }
-
-    IEnumerator DelayReload()
-    {
-        if (longGunAmmo <= 0)
+        if (stat.ammo[0].curAmmo <= 0)
         {
-            isReload = true;
-            yield return new WaitForSeconds(stat.attackSpeed);
+            isLongGunReload = true;
             reload.SetActive(true);
         }
     }
 
     protected void LongGun(GameObject target)
     {
-        if(curShotTime >= stat.attackSpeed && !isReload && !target.GetComponent<Monster>().isDie)
+        if(longGunCurShotTime >= stat.attackSpeed && !isLongGunReload)
         {
-            Vector2 direction = target.transform.position - transform.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-            if(PhotonNetwork.IsConnected && !pv.IsMine)
-                PhotonNetwork.Instantiate("Bullet", transform.position, rotation);
-            else if(!PhotonNetwork.IsConnected)
+            if(!target.GetComponent<Monster>().isDie)
             {
-                GameObject bullet = gameManager.poolingManager.MakeObj("Bullet");
-                bullet.transform.position = transform.position;
-                bullet.transform.rotation = rotation;
+                Vector2 direction = target.transform.position - transform.position;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+                if (PhotonNetwork.IsConnected && !pv.IsMine)
+                    PhotonNetwork.Instantiate("Bullet", transform.position, rotation);
+                else if (!PhotonNetwork.IsConnected)
+                {
+                    GameObject bullet = gameManager.poolingManager.MakeObj("Bullet");
+                    bullet.transform.position = transform.position;
+                    bullet.transform.rotation = rotation;
+                    bullet.GetComponent<Bullet>().dmg = stat.ammo[0].damage + stat.damage;
+                }
+                gameManager.cameraManager.ShakeCam(2f, 0.2f);
+                gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
+                stat.ammo[0].curAmmo -= 1;
             }
-            gameManager.cameraManager.ShakeCam(2f, 0.2f);
-            gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
+            Reload();
 
-            longGunAmmo -= 1;
+            Look(target.transform.position);
 
-            Look(direction);
-
-            curShotTime = 0;
+            longGunCurShotTime = 0;
         }
+    }
+
+    protected void GunShot(GameObject target)
+    {
+        LongGun(target);
     }
 
     protected void Look(Vector2 direction)
@@ -196,10 +200,10 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
     private void SetStat()
     {
         stat = gameManager.csvReader.PlayerExportData(_name);
-
+        level = 1;
         uiManager = gameManager.uiManager;
         uiManager.hpBarUI.SetMaxHP();
-        longGunAmmo = stat.ammo.ammo;
+        uiManager.expBarUI.SetExp();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

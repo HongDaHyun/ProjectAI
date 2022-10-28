@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviourPunCallbacks, IPunObservable
 {
     PhotonView pv;
     GameManager gameManager;
+    public int dmg;
 
     private void Awake()
     {
@@ -34,6 +35,7 @@ public class Bullet : MonoBehaviourPunCallbacks, IPunObservable
     void DmgPopUp(Collider2D collision)
     {
         GameObject dmgDmgPopUp = gameManager.poolingManager.MakeObj("DmgPopUp");
+        dmgDmgPopUp.GetComponent<DmgPopUp>().text.text = dmg.ToString();
         dmgDmgPopUp.transform.position = new Vector2(collision.transform.position.x, collision.transform.position.y + 0.8f);
     }
 

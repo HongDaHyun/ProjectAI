@@ -7,9 +7,11 @@ using System;
 public struct PlayerStat
 {
     public string name;
-    public PlayerAmmo ammo;
+    public PlayerAmmo[] ammo;
 
     public int hp;
+    public int exp;
+    public int damage;
 
     public float walkSpeed;
     public float attackSpeed;
@@ -22,6 +24,7 @@ public struct PlayerAmmo
 {
     public PlayerWeapon name;
     public int ammo;
+    public int curAmmo;
     public int damage;
 }
 
@@ -32,6 +35,7 @@ public struct MonsterStat
 
     public int hp;
     public int damage;
+    public int exp;
 
     public float moveSpeed;
     public float range;
