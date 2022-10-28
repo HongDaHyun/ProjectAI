@@ -12,6 +12,7 @@ public class CSVBtn : Editor
 
         if (GUILayout.Button("Read CSV"))
         {
+            csvReader.AmmoReadCSV();
             csvReader.PlayerReadCSV();
             csvReader.MonsterReadCSV();
             csvReader.PriceReadCSV();

@@ -35,7 +35,7 @@ public class Reload : MonoBehaviour
             gauge.localPosition = Vector2.Lerp(startPos, endPos, curReload / gameManager.playerAI.stat.reloadSpeed);
             yield return new WaitForFixedUpdate();
         }
-        gameManager.playerAI.curBulletNum = gameManager.playerAI.stat.bulletNum;
+        gameManager.playerAI.longGunAmmo = gameManager.playerAI.stat.ammo.ammo;
         gameManager.playerAI.isReload = false;
         gameObject.SetActive(false);
     }

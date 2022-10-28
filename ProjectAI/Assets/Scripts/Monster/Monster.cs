@@ -63,7 +63,7 @@ public abstract class Monster : MonoBehaviour
     {
         if (collision.CompareTag("Bullet") && !isHit && !isDie)
         {
-            StartCoroutine(Damaged(gameManager.playerAI.stat.damage, collision));
+            StartCoroutine(Damaged(gameManager.playerAI.stat.ammo.damage, collision));
         }
     }
 
@@ -82,15 +82,8 @@ public abstract class Monster : MonoBehaviour
         anim.SetTrigger("IsHit");
         Vector2 direction = (transform.position - collision.transform.position).normalized;
         rigid.AddForce(direction * 0.0001f, ForceMode2D.Impulse);
-        DmgPopUp();
         yield return new WaitForSeconds(0.2f);
         isHit = false;
-    }
-
-    void DmgPopUp()
-    {
-        GameObject dmgDmgPopUp = gameManager.poolingManager.MakeObj("DmgPopUp");
-        dmgDmgPopUp.transform.position = new Vector2(transform.position.x, transform.position.y + 0.8f);
     }
 
     protected void LookAt()

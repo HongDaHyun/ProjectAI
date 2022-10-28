@@ -36,7 +36,7 @@ public class DmgPopUp : MonoBehaviour
     IEnumerator Pop()
     {
         alpha.a = 1;
-        text.text = gameManager.playerAI.stat.damage.ToString();
+        text.text = gameManager.playerAI.stat.ammo.damage.ToString();
         yield return new WaitForSeconds(activeTime);
         gameObject.SetActive(false);
     }

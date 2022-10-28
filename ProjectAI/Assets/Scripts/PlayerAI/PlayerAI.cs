@@ -18,7 +18,7 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
 
     public PlayerStat stat;
     public string _name;
-    public int curHP, curBulletNum;
+    public int curHP, longGunAmmo;
     public bool isHit, isDead, isReload;
 
     protected float curShotTime;
@@ -131,7 +131,7 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
         {
             if (collider2D.gameObject.CompareTag("Monster"))
             {
-                Attack(collider2D.gameObject);
+                LongGun(collider2D.gameObject);
             }
             else if(collider2D.gameObject.CompareTag("MonsterWeapon"))
             {
@@ -149,7 +149,7 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
 
     IEnumerator DelayReload()
     {
-        if (curBulletNum <= 0)
+        if (longGunAmmo <= 0)
         {
             isReload = true;
             yield return new WaitForSeconds(stat.attackSpeed);
@@ -157,7 +157,7 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
         }
     }
 
-    protected void Attack(GameObject target)
+    protected void LongGun(GameObject target)
     {
         if(curShotTime >= stat.attackSpeed && !isReload && !target.GetComponent<Monster>().isDie)
         {
@@ -172,9 +172,10 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
                 bullet.transform.position = transform.position;
                 bullet.transform.rotation = rotation;
             }
+            gameManager.cameraManager.ShakeCam(2f, 0.2f);
             gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
 
-            curBulletNum -= 1;
+            longGunAmmo -= 1;
 
             Look(direction);
 
@@ -198,7 +199,7 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
 
         uiManager = gameManager.uiManager;
         uiManager.hpBarUI.SetMaxHP();
-        curBulletNum = stat.bulletNum;
+        longGunAmmo = stat.ammo.ammo;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

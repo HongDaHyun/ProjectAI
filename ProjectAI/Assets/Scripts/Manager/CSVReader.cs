@@ -43,9 +43,25 @@ public class CSVReader : MonoBehaviour
     }
 
     #region ReadCSV
+    public void AmmoReadCSV()
+    {
+        int order = 0; int size = 3;
+        string[] data = textAssets[order].text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+        int tableSize = data.Length / size - 1;
+        list.playerAmmos = new PlayerAmmo[tableSize];
+
+        for (int i = 0; i < tableSize; i++)
+        {
+            list.playerAmmos[i] = new PlayerAmmo();
+            list.playerAmmos[i].name = (PlayerWeapon)Enum.Parse(typeof(PlayerWeapon), (data[size * (i + 1)]));
+            list.playerAmmos[i].ammo = int.Parse(data[size * (i + 1) + 1]);
+            list.playerAmmos[i].damage = int.Parse(data[size * (i + 1) + 2]);
+        }
+    }
+
     public void PlayerReadCSV()
     {
-        int order = 0; int size = 8;
+        int order = 1; int size = 7;
         string[] data = textAssets[order].text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
         int tableSize = data.Length / size - 1;
         list.playerStats = new PlayerStat[tableSize];
@@ -54,19 +70,18 @@ public class CSVReader : MonoBehaviour
         {
             list.playerStats[i] = new PlayerStat();
             list.playerStats[i].name = data[size * (i + 1)];
-            list.playerStats[i].hp = int.Parse(data[size * (i + 1) + 1]);
-            list.playerStats[i].damage = int.Parse(data[size * (i + 1) + 2]);
-            list.playerStats[i].bulletNum = int.Parse(data[size * (i + 1) + 3]);
-            list.playerStats[i].walkSpeed = float.Parse(data[size * (i + 1) + 4]);
-            list.playerStats[i].attackSpeed = float.Parse(data[size * (i + 1) + 5]);
-            list.playerStats[i].bulletSpeed = float.Parse(data[size * (i + 1) + 6]);
-            list.playerStats[i].reloadSpeed = float.Parse(data[size * (i + 1) + 7]);
+            list.playerStats[i].ammo = PlayerAmmoExportData(((PlayerWeapon)Enum.Parse(typeof(PlayerWeapon), (data[size * (i + 1) + 1]))).ToString());
+            list.playerStats[i].hp = int.Parse(data[size * (i + 1) + 2]);
+            list.playerStats[i].walkSpeed = float.Parse(data[size * (i + 1) + 3]);
+            list.playerStats[i].attackSpeed = float.Parse(data[size * (i + 1) + 4]);
+            list.playerStats[i].bulletSpeed = float.Parse(data[size * (i + 1) + 5]);
+            list.playerStats[i].reloadSpeed = float.Parse(data[size * (i + 1) + 6]);
         }
     }
 
     public void MonsterReadCSV()
     {
-        int order = 1;  int size = 9;
+        int order = 2;  int size = 9;
         string[] data = textAssets[order].text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
         int tableSize = data.Length / size - 1;
         list.monsterStats = new MonsterStat[tableSize];
@@ -88,7 +103,7 @@ public class CSVReader : MonoBehaviour
 
     public void PriceReadCSV()
     {
-        int order = 2; int size = 2;
+        int order = 3; int size = 2;
         string[] data = textAssets[order].text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
         int tableSize = data.Length / size - 1;
         list.prices = new Price[tableSize];
@@ -104,6 +119,18 @@ public class CSVReader : MonoBehaviour
     #endregion
 
     #region Name 
+    public PlayerAmmo PlayerAmmoExportData(string name)
+    {
+        for (int i = 0; i < list.playerAmmos.Length; i++)
+        {
+            if (name == list.playerAmmos[i].name.ToString())
+            {
+                return list.playerAmmos[i];
+            }
+        }
+        return new PlayerAmmo();
+    }
+
     public PlayerStat PlayerExportData(string name)
     {
         for(int i = 0; i < list.playerStats.Length; i++)

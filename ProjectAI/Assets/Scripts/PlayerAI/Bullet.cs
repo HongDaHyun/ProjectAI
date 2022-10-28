@@ -27,7 +27,14 @@ public class Bullet : MonoBehaviourPunCallbacks, IPunObservable
                 PhotonNetwork.Destroy(gameObject);
             else
                 gameObject.SetActive(false);
+            DmgPopUp(collision);
         }
+    }
+
+    void DmgPopUp(Collider2D collision)
+    {
+        GameObject dmgDmgPopUp = gameManager.poolingManager.MakeObj("DmgPopUp");
+        dmgDmgPopUp.transform.position = new Vector2(collision.transform.position.x, collision.transform.position.y + 0.8f);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

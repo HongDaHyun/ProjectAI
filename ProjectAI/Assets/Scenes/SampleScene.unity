@@ -3098,16 +3098,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 20
-    m_Right: 20
-    m_Top: 20
-    m_Bottom: 20
-  m_ChildAlignment: 4
-  m_Spacing: 20
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -7541,6 +7541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a0c3c5706b85e544b579d7431b87598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraManager: {fileID: 1360605960}
   soundManager: {fileID: 1758496814}
   csvReader: {fileID: 1630697607}
   poolingManager: {fileID: 1231099117}
@@ -10791,6 +10792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4d411467c1cb941a77635b8567e2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cinemachine: {fileID: 100548716}
 --- !u!4 &1360605961
 Transform:
   m_ObjectHideFlags: 0
@@ -13219,6 +13221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textAssets:
+  - {fileID: 4900000, guid: 26155510e5c9cc24ab99bd663a694697, type: 3}
   - {fileID: 4900000, guid: a5f12c4c19d5b394e828af0e97caec00, type: 3}
   - {fileID: 4900000, guid: 84abfe0b099f0ae4bb8d3c0bf33c5890, type: 3}
   - {fileID: 4900000, guid: c8d081c04d5dd5243a392b2fb236f1e0, type: 3}
@@ -13226,13 +13229,43 @@ MonoBehaviour:
   list:
     playerStats:
     - name: Test
+      ammo:
+        name: 0
+        ammo: 8
+        damage: 5
       hp: 1000
-      damage: 5
-      bulletNum: 8
       walkSpeed: 3
       attackSpeed: 0.7
       bulletSpeed: 7
       reloadSpeed: 2
+    playerAmmos:
+    - name: 0
+      ammo: 8
+      damage: 5
+    - name: 1
+      ammo: 5
+      damage: 2
+    - name: 2
+      ammo: 4
+      damage: 1
+    - name: 3
+      ammo: 1
+      damage: 1
+    - name: 4
+      ammo: 1
+      damage: 1
+    - name: 5
+      ammo: 1
+      damage: 1
+    - name: 6
+      ammo: 1
+      damage: 1
+    - name: 7
+      ammo: 1
+      damage: 1
+    - name: 8
+      ammo: 1
+      damage: 1
     monsterStats:
     - name: Test
       hp: 10
@@ -17114,16 +17147,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stat:
     name: 
+    ammo:
+      name: 0
+      ammo: 0
+      damage: 0
     hp: 0
-    damage: 0
-    bulletNum: 0
     walkSpeed: 0
     attackSpeed: 0
     bulletSpeed: 0
     reloadSpeed: 0
   _name: Test
   curHP: 0
-  curBulletNum: 0
+  longGunAmmo: 0
   isHit: 0
   isDead: 0
   isReload: 0

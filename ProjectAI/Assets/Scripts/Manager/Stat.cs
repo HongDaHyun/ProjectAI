@@ -7,15 +7,22 @@ using System;
 public struct PlayerStat
 {
     public string name;
+    public PlayerAmmo ammo;
 
     public int hp;
-    public int damage;
-    public int bulletNum;
 
     public float walkSpeed;
     public float attackSpeed;
     public float bulletSpeed;
     public float reloadSpeed;
+}
+
+[Serializable]
+public struct PlayerAmmo
+{
+    public PlayerWeapon name;
+    public int ammo;
+    public int damage;
 }
 
 [Serializable]
@@ -60,6 +67,7 @@ public struct SpriteStat
 public class List
 {
     public PlayerStat[] playerStats;
+    public PlayerAmmo[] playerAmmos;
     public MonsterStat[] monsterStats;
     public Percentage[] percentages;
     public Price[] prices;
