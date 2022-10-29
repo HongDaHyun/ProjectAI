@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 Name,HP,Damage,WalkSpeed,AttackSpeed,BulletSpeed
 <<<<<<< HEAD
 <<<<<<< Updated upstream
@@ -8,3 +9,7 @@ Test,100,5,3,0.7,7
 =======
 Test,100,5,3,0.5,5
 >>>>>>> main
+=======
+Name,Weapon,HP,Exp,Damage,WalkSpeed,AttackSpeed,BulletSpeed,ReloadSpeed
+Test,LongGun,1000,10,2,2.5,0.7,7,2
+>>>>>>> Stashed changes
