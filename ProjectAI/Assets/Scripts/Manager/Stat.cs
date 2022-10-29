@@ -22,10 +22,15 @@ public struct PlayerStat
 [Serializable]
 public struct PlayerAmmo
 {
-    public PlayerWeapon name;
+    public string name;
     public int ammo;
     public int curAmmo;
     public int damage;
+    public float spread;
+    public float atkSpeed;
+    public float bulletSpeed;
+    public float reloadSpeed;
+    public int level;
 }
 
 [Serializable]

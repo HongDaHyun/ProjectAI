@@ -52,6 +52,7 @@ public abstract class Monster : MonoBehaviour
     {
         AttackPattern(stat.type.ToString());
         Follow();
+        DieAnim();
     }
 
     protected virtual void FixedUpdate()
@@ -61,9 +62,23 @@ public abstract class Monster : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Bullet") && !isHit && !isDie)
+        if (collision.CompareTag("Bullet") && !isDie)
         {
             StartCoroutine(Damaged(collision.GetComponent<Bullet>().dmg, collision));
+        }
+    }
+
+    protected void DieAnim()
+    {
+        if (curHP <= 0 && !isDie)
+        {
+            anim.SetTrigger("IsDie");
+            StartCoroutine(FadeOut());
+            col.enabled = false;
+            isDie = true;
+            gameManager.playerAI.curExp += stat.exp;
+            rigid.velocity = Vector3.zero;
+            rigid.angularVelocity = 0;
         }
     }
 
@@ -71,15 +86,6 @@ public abstract class Monster : MonoBehaviour
     {
         isHit = true;
         curHP -= dmg;
-        if (curHP <= 0)
-        {
-            anim.SetTrigger("IsDie");
-            StartCoroutine(FadeOut());
-            col.enabled = false;
-            isDie = true;
-            gameManager.playerAI.curExp += stat.exp;
-            yield break;
-        }
         anim.SetTrigger("IsHit");
         Vector2 direction = (transform.position - collision.transform.position).normalized;
         rigid.AddForce(direction * 0.0001f, ForceMode2D.Impulse);
@@ -97,7 +103,7 @@ public abstract class Monster : MonoBehaviour
 
     protected void Follow()
     {
-        if (isHit || Vector2.Distance(transform.position, gameManager.playerAI.transform.position) < stat.range)
+        if (isDie || isHit || Vector2.Distance(transform.position, gameManager.playerAI.transform.position) < stat.range)
             return;
         transform.position = Vector2.MoveTowards(transform.position, gameManager.playerAI.transform.position, stat.moveSpeed * Time.deltaTime);
         rigid.velocity = Vector2.zero;

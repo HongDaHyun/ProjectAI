@@ -5,10 +5,10 @@ using UnityEngine;
 public class Reload : MonoBehaviour
 {
     public Vector2 startPos, endPos;
+
     Transform gauge;
     GameManager gameManager;
 
-    public float curReload;
 
     private void Awake()
     {
@@ -18,31 +18,54 @@ public class Reload : MonoBehaviour
 
     private void OnEnable()
     {
-        StartCoroutine(Reloading());
-    }
-
-    IEnumerator Reloading()
-    {
-        curReload = 0;
-        gauge.localPosition = startPos;
-        gameManager.soundManager.SFXPlayer(SoundManager.SFX.Reload);
-
-        while (curReload < gameManager.playerAI.stat.reloadSpeed)
-        {
-            curReload += Time.deltaTime;
-            if (curReload >= gameManager.playerAI.stat.reloadSpeed)
-                curReload = gameManager.playerAI.stat.reloadSpeed;
-            gauge.localPosition = Vector2.Lerp(startPos, endPos, curReload / gameManager.playerAI.stat.reloadSpeed);
-            yield return new WaitForFixedUpdate();
-        }
         switch(name)
         {
             case "LongGunReload":
-                gameManager.playerAI.stat.ammo[0].curAmmo = gameManager.playerAI.stat.ammo[0].ammo;
-                gameManager.playerAI.isLongGunReload = false;
+                StartCoroutine(LongGunReloading());
+                break;
+            case "ShotGunReload":
+                StartCoroutine(ShotGunReloading());
                 break;
         }
+    }
+
+    IEnumerator LongGunReloading()
+    {
+        float curReload = 0;
+        float reloadTime = gameManager.playerAI.stat.reloadSpeed + gameManager.playerAI.stat.ammo[0].reloadSpeed;
+        gauge.localPosition = startPos;
+        gameManager.soundManager.SFXPlayer(SoundManager.SFX.Reload);
+
+        while (curReload < reloadTime)
+        {
+            curReload += Time.deltaTime;
+            if (curReload >= reloadTime)
+                curReload = reloadTime;
+            gauge.localPosition = Vector2.Lerp(startPos, endPos, curReload / reloadTime);
+            yield return new WaitForFixedUpdate();
+        }
+        gameManager.playerAI.stat.ammo[0].curAmmo = gameManager.playerAI.stat.ammo[0].ammo;
+        gameManager.playerAI.isLongGunReload = false;
         gameObject.SetActive(false);
     }
 
+    IEnumerator ShotGunReloading()
+    {
+        float curReload = 0;
+        float reloadTime = gameManager.playerAI.stat.reloadSpeed + gameManager.playerAI.stat.ammo[1].reloadSpeed;
+        gauge.localPosition = startPos;
+        gameManager.soundManager.SFXPlayer(SoundManager.SFX.Reload);
+
+        while (curReload < reloadTime)
+        {
+            curReload += Time.deltaTime;
+            if (curReload >= reloadTime)
+                curReload = reloadTime;
+            gauge.localPosition = Vector2.Lerp(startPos, endPos, curReload / reloadTime);
+            yield return new WaitForFixedUpdate();
+        }
+        gameManager.playerAI.stat.ammo[1].curAmmo = gameManager.playerAI.stat.ammo[1].ammo;
+        gameManager.playerAI.isShotGunReload = false;
+        gameObject.SetActive(false);
+    }
 }

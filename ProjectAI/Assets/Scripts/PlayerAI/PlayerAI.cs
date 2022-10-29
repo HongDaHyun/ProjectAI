@@ -12,7 +12,7 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
     protected GameManager gameManager;
     protected UIManager uiManager;
     protected SpriteRenderer spriteRenderer;
-    protected GameObject reload;
+    protected Reload[] reload;
     protected PhotonView pv;
     protected Vector3 curPos;
 
@@ -20,16 +20,16 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
 
     public string _name;
     public int curHP, curExp, level;
-    public bool isHit, isDead, isLongGunReload;
+    public bool isHit, isDead, isLongGunReload, isShotGunReload;
 
-    protected float longGunCurShotTime;
+    protected float longGunCurShotTime, shotGunCurShotTime;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         gameManager = GameManager.Instance;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        reload = transform.GetChild(0).gameObject;
+        reload = GetComponentsInChildren<Reload>(true);
         pv = GetComponent<PhotonView>();
     }
 
@@ -43,8 +43,8 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
     {
         gameManager.uiManager.hpBarUI.UpdateHP(curHP, stat.hp);
         gameManager.uiManager.expBarUI.UpdateExp(this);
-        longGunCurShotTime += Time.deltaTime;
         rigid.velocity = Vector3.zero;
+        GunLock();
         Die();
         TestWalk();
         Detecting(5f);
@@ -143,49 +143,110 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
 
     }
 
+    #region Gun
     void Reload()
     {
         if (stat.ammo[0].curAmmo <= 0)
         {
             isLongGunReload = true;
-            reload.SetActive(true);
+            reload[0].gameObject.SetActive(true);
+        }
+        if (stat.ammo[1].curAmmo <= 0)
+        {
+            isShotGunReload = true;
+            reload[1].gameObject.SetActive(true);
         }
     }
 
     protected void LongGun(GameObject target)
     {
-        if(longGunCurShotTime >= stat.attackSpeed && !isLongGunReload)
+        if(longGunCurShotTime >= stat.attackSpeed + stat.ammo[0].atkSpeed && !isLongGunReload)
         {
             if(!target.GetComponent<Monster>().isDie)
             {
                 Vector2 direction = target.transform.position - transform.position;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                angle += Random.Range(-stat.ammo[0].spread, stat.ammo[0].spread);
                 Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
                 if (PhotonNetwork.IsConnected && !pv.IsMine)
-                    PhotonNetwork.Instantiate("Bullet", transform.position, rotation);
+                {
+                    GameObject bullet = PhotonNetwork.Instantiate("Bullet", transform.position, rotation);
+                    Bullet bulletScript = bullet.GetComponent<Bullet>();
+                    bulletScript.dmg = stat.ammo[0].damage + stat.damage;
+                    bulletScript.speed = stat.ammo[0].bulletSpeed + stat.bulletSpeed;
+                }
                 else if (!PhotonNetwork.IsConnected)
                 {
                     GameObject bullet = gameManager.poolingManager.MakeObj("Bullet");
                     bullet.transform.position = transform.position;
                     bullet.transform.rotation = rotation;
-                    bullet.GetComponent<Bullet>().dmg = stat.ammo[0].damage + stat.damage;
+                    Bullet bulletScript = bullet.GetComponent<Bullet>();
+                    bulletScript.dmg = stat.ammo[0].damage + stat.damage;
+                    bulletScript.speed = stat.ammo[0].bulletSpeed + stat.bulletSpeed;
                 }
                 gameManager.cameraManager.ShakeCam(2f, 0.2f);
                 gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
                 stat.ammo[0].curAmmo -= 1;
             }
-            Reload();
-
             Look(target.transform.position);
-
             longGunCurShotTime = 0;
+        }
+    }
+
+    protected void ShotGun(GameObject target)
+    {
+        if (shotGunCurShotTime >= stat.attackSpeed + stat.ammo[1].atkSpeed && !isShotGunReload)
+        {
+            if (!target.GetComponent<Monster>().isDie)
+            {
+                for(int i = 0; i < 5; i++)
+                {
+                    Vector2 direction = target.transform.position - transform.position;
+                    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                    angle += Random.Range(-stat.ammo[1].spread, stat.ammo[1].spread);
+                    Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+                    if (PhotonNetwork.IsConnected && !pv.IsMine)
+                    {
+                        GameObject bullet = PhotonNetwork.Instantiate("Bullet", transform.position, rotation);
+                        Bullet bulletScript = bullet.GetComponent<Bullet>();
+                        bulletScript.dmg = Mathf.RoundToInt((float)(stat.ammo[1].damage + stat.damage) / 5); ;
+                        bulletScript.speed = stat.ammo[1].bulletSpeed + stat.bulletSpeed;
+                    }
+                    else if (!PhotonNetwork.IsConnected)
+                    {
+                        GameObject bullet = gameManager.poolingManager.MakeObj("Bullet");
+                        bullet.transform.position = transform.position;
+                        bullet.transform.rotation = rotation;
+                        Bullet bulletScript = bullet.GetComponent<Bullet>();
+                        bulletScript.dmg = Mathf.RoundToInt((float)(stat.ammo[1].damage + stat.damage) / 5); ;
+                        bulletScript.speed = stat.ammo[1].bulletSpeed + stat.bulletSpeed;
+                    }
+                }
+                gameManager.cameraManager.ShakeCam(2f, 0.2f);
+                gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
+                stat.ammo[1].curAmmo -= 1;
+            }
+            Look(target.transform.position);
+            shotGunCurShotTime = 0;
         }
     }
 
     protected void GunShot(GameObject target)
     {
         LongGun(target);
+        ShotGun(target);
+
+        Reload();
     }
+
+    protected void GunLock()
+    {
+        if(stat.ammo[0].level >= 1)
+            longGunCurShotTime += Time.deltaTime;
+        if (stat.ammo[1].level >= 1)
+            shotGunCurShotTime += Time.deltaTime;
+    }
+    #endregion
 
     protected void Look(Vector2 direction)
     {
@@ -197,7 +258,7 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
 
     #endregion
 
-    private void SetStat()
+    protected virtual void SetStat()
     {
         stat = gameManager.csvReader.PlayerExportData(_name);
         level = 1;

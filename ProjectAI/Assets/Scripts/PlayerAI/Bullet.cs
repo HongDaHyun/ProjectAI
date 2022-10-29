@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviourPunCallbacks, IPunObservable
     PhotonView pv;
     GameManager gameManager;
     public int dmg;
+    public float speed;
 
     private void Awake()
     {
@@ -17,18 +18,21 @@ public class Bullet : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Update()
     {
-        transform.Translate(Vector2.up * GameManager.Instance.playerAI.stat.bulletSpeed * Time.deltaTime);
+        transform.Translate(Vector2.up * speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster"))
         {
-            if (PhotonNetwork.IsConnected && pv.IsMine)
-                PhotonNetwork.Destroy(gameObject);
-            else
-                gameObject.SetActive(false);
-            DmgPopUp(collision);
+            if(!collision.GetComponent<Monster>().isDie)
+            {
+                if (PhotonNetwork.IsConnected && pv.IsMine)
+                    PhotonNetwork.Destroy(gameObject);
+                else
+                    gameObject.SetActive(false);
+                DmgPopUp(collision);
+            }
         }
     }
 

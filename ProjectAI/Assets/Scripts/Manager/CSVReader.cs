@@ -45,7 +45,7 @@ public class CSVReader : MonoBehaviour
     #region ReadCSV
     public void AmmoReadCSV()
     {
-        int order = 0; int size = 3;
+        int order = 0; int size = 7;
         string[] data = textAssets[order].text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
         int tableSize = data.Length / size - 1;
         list.playerAmmos = new PlayerAmmo[tableSize];
@@ -53,10 +53,14 @@ public class CSVReader : MonoBehaviour
         for (int i = 0; i < tableSize; i++)
         {
             list.playerAmmos[i] = new PlayerAmmo();
-            list.playerAmmos[i].name = (PlayerWeapon)Enum.Parse(typeof(PlayerWeapon), (data[size * (i + 1)]));
+            list.playerAmmos[i].name = data[size * (i + 1)];
             list.playerAmmos[i].ammo = int.Parse(data[size * (i + 1) + 1]);
             list.playerAmmos[i].curAmmo = list.playerAmmos[i].ammo;
             list.playerAmmos[i].damage = int.Parse(data[size * (i + 1) + 2]);
+            list.playerAmmos[i].spread = float.Parse(data[size * (i + 1) + 3]);
+            list.playerAmmos[i].atkSpeed = float.Parse(data[size * (i + 1) + 4]);
+            list.playerAmmos[i].bulletSpeed = float.Parse(data[size * (i + 1) + 5]);
+            list.playerAmmos[i].reloadSpeed = float.Parse(data[size * (i + 1) + 6]);
         }
     }
 
