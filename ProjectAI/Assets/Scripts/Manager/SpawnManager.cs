@@ -20,12 +20,15 @@ public class SpawnManager : MonoBehaviour
         {
             equip.isSpawn = false;
             equip.img.fillAmount = 1;
-            if (PhotonNetwork.IsConnected && !PhotonNetwork.IsMasterClient)
-                PhotonNetwork.Instantiate(equip.stat.name, RanPos(), Quaternion.identity);
-            else if(!PhotonNetwork.IsConnected)
+            for(int i = 0; i < equip.stat.count; i++)
             {
-                GameObject obj = gameManager.poolingManager.MakeObj(equip.stat.name);
-                obj.transform.position = RanPos();
+                if (PhotonNetwork.IsConnected && !PhotonNetwork.IsMasterClient)
+                    PhotonNetwork.Instantiate(equip.stat.name, RanPos(), Quaternion.identity);
+                else if (!PhotonNetwork.IsConnected)
+                {
+                    GameObject obj = gameManager.poolingManager.MakeObj(equip.stat.name);
+                    obj.transform.position = RanPos();
+                }
             }
         }
         if(equip.isDropped && !equip.isSpawn)

@@ -7,7 +7,7 @@ public class PoolingManager : MonoBehaviour
 {
     private static PoolingManager instance;
 
-    public GameObject bulletPrefab;
+    public GameObject[] projectilePrefab;
 
     public GameObject[] enemyPrefab;
 
@@ -20,6 +20,7 @@ public class PoolingManager : MonoBehaviour
     GameObject[] targetPool;
 
     GameObject[] bullet;
+    GameObject[] tomahawk;
 
     GameObject[] test;
     GameObject[] rabbit;
@@ -41,7 +42,8 @@ public class PoolingManager : MonoBehaviour
 
     private void Awake()
     {
-        bullet = Generate(bulletPrefab, 100);
+        bullet = Generate(projectilePrefab[0], 100);
+        tomahawk = Generate(projectilePrefab[1], 100);
         forestTilemap = Generate(tileMaps[0], 9);
         dmgPopUp = Generate(dmgPopUpPrefab, 50);
         uiPopUp = Generate(uiPopUpPrefab, 50);
@@ -76,6 +78,9 @@ public class PoolingManager : MonoBehaviour
         {
             case "Bullet":
                 targetPool = bullet;
+                break;
+            case "Tomahawk":
+                targetPool = tomahawk;
                 break;
             case "Test":
                 targetPool = test;

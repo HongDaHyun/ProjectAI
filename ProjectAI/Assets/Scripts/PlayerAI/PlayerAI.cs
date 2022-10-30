@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public enum State { Idle, Walk }
 
-public abstract class PlayerAI : MonoBehaviour, IPunObservable
+public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
 {
     protected State state;
     protected Rigidbody2D rigid;
@@ -20,9 +20,9 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
 
     public string _name;
     public int curHP, curExp, level;
-    public bool isHit, isDead, isLongGunReload, isShotGunReload;
+    public bool isHit, isDead, isLongGunReload, isShotGunReload, isTomahawkReload;
 
-    protected float longGunCurShotTime, shotGunCurShotTime;
+    protected float longGunCurShotTime, shotGunCurShotTime, tomahawkCurShotTime;
 
     private void Awake()
     {
@@ -156,38 +156,39 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
             isShotGunReload = true;
             reload[1].gameObject.SetActive(true);
         }
+        if(stat.ammo[2].curAmmo <= 0)
+        {
+            isTomahawkReload = true;
+        }
     }
 
     protected void LongGun(GameObject target)
     {
         if(longGunCurShotTime >= stat.attackSpeed + stat.ammo[0].atkSpeed && !isLongGunReload)
         {
-            if(!target.GetComponent<Monster>().isDie)
+            Vector2 direction = target.transform.position - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            angle += Random.Range(-stat.ammo[0].spread, stat.ammo[0].spread);
+            Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+            if (PhotonNetwork.IsConnected && !pv.IsMine)
             {
-                Vector2 direction = target.transform.position - transform.position;
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                angle += Random.Range(-stat.ammo[0].spread, stat.ammo[0].spread);
-                Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-                if (PhotonNetwork.IsConnected && !pv.IsMine)
-                {
-                    GameObject bullet = PhotonNetwork.Instantiate("Bullet", transform.position, rotation);
-                    Bullet bulletScript = bullet.GetComponent<Bullet>();
-                    bulletScript.dmg = stat.ammo[0].damage + stat.damage;
-                    bulletScript.speed = stat.ammo[0].bulletSpeed + stat.bulletSpeed;
-                }
-                else if (!PhotonNetwork.IsConnected)
-                {
-                    GameObject bullet = gameManager.poolingManager.MakeObj("Bullet");
-                    bullet.transform.position = transform.position;
-                    bullet.transform.rotation = rotation;
-                    Bullet bulletScript = bullet.GetComponent<Bullet>();
-                    bulletScript.dmg = stat.ammo[0].damage + stat.damage;
-                    bulletScript.speed = stat.ammo[0].bulletSpeed + stat.bulletSpeed;
-                }
-                gameManager.cameraManager.ShakeCam(2f, 0.2f);
-                gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
-                stat.ammo[0].curAmmo -= 1;
+                GameObject bullet = PhotonNetwork.Instantiate("Bullet", transform.position, rotation);
+                Bullet bulletScript = bullet.GetComponent<Bullet>();
+                bulletScript.dmg = stat.ammo[0].damage + stat.damage;
+                bulletScript.speed = stat.ammo[0].bulletSpeed + stat.bulletSpeed;
             }
+            else if (!PhotonNetwork.IsConnected)
+            {
+                GameObject bullet = gameManager.poolingManager.MakeObj("Bullet");
+                bullet.transform.position = transform.position;
+                bullet.transform.rotation = rotation;
+                Bullet bulletScript = bullet.GetComponent<Bullet>();
+                bulletScript.dmg = stat.ammo[0].damage + stat.damage;
+                bulletScript.speed = stat.ammo[0].bulletSpeed + stat.bulletSpeed;
+            }
+            gameManager.cameraManager.ShakeCam(2f, 0.2f);
+            gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
+            stat.ammo[0].curAmmo -= 1;
             Look(target.transform.position);
             longGunCurShotTime = 0;
         }
@@ -197,37 +198,72 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
     {
         if (shotGunCurShotTime >= stat.attackSpeed + stat.ammo[1].atkSpeed && !isShotGunReload)
         {
-            if (!target.GetComponent<Monster>().isDie)
+            for (int i = 0; i < 5; i++)
             {
-                for(int i = 0; i < 5; i++)
+                Vector2 direction = target.transform.position - transform.position;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                angle += Random.Range(-stat.ammo[1].spread, stat.ammo[1].spread);
+                Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+                if (PhotonNetwork.IsConnected && !pv.IsMine)
                 {
-                    Vector2 direction = target.transform.position - transform.position;
-                    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                    angle += Random.Range(-stat.ammo[1].spread, stat.ammo[1].spread);
-                    Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-                    if (PhotonNetwork.IsConnected && !pv.IsMine)
-                    {
-                        GameObject bullet = PhotonNetwork.Instantiate("Bullet", transform.position, rotation);
-                        Bullet bulletScript = bullet.GetComponent<Bullet>();
-                        bulletScript.dmg = Mathf.RoundToInt((float)(stat.ammo[1].damage + stat.damage) / 5); ;
-                        bulletScript.speed = stat.ammo[1].bulletSpeed + stat.bulletSpeed;
-                    }
-                    else if (!PhotonNetwork.IsConnected)
-                    {
-                        GameObject bullet = gameManager.poolingManager.MakeObj("Bullet");
-                        bullet.transform.position = transform.position;
-                        bullet.transform.rotation = rotation;
-                        Bullet bulletScript = bullet.GetComponent<Bullet>();
-                        bulletScript.dmg = Mathf.RoundToInt((float)(stat.ammo[1].damage + stat.damage) / 5); ;
-                        bulletScript.speed = stat.ammo[1].bulletSpeed + stat.bulletSpeed;
-                    }
+                    GameObject bullet = PhotonNetwork.Instantiate("Bullet", transform.position, rotation);
+                    Bullet bulletScript = bullet.GetComponent<Bullet>();
+                    bulletScript.dmg = Mathf.RoundToInt((float)(stat.ammo[1].damage + stat.damage) / 5);
+                    bulletScript.speed = stat.ammo[1].bulletSpeed + stat.bulletSpeed;
                 }
-                gameManager.cameraManager.ShakeCam(2f, 0.2f);
-                gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
-                stat.ammo[1].curAmmo -= 1;
+                else if (!PhotonNetwork.IsConnected)
+                {
+                    GameObject bullet = gameManager.poolingManager.MakeObj("Bullet");
+                    bullet.transform.position = transform.position;
+                    bullet.transform.rotation = rotation;
+                    Bullet bulletScript = bullet.GetComponent<Bullet>();
+                    bulletScript.dmg = Mathf.RoundToInt((float)(stat.ammo[1].damage + stat.damage) / 5);
+                    bulletScript.speed = stat.ammo[1].bulletSpeed + stat.bulletSpeed;
+                }
             }
+            gameManager.cameraManager.ShakeCam(2f, 0.2f);
+            gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
+            stat.ammo[1].curAmmo -= 1;
             Look(target.transform.position);
             shotGunCurShotTime = 0;
+        }
+    }
+
+    protected void Tomahawk(GameObject target)
+    {
+        if (tomahawkCurShotTime >= stat.attackSpeed + stat.ammo[2].atkSpeed && !isShotGunReload)
+        {
+            Look(target.transform.position);
+            Vector2 direction = target.transform.position - transform.position;
+            direction.Normalize();
+            if (PhotonNetwork.IsConnected && !pv.IsMine)
+            {
+                GameObject tomahawk = PhotonNetwork.Instantiate("Tomahawk", transform.position, Quaternion.identity);
+                Tomahawk tomahawkScript = tomahawk.GetComponent<Tomahawk>();
+                if (spriteRenderer.flipX)
+                    tomahawkScript.isLeft = true;
+                else if (!spriteRenderer.flipX)
+                    tomahawkScript.isLeft = false;
+                tomahawkScript.target = direction;
+                tomahawkScript.dmg = (stat.ammo[2].damage + stat.damage);
+                tomahawkScript.speed = stat.ammo[2].bulletSpeed + stat.bulletSpeed;
+            }
+            else if (!PhotonNetwork.IsConnected)
+            {
+                GameObject tomahawk = gameManager.poolingManager.MakeObj("Tomahawk");
+                tomahawk.transform.position = transform.position;
+                Tomahawk tomahawkScript = tomahawk.GetComponent<Tomahawk>();
+                if (spriteRenderer.flipX)
+                    tomahawkScript.isLeft = true;
+                else if (!spriteRenderer.flipX)
+                    tomahawkScript.isLeft = false;
+                tomahawkScript.target = direction;
+                tomahawkScript.dmg = (stat.ammo[2].damage + stat.damage);
+                tomahawkScript.speed = stat.ammo[2].bulletSpeed + stat.bulletSpeed;
+            }
+            //gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
+            stat.ammo[2].curAmmo -= 1;
+            tomahawkCurShotTime = 0;
         }
     }
 
@@ -235,6 +271,7 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
     {
         LongGun(target);
         ShotGun(target);
+        Tomahawk(target);
 
         Reload();
     }
@@ -245,14 +282,16 @@ public abstract class PlayerAI : MonoBehaviour, IPunObservable
             longGunCurShotTime += Time.deltaTime;
         if (stat.ammo[1].level >= 1)
             shotGunCurShotTime += Time.deltaTime;
+        if (stat.ammo[2].level >= 1)
+            tomahawkCurShotTime += Time.deltaTime;
     }
     #endregion
 
     protected void Look(Vector2 direction)
     {
-        if (direction.x > 0)
+        if (direction.x - transform.position.x > 0)
             spriteRenderer.flipX = false;
-        else if (direction.x < 0)
+        else if (direction.x - transform.position.x < 0)
             spriteRenderer.flipX = true;
     }
 

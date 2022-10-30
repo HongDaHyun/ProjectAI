@@ -41,6 +41,7 @@ public struct MonsterStat
     public int hp;
     public int damage;
     public int exp;
+    public int count;
 
     public float moveSpeed;
     public float range;

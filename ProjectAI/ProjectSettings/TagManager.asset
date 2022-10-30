@@ -5,10 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Monster
-  - Bullet
   - MonsterWeapon
   - Enemy
   - Card
+  - ProjectileBorder
+  - Projectile
   layers:
   - Default
   - TransparentFX

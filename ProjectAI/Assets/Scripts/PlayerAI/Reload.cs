@@ -26,6 +26,9 @@ public class Reload : MonoBehaviour
             case "ShotGunReload":
                 StartCoroutine(ShotGunReloading());
                 break;
+            case "TomahawkReleoad":
+                StartCoroutine(TomahawkReloading());
+                break;
         }
     }
 
@@ -66,6 +69,22 @@ public class Reload : MonoBehaviour
         }
         gameManager.playerAI.stat.ammo[1].curAmmo = gameManager.playerAI.stat.ammo[1].ammo;
         gameManager.playerAI.isShotGunReload = false;
+        gameObject.SetActive(false);
+    }
+
+    IEnumerator TomahawkReloading()
+    {
+        float curReload = 0;
+        float reloadTime = gameManager.playerAI.stat.reloadSpeed + gameManager.playerAI.stat.ammo[2].reloadSpeed;
+        while (curReload < reloadTime)
+        {
+            curReload += Time.deltaTime;
+            if (curReload >= reloadTime)
+                curReload = reloadTime;
+            yield return new WaitForFixedUpdate();
+        }
+        gameManager.playerAI.stat.ammo[2].curAmmo = gameManager.playerAI.stat.ammo[2].ammo;
+        gameManager.playerAI.isTomahawkReload = false;
         gameObject.SetActive(false);
     }
 }

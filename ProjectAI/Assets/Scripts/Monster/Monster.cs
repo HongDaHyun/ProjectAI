@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public abstract class Monster : MonoBehaviour
+public abstract class Monster : MonoBehaviourPunCallbacks
 {
     protected GameManager gameManager;
     protected UIManager uiManager;
@@ -36,8 +36,9 @@ public abstract class Monster : MonoBehaviour
         SetStat();
     }
 
-    private void OnEnable()
+    public override void OnEnable()
     {
+        base.OnEnable();
         sprite.color = new Color(1, 1, 1, 1);
         col.enabled = true;
         isAttack = false;
@@ -62,9 +63,9 @@ public abstract class Monster : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Bullet") && !isDie)
+        if (collision.CompareTag("Projectile") && !isDie)
         {
-            StartCoroutine(Damaged(collision.GetComponent<Bullet>().dmg, collision));
+            StartCoroutine(Damaged(collision.GetComponent<Projectile>().dmg, collision));
         }
     }
 
@@ -73,9 +74,9 @@ public abstract class Monster : MonoBehaviour
         if (curHP <= 0 && !isDie)
         {
             anim.SetTrigger("IsDie");
-            StartCoroutine(FadeOut());
             col.enabled = false;
             isDie = true;
+            StartCoroutine(FadeOut());
             gameManager.playerAI.curExp += stat.exp;
             rigid.velocity = Vector3.zero;
             rigid.angularVelocity = 0;
@@ -84,13 +85,16 @@ public abstract class Monster : MonoBehaviour
 
     protected IEnumerator Damaged(int dmg, Collider2D collision)
     {
-        isHit = true;
-        curHP -= dmg;
-        anim.SetTrigger("IsHit");
-        Vector2 direction = (transform.position - collision.transform.position).normalized;
-        rigid.AddForce(direction * 0.0001f, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(0.2f);
-        isHit = false;
+        if(!isDie)
+        {
+            isHit = true;
+            curHP -= dmg;
+            anim.SetTrigger("IsHit");
+            Vector2 direction = (transform.position - collision.transform.position).normalized;
+            rigid.AddForce(direction * 0.0001f, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(0.2f);
+            isHit = false;
+        }
     }
 
     protected void LookAt()
