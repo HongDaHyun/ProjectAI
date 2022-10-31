@@ -107,7 +107,6 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(stun);
         isHit = false;
         isStun = false;
-        rigid.velocity = Vector2.zero;
     }
 
     public void DmgPopUp(int dmg)
@@ -130,6 +129,8 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         if (isDie || isStun || Vector2.Distance(transform.position, gameManager.playerAI.transform.position) < stat.range)
             return;
         transform.position = Vector2.MoveTowards(transform.position, gameManager.playerAI.transform.position, stat.moveSpeed * Time.deltaTime);
+        if (!isHit)
+            rigid.velocity = Vector2.zero;
     }
 
     public void Die()
