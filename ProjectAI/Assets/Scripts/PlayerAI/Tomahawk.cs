@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tomahawk : Projectile
 {
     public bool isLeft;
-    public Vector2 target;
+    public Vector2 direction;
 
     public override void OnEnable()
     {
@@ -15,7 +15,7 @@ public class Tomahawk : Projectile
 
     protected override void Update()
     {
-        ShootStraightNoRotate(target);
+        ShootStraightNoRotate(direction);
         if(!isLeft)
             transform.Rotate(new Vector3(0, 0, -600f * Time.deltaTime));
         else if(isLeft)
@@ -24,10 +24,6 @@ public class Tomahawk : Projectile
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Monster"))
-        {
-            DmgPopUp(collision);
-        }
         ProjectileBorder(collision);
     }
 }

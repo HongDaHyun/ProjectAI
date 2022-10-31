@@ -4,19 +4,12 @@ using UnityEngine;
 
 public class HuntingDog : Projectile
 {
-    Transform target;
-    Vector3 offset;
-
-    private void Start()
-    {
-        target = gameManager.playerAI.transform;
-    }
-
     protected override void Update()
     {
-
+        dmg = gameManager.playerAI.stat.ammo[3].damage + gameManager.playerAI.stat.damage;
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
-    { }
+    {
+    }
 }

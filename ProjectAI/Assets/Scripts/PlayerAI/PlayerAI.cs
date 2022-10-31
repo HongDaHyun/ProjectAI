@@ -11,18 +11,21 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
     protected Rigidbody2D rigid;
     protected GameManager gameManager;
     protected UIManager uiManager;
-    protected SpriteRenderer spriteRenderer;
+    [HideInInspector]public SpriteRenderer spriteRenderer;
     protected Reload[] reload;
     protected PhotonView pv;
     protected Vector3 curPos;
+    protected HuntingDog[] huntingDogs;
+    protected FlameThrower flameThrow;
+    protected Collider2D[] colliderArray;
 
     public PlayerStat stat;
 
     public string _name;
     public int curHP, curExp, level;
-    public bool isHit, isDead, isLongGunReload, isShotGunReload, isTomahawkReload;
+    public bool isHit, isDead;
 
-    protected float longGunCurShotTime, shotGunCurShotTime, tomahawkCurShotTime;
+    [HideInInspector]public float lookCurTime;
 
     private void Awake()
     {
@@ -31,6 +34,8 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         spriteRenderer = GetComponent<SpriteRenderer>();
         reload = GetComponentsInChildren<Reload>(true);
         pv = GetComponent<PhotonView>();
+        huntingDogs = GetComponentsInChildren<HuntingDog>(true);
+        flameThrow = GetComponentInChildren<FlameThrower>(true);
     }
 
     private void Start()
@@ -44,6 +49,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         gameManager.uiManager.hpBarUI.UpdateHP(curHP, stat.hp);
         gameManager.uiManager.expBarUI.UpdateExp(this);
         rigid.velocity = Vector3.zero;
+        lookCurTime += Time.deltaTime;
         GunLock();
         Die();
         TestWalk();
@@ -128,11 +134,12 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
 
     protected void Detecting(float radius)
     {
-        Collider2D[] colliderArray = Physics2D.OverlapCircleAll(transform.position, radius);
+        colliderArray = Physics2D.OverlapCircleAll(transform.position, radius);
         foreach(Collider2D collider2D in colliderArray)
         {
             if (collider2D.gameObject.CompareTag("Monster"))
             {
+                Look(collider2D.transform.position);
                 GunShot(collider2D.gameObject);
             }
             else if(collider2D.gameObject.CompareTag("MonsterWeapon"))
@@ -148,23 +155,37 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (stat.ammo[0].curAmmo <= 0)
         {
-            isLongGunReload = true;
+            stat.ammo[0].isReload = true;
             reload[0].gameObject.SetActive(true);
         }
         if (stat.ammo[1].curAmmo <= 0)
         {
-            isShotGunReload = true;
+            stat.ammo[1].isReload = true;
             reload[1].gameObject.SetActive(true);
         }
         if(stat.ammo[2].curAmmo <= 0)
         {
-            isTomahawkReload = true;
+            stat.ammo[2].isReload = true;
+            reload[2].gameObject.SetActive(true);
+        }
+        if(stat.ammo[4].curShotTime <= 0 && stat.ammo[4].level >= 1)
+        {
+            stat.ammo[4].isReload = true;
+            flameThrow.gameObject.SetActive(false);
+            reload[3].gameObject.SetActive(true);
+        }
+        if(stat.ammo[5].curAmmo <= 0)
+        {
+            stat.ammo[5].isReload = true;
+            reload[4].gameObject.SetActive(true);
         }
     }
 
     protected void LongGun(GameObject target)
     {
-        if(longGunCurShotTime >= stat.attackSpeed + stat.ammo[0].atkSpeed && !isLongGunReload)
+        if (stat.ammo[0].level < 1)
+            return;
+        if(stat.ammo[0].curShotTime >= stat.attackSpeed + stat.ammo[0].atkSpeed && !stat.ammo[0].isReload)
         {
             Vector2 direction = target.transform.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -189,14 +210,15 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
             gameManager.cameraManager.ShakeCam(2f, 0.2f);
             gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
             stat.ammo[0].curAmmo -= 1;
-            Look(target.transform.position);
-            longGunCurShotTime = 0;
+            stat.ammo[0].curShotTime = 0;
         }
     }
 
     protected void ShotGun(GameObject target)
     {
-        if (shotGunCurShotTime >= stat.attackSpeed + stat.ammo[1].atkSpeed && !isShotGunReload)
+        if (stat.ammo[1].level < 1)
+            return;
+        if (stat.ammo[1].curShotTime >= stat.attackSpeed + stat.ammo[1].atkSpeed && !stat.ammo[1].isReload)
         {
             for (int i = 0; i < 5; i++)
             {
@@ -224,16 +246,16 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
             gameManager.cameraManager.ShakeCam(2f, 0.2f);
             gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
             stat.ammo[1].curAmmo -= 1;
-            Look(target.transform.position);
-            shotGunCurShotTime = 0;
+            stat.ammo[1].curShotTime = 0;
         }
     }
 
     protected void Tomahawk(GameObject target)
     {
-        if (tomahawkCurShotTime >= stat.attackSpeed + stat.ammo[2].atkSpeed && !isShotGunReload)
+        if (stat.ammo[2].level < 1)
+            return;
+        if (stat.ammo[2].curShotTime >= stat.attackSpeed + stat.ammo[2].atkSpeed && !stat.ammo[2].isReload)
         {
-            Look(target.transform.position);
             Vector2 direction = target.transform.position - transform.position;
             direction.Normalize();
             if (PhotonNetwork.IsConnected && !pv.IsMine)
@@ -244,7 +266,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
                     tomahawkScript.isLeft = true;
                 else if (!spriteRenderer.flipX)
                     tomahawkScript.isLeft = false;
-                tomahawkScript.target = direction;
+                tomahawkScript.direction = direction;
                 tomahawkScript.dmg = (stat.ammo[2].damage + stat.damage);
                 tomahawkScript.speed = stat.ammo[2].bulletSpeed + stat.bulletSpeed;
             }
@@ -257,13 +279,74 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
                     tomahawkScript.isLeft = true;
                 else if (!spriteRenderer.flipX)
                     tomahawkScript.isLeft = false;
-                tomahawkScript.target = direction;
+                tomahawkScript.direction = direction;
                 tomahawkScript.dmg = (stat.ammo[2].damage + stat.damage);
                 tomahawkScript.speed = stat.ammo[2].bulletSpeed + stat.bulletSpeed;
             }
             //gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
             stat.ammo[2].curAmmo -= 1;
-            tomahawkCurShotTime = 0;
+            stat.ammo[2].curShotTime = 0;
+        }
+    }
+
+    protected void HuntingDog()
+    {
+        for (int i = 0; i < stat.ammo[3].level; i++)
+        {
+            if(!huntingDogs[i].gameObject.activeSelf)
+                huntingDogs[i].gameObject.SetActive(true);
+        }
+        for(int i = stat.ammo[3].level; i < huntingDogs.Length; i++)
+        {
+            if (huntingDogs[i].gameObject.activeSelf)
+                huntingDogs[i].gameObject.SetActive(false);
+        }
+    }
+
+    [HideInInspector]public bool isFire;
+    protected void FlameThrower()
+    {
+        if (stat.ammo[4].level < 1)
+            return;
+        if (!isFire && !stat.ammo[4].isReload && stat.ammo[4].curShotTime > 0)
+        {
+            isFire = true;
+            flameThrow.gameObject.SetActive(true);
+            flameThrow.dmg = stat.ammo[4].damage + stat.damage;
+        }
+    }
+
+    protected void Falcon(GameObject target)
+    {
+        if (stat.ammo[5].level < 1)
+            return;
+        if (stat.ammo[5].curShotTime >= stat.attackSpeed + stat.ammo[5].atkSpeed && !stat.ammo[5].isReload)
+        {
+            Vector2 direction = target.transform.position - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            angle += Random.Range(-stat.ammo[1].spread, stat.ammo[1].spread);
+            Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+            if (PhotonNetwork.IsConnected && !pv.IsMine)
+            {
+                GameObject falcon = PhotonNetwork.Instantiate("Falcon", transform.position, rotation);
+                Falcon falconScript = falcon.GetComponent<Falcon>();
+                falconScript.target = target;
+                falconScript.dmg = (stat.ammo[5].damage + stat.damage);
+                falconScript.speed = stat.ammo[5].bulletSpeed + stat.bulletSpeed;
+            }
+            else if (!PhotonNetwork.IsConnected)
+            {
+                GameObject falcon = gameManager.poolingManager.MakeObj("Falcon");
+                falcon.transform.position = transform.position;
+                falcon.transform.rotation = rotation;
+                Falcon falconScript = falcon.GetComponent<Falcon>();
+                falconScript.target = target;
+                falconScript.dmg = (stat.ammo[5].damage + stat.damage);
+                falconScript.speed = stat.ammo[5].bulletSpeed + stat.bulletSpeed;
+            }
+            //gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
+            stat.ammo[5].curAmmo -= 1;
+            stat.ammo[5].curShotTime = 0;
         }
     }
 
@@ -272,6 +355,9 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         LongGun(target);
         ShotGun(target);
         Tomahawk(target);
+        HuntingDog();
+        FlameThrower();
+        Falcon(target);
 
         Reload();
     }
@@ -279,20 +365,27 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
     protected void GunLock()
     {
         if(stat.ammo[0].level >= 1)
-            longGunCurShotTime += Time.deltaTime;
+            stat.ammo[0].curShotTime += Time.deltaTime;
         if (stat.ammo[1].level >= 1)
-            shotGunCurShotTime += Time.deltaTime;
+            stat.ammo[1].curShotTime += Time.deltaTime;
         if (stat.ammo[2].level >= 1)
-            tomahawkCurShotTime += Time.deltaTime;
+            stat.ammo[2].curShotTime += Time.deltaTime;
+        if (stat.ammo[4].level >= 1)
+            stat.ammo[4].curShotTime -= Time.deltaTime;
+        if (stat.ammo[5].level >= 1)
+            stat.ammo[5].curShotTime += Time.deltaTime;
     }
     #endregion
 
     protected void Look(Vector2 direction)
     {
+        if (lookCurTime <= 2f)
+            return;
         if (direction.x - transform.position.x > 0)
             spriteRenderer.flipX = false;
         else if (direction.x - transform.position.x < 0)
             spriteRenderer.flipX = true;
+        lookCurTime = 0;
     }
 
     #endregion

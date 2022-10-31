@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BtnManager : MonoBehaviour
 {
@@ -81,5 +82,14 @@ public class BtnManager : MonoBehaviour
         StartCoroutine(gameManager.SecPerMoney(gameManager.secMoneySize, gameManager.secMoney));
     }
 
+    public void WeaponTestBtnUp(int id)
+    {
+        gameManager.playerAI.stat.ammo[id].level++;
+    }
+
+    public void WeaponTestBtnDown(int id)
+    {
+        gameManager.playerAI.stat.ammo[id].level--;
+    }
     #endregion
 }

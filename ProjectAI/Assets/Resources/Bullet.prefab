@@ -117,6 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmg: 0
   speed: 0
+  isKnockBack: 1
 --- !u!114 &8503908289647097403
 MonoBehaviour:
   m_ObjectHideFlags: 0

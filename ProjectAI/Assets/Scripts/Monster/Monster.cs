@@ -22,7 +22,7 @@ public abstract class Monster : MonoBehaviourPunCallbacks
 
     public MonsterStat stat;
 
-    public bool isAttack, isHit, isDie;
+    public bool isAttack, isHit, isStun, isDie;
 
     private void Awake()
     {
@@ -43,6 +43,7 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         col.enabled = true;
         isAttack = false;
         isHit = false;
+        isStun = false;
         isDie = false;
         curHP = stat.hp;
         for (int i = 0; i < weapons.Length; i++)
@@ -65,7 +66,15 @@ public abstract class Monster : MonoBehaviourPunCallbacks
     {
         if (collision.CompareTag("Projectile") && !isDie)
         {
-            StartCoroutine(Damaged(collision.GetComponent<Projectile>().dmg, collision));
+            StartCoroutine(Damaged(collision.GetComponent<Projectile>(), 0.2f));
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Projectile2") &&!isHit && !isDie)
+        {
+            StartCoroutine(Damaged(collision.GetComponent<Projectile>(), 1f));
         }
     }
 
@@ -83,18 +92,29 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         }
     }
 
-    protected IEnumerator Damaged(int dmg, Collider2D collision)
+    protected IEnumerator Damaged(Projectile projectile, float stun)
     {
-        if(!isDie)
+        isHit = true;
+        DmgPopUp(projectile.dmg);
+        curHP -= projectile.dmg;
+        anim.SetTrigger("IsHit");
+        if(projectile.isKnockBack)
         {
-            isHit = true;
-            curHP -= dmg;
-            anim.SetTrigger("IsHit");
-            Vector2 direction = (transform.position - collision.transform.position).normalized;
-            rigid.AddForce(direction * 0.0001f, ForceMode2D.Impulse);
-            yield return new WaitForSeconds(0.2f);
-            isHit = false;
+            isStun = true;
+            Vector2 direction = (transform.position - gameManager.playerAI.transform.position).normalized;
+            rigid.AddForce(direction * 0.0002f, ForceMode2D.Impulse);
         }
+        yield return new WaitForSeconds(stun);
+        isHit = false;
+        isStun = false;
+        rigid.velocity = Vector2.zero;
+    }
+
+    public void DmgPopUp(int dmg)
+    {
+        GameObject dmgPopUp = gameManager.poolingManager.MakeObj("DmgPopUp");
+        dmgPopUp.GetComponent<DmgPopUp>().text.text = dmg.ToString();
+        dmgPopUp.transform.position = new Vector2(transform.position.x, transform.position.y + 0.8f);
     }
 
     protected void LookAt()
@@ -107,10 +127,9 @@ public abstract class Monster : MonoBehaviourPunCallbacks
 
     protected void Follow()
     {
-        if (isDie || isHit || Vector2.Distance(transform.position, gameManager.playerAI.transform.position) < stat.range)
+        if (isDie || isStun || Vector2.Distance(transform.position, gameManager.playerAI.transform.position) < stat.range)
             return;
         transform.position = Vector2.MoveTowards(transform.position, gameManager.playerAI.transform.position, stat.moveSpeed * Time.deltaTime);
-        rigid.velocity = Vector2.zero;
     }
 
     public void Die()

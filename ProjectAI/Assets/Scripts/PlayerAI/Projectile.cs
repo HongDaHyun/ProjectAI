@@ -11,6 +11,7 @@ public abstract class Projectile : MonoBehaviourPunCallbacks, IPunObservable
     protected Quaternion curRot;
     public int dmg;
     public float speed;
+    public bool isKnockBack;
 
     protected virtual void Awake()
     {
@@ -24,37 +25,89 @@ public abstract class Projectile : MonoBehaviourPunCallbacks, IPunObservable
 
     protected void ShootStraight()
     {
-        if (pv.IsMine)
-        {
+        if(!PhotonNetwork.IsConnected)
             transform.Translate(Vector2.up * speed * Time.deltaTime);
-        }
-        else if ((transform.position - curPos).sqrMagnitude >= 100)
-        {
-            transform.position = curPos;
-            transform.rotation = curRot;
-        }
         else
         {
-            transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
-            transform.rotation = curRot;
+            if (pv.IsMine)
+            {
+                transform.Translate(Vector2.up * speed * Time.deltaTime);
+            }
+            else if ((transform.position - curPos).sqrMagnitude >= 100)
+            {
+                transform.position = curPos;
+                transform.rotation = curRot;
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
+                transform.rotation = curRot;
+            }
         }
     }
 
     protected void ShootStraightNoRotate(Vector2 target)
     {
-        if (pv.IsMine)
-        {
+        if(!PhotonNetwork.IsConnected)
             transform.Translate(target * speed * Time.deltaTime, Space.World);
-        }
-        else if ((transform.position - curPos).sqrMagnitude >= 100)
+        else
         {
-            transform.position = curPos;
-            transform.rotation = curRot;
+            if (pv.IsMine)
+            {
+                transform.Translate(target * speed * Time.deltaTime, Space.World);
+            }
+            else if ((transform.position - curPos).sqrMagnitude >= 100)
+            {
+                transform.position = curPos;
+                transform.rotation = curRot;
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
+                transform.rotation = curRot;
+            }
+        }
+    }
+
+    protected void ShootFlame()
+    {
+        if (gameManager.playerAI.spriteRenderer.flipX)
+            transform.localPosition = new Vector3(-3, 0.5f, 0);
+        else if (!gameManager.playerAI.spriteRenderer.flipX)
+            transform.localPosition = new Vector3(3, 0.5f, 0);
+    }
+
+    protected void Falcon(Falcon falcon)
+    {
+
+        if (!PhotonNetwork.IsConnected)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, falcon.target.transform.position, speed * Time.deltaTime);
+            if (transform.position == falcon.target.transform.position)
+                falcon.col.enabled = true;
+            if (!falcon.target.activeSelf)
+                gameObject.SetActive(false);
         }
         else
         {
-            transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
-            transform.rotation = curRot;
+            if (pv.IsMine)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, falcon.target.transform.position, speed * Time.deltaTime);
+                if (transform.position == falcon.target.transform.position)
+                    falcon.col.enabled = true;
+                if (falcon.target.GetComponent<Monster>().isDie)
+                    PhotonNetwork.Destroy(gameObject);
+            }
+            else if ((transform.position - curPos).sqrMagnitude >= 100)
+            {
+                transform.position = curPos;
+                transform.rotation = curRot;
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
+                transform.rotation = curRot;
+            }
         }
     }
 
@@ -62,11 +115,7 @@ public abstract class Projectile : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (collision.CompareTag("Monster"))
         {
-            if (PhotonNetwork.IsConnected && pv.IsMine)
-                PhotonNetwork.Destroy(gameObject);
-            else
-                gameObject.SetActive(false);
-            DmgPopUp(collision);
+            DestroyObj();
         }
     }
 
@@ -74,18 +123,16 @@ public abstract class Projectile : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (collision.CompareTag("ProjectileBorder"))
         {
-            if (PhotonNetwork.IsConnected && pv.IsMine)
-                PhotonNetwork.Destroy(gameObject);
-            else
-                gameObject.SetActive(false);
+            DestroyObj();
         }
     }
 
-    protected void DmgPopUp(Collider2D collision)
+    protected void DestroyObj()
     {
-        GameObject dmgPopUp = gameManager.poolingManager.MakeObj("DmgPopUp");
-        dmgPopUp.GetComponent<DmgPopUp>().text.text = dmg.ToString();
-        dmgPopUp.transform.position = new Vector2(collision.transform.position.x, collision.transform.position.y + 0.8f);
+        if (PhotonNetwork.IsConnected && pv.IsMine)
+            PhotonNetwork.Destroy(gameObject);
+        else
+            gameObject.SetActive(false);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

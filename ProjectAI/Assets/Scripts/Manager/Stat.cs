@@ -31,6 +31,8 @@ public struct PlayerAmmo
     public float bulletSpeed;
     public float reloadSpeed;
     public int level;
+    public float curShotTime;
+    public bool isReload;
 }
 
 [Serializable]

@@ -10,6 +10,7 @@ TagManager:
   - Card
   - ProjectileBorder
   - Projectile
+  - Projectile2
   layers:
   - Default
   - TransparentFX

@@ -21,6 +21,7 @@ public class PoolingManager : MonoBehaviour
 
     GameObject[] bullet;
     GameObject[] tomahawk;
+    GameObject[] falcon;
 
     GameObject[] test;
     GameObject[] rabbit;
@@ -44,21 +45,22 @@ public class PoolingManager : MonoBehaviour
     {
         bullet = Generate(projectilePrefab[0], 100);
         tomahawk = Generate(projectilePrefab[1], 100);
+        falcon = Generate(projectilePrefab[2], 30);
         forestTilemap = Generate(tileMaps[0], 9);
         dmgPopUp = Generate(dmgPopUpPrefab, 50);
         uiPopUp = Generate(uiPopUpPrefab, 50);
         monsterUI = Generate(monsterUIPrefab, 30);
-        test = Generate(enemyPrefab[0], 30);
-        rabbit = Generate(enemyPrefab[1], 30);
-        chicken = Generate(enemyPrefab[2], 30);
-        mouse = Generate(enemyPrefab[3], 30);
-        pig = Generate(enemyPrefab[4], 30);
-        deer = Generate(enemyPrefab[5], 30);
-        fox = Generate(enemyPrefab[6], 30);
-        monkey = Generate(enemyPrefab[7], 30);
-        bear = Generate(enemyPrefab[8], 30);
-        lion = Generate(enemyPrefab[9], 30);
-        elephant = Generate(enemyPrefab[10], 30);
+        test = Generate(enemyPrefab[0], 100);
+        rabbit = Generate(enemyPrefab[1], 100);
+        chicken = Generate(enemyPrefab[2], 100);
+        mouse = Generate(enemyPrefab[3], 100);
+        pig = Generate(enemyPrefab[4], 100);
+        deer = Generate(enemyPrefab[5], 100);
+        fox = Generate(enemyPrefab[6], 100);
+        monkey = Generate(enemyPrefab[7], 100);
+        bear = Generate(enemyPrefab[8], 100);
+        lion = Generate(enemyPrefab[9], 100);
+        elephant = Generate(enemyPrefab[10], 100);
     }
 
     GameObject[] Generate(GameObject obj, int size)
@@ -81,6 +83,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "Tomahawk":
                 targetPool = tomahawk;
+                break;
+            case "Falcon":
+                targetPool = falcon;
                 break;
             case "Test":
                 targetPool = test;

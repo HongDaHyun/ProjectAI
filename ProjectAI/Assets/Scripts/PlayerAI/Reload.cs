@@ -26,8 +26,14 @@ public class Reload : MonoBehaviour
             case "ShotGunReload":
                 StartCoroutine(ShotGunReloading());
                 break;
-            case "TomahawkReleoad":
+            case "TomahawkReload":
                 StartCoroutine(TomahawkReloading());
+                break;
+            case "FlameThrowerReload":
+                StartCoroutine(FlameThrowerReloading());
+                break;
+            case "FalconReload":
+                StartCoroutine(FalconReloading());
                 break;
         }
     }
@@ -48,7 +54,7 @@ public class Reload : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         gameManager.playerAI.stat.ammo[0].curAmmo = gameManager.playerAI.stat.ammo[0].ammo;
-        gameManager.playerAI.isLongGunReload = false;
+        gameManager.playerAI.stat.ammo[0].isReload = false;
         gameObject.SetActive(false);
     }
 
@@ -68,7 +74,7 @@ public class Reload : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         gameManager.playerAI.stat.ammo[1].curAmmo = gameManager.playerAI.stat.ammo[1].ammo;
-        gameManager.playerAI.isShotGunReload = false;
+        gameManager.playerAI.stat.ammo[1].isReload = false;
         gameObject.SetActive(false);
     }
 
@@ -84,7 +90,44 @@ public class Reload : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         gameManager.playerAI.stat.ammo[2].curAmmo = gameManager.playerAI.stat.ammo[2].ammo;
-        gameManager.playerAI.isTomahawkReload = false;
+        gameManager.playerAI.stat.ammo[2].isReload = false;
+        gameObject.SetActive(false);
+    }
+
+    IEnumerator FlameThrowerReloading()
+    {
+        float curReload = 0;
+        float reloadTime = gameManager.playerAI.stat.reloadSpeed + gameManager.playerAI.stat.ammo[4].reloadSpeed;
+        gauge.localPosition = startPos;
+        gameManager.soundManager.SFXPlayer(SoundManager.SFX.Reload);
+
+        while (curReload < reloadTime)
+        {
+            curReload += Time.deltaTime;
+            if (curReload >= reloadTime)
+                curReload = reloadTime;
+            gauge.localPosition = Vector2.Lerp(startPos, endPos, curReload / reloadTime);
+            yield return new WaitForFixedUpdate();
+        }
+        gameManager.playerAI.stat.ammo[4].curShotTime = gameManager.playerAI.stat.ammo[4].ammo;
+        gameManager.playerAI.stat.ammo[4].isReload = false;
+        gameManager.playerAI.isFire = false;
+        gameObject.SetActive(false);
+    }
+
+    IEnumerator FalconReloading()
+    {
+        float curReload = 0;
+        float reloadTime = gameManager.playerAI.stat.reloadSpeed + gameManager.playerAI.stat.ammo[5].reloadSpeed;
+        while (curReload < reloadTime)
+        {
+            curReload += Time.deltaTime;
+            if (curReload >= reloadTime)
+                curReload = reloadTime;
+            yield return new WaitForFixedUpdate();
+        }
+        gameManager.playerAI.stat.ammo[5].curAmmo = gameManager.playerAI.stat.ammo[5].ammo;
+        gameManager.playerAI.stat.ammo[5].isReload = false;
         gameObject.SetActive(false);
     }
 }
