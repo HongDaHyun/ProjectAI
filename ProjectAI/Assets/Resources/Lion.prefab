@@ -86,7 +86,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.18, y: 0.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -148,6 +148,8 @@ MonoBehaviour:
     name: 
     hp: 0
     damage: 0
+    exp: 0
+    count: 0
     moveSpeed: 0
     range: 0
     atkDelay: 0
@@ -156,6 +158,7 @@ MonoBehaviour:
     tier: 0
   isAttack: 0
   isHit: 0
+  isStun: 0
   isDie: 0
 --- !u!114 &-1059863160313964603
 MonoBehaviour:
@@ -189,7 +192,7 @@ Animator:
   m_GameObject: {fileID: 4216956034388105023}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c98c5728635629449b3d3d5a12ceec7b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

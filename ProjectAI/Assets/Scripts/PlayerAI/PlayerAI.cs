@@ -8,6 +8,7 @@ public enum State { Idle, Walk }
 public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
 {
     protected State state;
+    protected Animator animator;
     protected Rigidbody2D rigid;
     protected GameManager gameManager;
     protected UIManager uiManager;
@@ -18,6 +19,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
     protected HuntingDog[] huntingDogs;
     protected FlameThrower flameThrow;
     protected Collider2D[] colliderArray;
+    protected float inputX, inputY;
 
     public PlayerStat stat;
 
@@ -29,6 +31,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
         gameManager = GameManager.Instance;
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -50,6 +53,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         gameManager.uiManager.expBarUI.UpdateExp(this);
         rigid.velocity = Vector3.zero;
         lookCurTime += Time.deltaTime;
+        CheckAnim();
         GunLock();
         Die();
         TestWalk();
@@ -95,6 +99,16 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
             isDead = true;
     }
 
+    void CheckAnim()
+    {
+        if (inputX == 0 && inputY == 0)
+            animator.SetInteger("State", 0);
+        else
+            animator.SetInteger("State", 1);
+        if (isDead)
+            animator.SetTrigger("IsDie");
+    }
+
     #region Walk
     void R_Walk()
     {
@@ -120,8 +134,8 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
 
         if(pv.IsMine)
         {
-            float inputX = Input.GetAxisRaw("Horizontal");
-            float inputY = Input.GetAxisRaw("Vertical");
+            inputX = Input.GetAxisRaw("Horizontal");
+            inputY = Input.GetAxisRaw("Vertical");
 
             transform.Translate(new Vector2(inputX, inputY).normalized * Time.deltaTime * stat.walkSpeed);
         }
@@ -209,6 +223,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
             }
             gameManager.cameraManager.ShakeCam(2f, 0.2f);
             gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
+            animator.SetTrigger("IsAtk");
             stat.ammo[0].curAmmo -= 1;
             stat.ammo[0].curShotTime = 0;
         }
@@ -245,6 +260,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
             }
             gameManager.cameraManager.ShakeCam(2f, 0.2f);
             gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
+            animator.SetTrigger("IsAtk");
             stat.ammo[1].curAmmo -= 1;
             stat.ammo[1].curShotTime = 0;
         }
@@ -307,7 +323,11 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
     protected void FlameThrower()
     {
         if (stat.ammo[4].level < 1)
+        {
+            if(flameThrow.gameObject.activeSelf)
+                flameThrow.gameObject.SetActive(false);
             return;
+        }
         if (!isFire && !stat.ammo[4].isReload && stat.ammo[4].curShotTime > 0)
         {
             isFire = true;

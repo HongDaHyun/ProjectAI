@@ -398,6 +398,8 @@ MonoBehaviour:
     name: 
     hp: 0
     damage: 0
+    exp: 0
+    count: 0
     moveSpeed: 0
     range: 0
     atkDelay: 0
@@ -406,6 +408,7 @@ MonoBehaviour:
     tier: 0
   isAttack: 0
   isHit: 0
+  isStun: 0
   isDie: 0
 --- !u!114 &-976324322669340678
 MonoBehaviour:
@@ -439,7 +442,7 @@ Animator:
   m_GameObject: {fileID: 4216956034388105023}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ccd6ff39df14c8f4d9722a961da50f19, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
