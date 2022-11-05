@@ -43,10 +43,30 @@ public class Card : MonoBehaviour
         SpriteStat atkSpriteStat = gameManager.csvReader.spriteExportData(monsterStat.type.ToString());
 
         cardUI.name.text = monsterStat.name;
+        SetColor();
         cardUI.hp.text = monsterStat.hp.ToString();
         cardUI.atk.text = monsterStat.damage.ToString();
         cardUI.img.sprite = spriteStat.sprite;
         cardUI.atkType.sprite = atkSpriteStat.sprite;
+    }
+
+    void SetColor()
+    {
+        switch(monsterStat.tier)
+        {
+            case Tier.Common:
+                cardUI.name.color = Color.green;
+                break;
+            case Tier.Rare:
+                cardUI.name.color = Color.blue;
+                break;
+            case Tier.Epic:
+                cardUI.name.color = Color.magenta;
+                break;
+            case Tier.Legend:
+                cardUI.name.color = Color.yellow;
+                break;
+        }
     }
 
     Tier RanCard()

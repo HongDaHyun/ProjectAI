@@ -20,6 +20,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
     protected FlameThrower flameThrow;
     protected Collider2D[] colliderArray;
     protected float inputX, inputY;
+    protected GameObject shadow;
 
     public PlayerStat stat;
 
@@ -39,6 +40,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         pv = GetComponent<PhotonView>();
         huntingDogs = GetComponentsInChildren<HuntingDog>(true);
         flameThrow = GetComponentInChildren<FlameThrower>(true);
+        shadow = transform.GetChild(3).gameObject;
     }
 
     private void Start()
@@ -402,9 +404,15 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         if (lookCurTime <= 2f)
             return;
         if (direction.x - transform.position.x > 0)
+        {
             spriteRenderer.flipX = false;
+            shadow.transform.localPosition = new Vector2(-0.05f, 0);
+        }
         else if (direction.x - transform.position.x < 0)
+        {
             spriteRenderer.flipX = true;
+            shadow.transform.localPosition = new Vector2(0.05f, 0);
+        }
         lookCurTime = 0;
     }
 

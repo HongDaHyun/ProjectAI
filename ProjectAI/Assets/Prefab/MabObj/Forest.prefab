@@ -272,5 +272,5 @@ MonoBehaviour:
   - {fileID: 8737695819603877138, guid: 2872880915c0094468758cb7c3665977, type: 3}
   - {fileID: 8737695819603877138, guid: bffb9afd0802fbd4ebcf9c41f10ed641, type: 3}
   - {fileID: 8737695819603877138, guid: 0cf0aba6a62729b46a792089387b9b04, type: 3}
-  count: 100
-  errorRange: 50
+  count: 500
+  errorRange: 100

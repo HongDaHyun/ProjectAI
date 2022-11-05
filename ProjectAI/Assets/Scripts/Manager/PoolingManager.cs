@@ -17,13 +17,14 @@ public class PoolingManager : MonoBehaviour
     public GameObject uiPopUpPrefab;
     public GameObject monsterUIPrefab;
 
+    public GameObject bananaPrefab;
+
     GameObject[] targetPool;
 
     GameObject[] bullet;
     GameObject[] tomahawk;
     GameObject[] falcon;
 
-    GameObject[] test;
     GameObject[] rabbit;
     GameObject[] chicken;
     GameObject[] mouse;
@@ -41,6 +42,8 @@ public class PoolingManager : MonoBehaviour
     GameObject[] uiPopUp;
     GameObject[] monsterUI;
 
+    GameObject[] banana;
+
     private void Awake()
     {
         bullet = Generate(projectilePrefab[0], 100);
@@ -50,17 +53,17 @@ public class PoolingManager : MonoBehaviour
         dmgPopUp = Generate(dmgPopUpPrefab, 50);
         uiPopUp = Generate(uiPopUpPrefab, 50);
         monsterUI = Generate(monsterUIPrefab, 30);
-        test = Generate(enemyPrefab[0], 100);
-        rabbit = Generate(enemyPrefab[1], 100);
-        chicken = Generate(enemyPrefab[2], 100);
-        mouse = Generate(enemyPrefab[3], 100);
-        pig = Generate(enemyPrefab[4], 100);
-        deer = Generate(enemyPrefab[5], 100);
-        fox = Generate(enemyPrefab[6], 100);
-        monkey = Generate(enemyPrefab[7], 100);
-        bear = Generate(enemyPrefab[8], 100);
-        lion = Generate(enemyPrefab[9], 100);
-        elephant = Generate(enemyPrefab[10], 100);
+        rabbit = Generate(enemyPrefab[0], 100);
+        chicken = Generate(enemyPrefab[1], 100);
+        mouse = Generate(enemyPrefab[2], 100);
+        pig = Generate(enemyPrefab[3], 100);
+        deer = Generate(enemyPrefab[4], 100);
+        fox = Generate(enemyPrefab[5], 100);
+        monkey = Generate(enemyPrefab[6], 100);
+        bear = Generate(enemyPrefab[7], 100);
+        lion = Generate(enemyPrefab[8], 100);
+        elephant = Generate(enemyPrefab[9], 100);
+        banana = Generate(bananaPrefab, 30);
     }
 
     GameObject[] Generate(GameObject obj, int size)
@@ -86,9 +89,6 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "Falcon":
                 targetPool = falcon;
-                break;
-            case "Test":
-                targetPool = test;
                 break;
             case "Rabbit":
                 targetPool = rabbit;
@@ -131,6 +131,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "MonsterUI":
                 targetPool = monsterUI;
+                break;
+            case "Banana":
+                targetPool = banana;
                 break;
         }
 

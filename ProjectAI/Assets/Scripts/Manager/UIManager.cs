@@ -136,8 +136,7 @@ public struct ExpBarUI
             ai.stat.exp = (ai.level * ai.level + ai.level) * 5;
             levelTxt.text = ai.level.ToString();
 
-            ai.stat.damage += 1;
-            ai.stat.walkSpeed += 0.1f;
+            ai.stat.damage = Mathf.RoundToInt(ai.stat.damage + MathF.Pow(1.11f, ai.level) + MathF.Pow(3.14f, MathF.Log(ai.level)));
         }
     }
 }

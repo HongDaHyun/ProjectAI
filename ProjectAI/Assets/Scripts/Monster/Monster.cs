@@ -170,6 +170,39 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         isAttack = false;
     }
 
+    protected IEnumerator Banana()
+    {
+        isAttack = true;
+        anim.SetTrigger("IsAtk");
+        Vector2 direction = gameManager.playerAI.transform.position - transform.position;
+        direction.Normalize();
+        if (PhotonNetwork.IsConnected && !pv.IsMine)
+        {
+            GameObject banana = PhotonNetwork.Instantiate("Banana", transform.position, Quaternion.identity);
+            Banana bananaScript = banana.GetComponent<Banana>();
+            if (sprite.flipX)
+                bananaScript.isLeft = true;
+            else if (!sprite.flipX)
+                bananaScript.isLeft = false;
+            bananaScript.direction = direction;
+            bananaScript.damage = stat.damage;
+        }
+        else if (!PhotonNetwork.IsConnected)
+        {
+            GameObject banana = gameManager.poolingManager.MakeObj("Banana");
+            banana.transform.position = transform.position;
+            Banana bananaScript = banana.GetComponent<Banana>();
+            if (sprite.flipX)
+                bananaScript.isLeft = true;
+            else if (!sprite.flipX)
+                bananaScript.isLeft = false;
+            bananaScript.direction = direction;
+            bananaScript.damage = stat.damage;
+        }
+        yield return new WaitForSeconds(stat.atkDelay);
+        isAttack = false;
+    }
+
     protected void AttackPattern(string name)
     {
         if (!isAttack && Vector2.Distance(transform.position, gameManager.playerAI.transform.position) <= stat.range && !isDie)
