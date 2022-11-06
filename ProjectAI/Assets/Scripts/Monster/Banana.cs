@@ -28,5 +28,7 @@ public class Banana : Atk
         {
             gameObject.SetActive(false);
         }
+        if (collision.CompareTag("ProjectileBorder"))
+            gameObject.SetActive(false);
     }
 }

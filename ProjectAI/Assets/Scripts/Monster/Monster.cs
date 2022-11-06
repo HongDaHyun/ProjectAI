@@ -52,7 +52,7 @@ public abstract class Monster : MonoBehaviourPunCallbacks
 
     protected virtual void Update()
     {
-        AttackPattern(stat.type.ToString());
+        AttackPattern();
         Follow();
         DieAnim();
     }
@@ -62,7 +62,7 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         LookAt();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Projectile") && !isDie)
         {
@@ -92,7 +92,7 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         }
     }
 
-    protected IEnumerator Damaged(Projectile projectile, float stun)
+    protected virtual IEnumerator Damaged(Projectile projectile, float stun)
     {
         isHit = true;
         DmgPopUp(projectile.dmg);
@@ -153,7 +153,7 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         }
     }
 
-    protected IEnumerator Melee()
+    protected IEnumerator Bite()
     {
         isAttack = true;
         anim.SetTrigger("IsAtk");
@@ -203,18 +203,26 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         isAttack = false;
     }
 
-    protected void AttackPattern(string name)
+    protected IEnumerator Basic()
+    {
+        isAttack = true;
+        anim.SetTrigger("IsAtk");
+        yield return null;
+        isAttack = false;
+    }
+
+    protected void AttackPattern()
     {
         if (!isAttack && Vector2.Distance(transform.position, gameManager.playerAI.transform.position) <= stat.range && !isDie)
         {
-            StartCoroutine(name);
+            StartCoroutine(stat.type.ToString());
         }
     }
 
     void SetStat()
     {
         scale = transform.localScale;
-        weapons = GetComponentsInChildren<Melee>();
+        weapons = GetComponentsInChildren<Bite>();
         stat = gameManager.csvReader.monsterExportData(_name);
     }
 }

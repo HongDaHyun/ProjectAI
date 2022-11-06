@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MonsterType { Melee, Banana }
+public enum MonsterType { Bite, Banana, Basic }
 
 public enum Tier { Common, Rare, Epic, Legend }
+
+public enum DeBuff { Slow, Bleeding, Poison, Stun }

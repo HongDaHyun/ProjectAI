@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Melee : Atk
+public class Bite : Atk
 {
     public Monster monster;
 

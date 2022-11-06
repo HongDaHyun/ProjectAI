@@ -2803,7 +2803,8 @@ GameObject:
   m_Component:
   - component: {fileID: 215172085}
   - component: {fileID: 215172086}
-  m_Layer: 6
+  - component: {fileID: 215172087}
+  m_Layer: 0
   m_Name: T
   m_TagString: ProjectileBorder
   m_Icon: {fileID: 0}
@@ -2851,6 +2852,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 36, y: 2}
   m_EdgeRadius: 0
+--- !u!50 &215172087
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215172084}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &228291785
 GameObject:
   m_ObjectHideFlags: 0
@@ -13551,7 +13573,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1276294009}
   - component: {fileID: 1276294010}
-  m_Layer: 6
+  - component: {fileID: 1276294011}
+  m_Layer: 0
   m_Name: R
   m_TagString: ProjectileBorder
   m_Icon: {fileID: 0}
@@ -13599,6 +13622,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 28}
   m_EdgeRadius: 0
+--- !u!50 &1276294011
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276294008}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!224 &1282718710 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1506679195408851674, guid: b04132cfa5d47de468b980df6de87532, type: 3}
@@ -14946,9 +14990,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1423216764}
   - component: {fileID: 1423216765}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: BulletBorder
-  m_TagString: Untagged
+  m_TagString: ProjectileBorder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17634,9 +17678,9 @@ MonoBehaviour:
       count: 6
       moveSpeed: 1
       range: 0.7
-      atkDelay: 2
+      atkDelay: 0
       coolTime: 2
-      type: 0
+      type: 2
       tier: 0
     - name: Chicken
       hp: 8
@@ -17655,10 +17699,10 @@ MonoBehaviour:
       exp: 2
       count: 6
       moveSpeed: 1
-      range: 1.2
-      atkDelay: 2
+      range: 0.4
+      atkDelay: 0
       coolTime: 1
-      type: 0
+      type: 2
       tier: 0
     - name: Pig
       hp: 15
@@ -17770,7 +17814,7 @@ MonoBehaviour:
       sprite: {fileID: 21300000, guid: 051a45e4ce5c17f4cba25bc44566c681, type: 3}
     - name: Elephant
       sprite: {fileID: 21300000, guid: 936bd2ce3878acc439783a91958c4cc1, type: 3}
-    - name: Melee
+    - name: Bite
       sprite: {fileID: 21300000, guid: 4422f42e79ce7c84e9c37586d4786aab, type: 3}
 --- !u!1 &1648492904
 GameObject:
@@ -19091,7 +19135,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1825786949}
   - component: {fileID: 1825786950}
-  m_Layer: 6
+  - component: {fileID: 1825786951}
+  m_Layer: 0
   m_Name: L
   m_TagString: ProjectileBorder
   m_Icon: {fileID: 0}
@@ -19139,6 +19184,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 28}
   m_EdgeRadius: 0
+--- !u!50 &1825786951
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825786948}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1826726596
 GameObject:
   m_ObjectHideFlags: 0
@@ -20071,7 +20137,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1916623990}
   - component: {fileID: 1916623991}
-  m_Layer: 6
+  - component: {fileID: 1916623992}
+  m_Layer: 0
   m_Name: D
   m_TagString: ProjectileBorder
   m_Icon: {fileID: 0}
@@ -20119,6 +20186,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 36, y: 2}
   m_EdgeRadius: 0
+--- !u!50 &1916623992
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916623989}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1917879880
 GameObject:
   m_ObjectHideFlags: 0

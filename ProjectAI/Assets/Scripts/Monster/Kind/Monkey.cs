@@ -12,4 +12,14 @@ public class Monkey : Monster
         else if (Vector2.Distance(transform.position, gameManager.playerAI.transform.position) > stat.range)
             anim.SetBool("IsMove", true);
     }
+
+    protected override IEnumerator Damaged(Projectile projectile, float stun)
+    {
+        isHit = true;
+        DmgPopUp(projectile.dmg);
+        curHP -= projectile.dmg;
+        anim.SetTrigger("IsHit");
+        yield return new WaitForSeconds(stun);
+        isHit = false;
+    }
 }
