@@ -178,7 +178,7 @@ public struct SlotsUI
         {
             for(int j = 0; j < inventorys.Count; j++)
             {
-                if (inventorys[i].stat.name == inventorys[j].stat.name && inventorys[i].stat.name != "")
+                if (inventorys[i].stat.name == inventorys[j].stat.name && inventorys[i].stat.name != "" && i != j)
                     k++;
             }
             if(k >= 3)
