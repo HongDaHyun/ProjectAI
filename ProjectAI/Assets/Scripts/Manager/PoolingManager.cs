@@ -18,6 +18,7 @@ public class PoolingManager : MonoBehaviour
     public GameObject monsterUIPrefab;
 
     public GameObject bananaPrefab;
+    public GameObject bitePrefab;
 
     GameObject[] targetPool;
 
@@ -43,6 +44,7 @@ public class PoolingManager : MonoBehaviour
     GameObject[] monsterUI;
 
     GameObject[] banana;
+    GameObject[] bite;
 
     private void Awake()
     {
@@ -64,6 +66,7 @@ public class PoolingManager : MonoBehaviour
         lion = Generate(enemyPrefab[8], 100);
         elephant = Generate(enemyPrefab[9], 100);
         banana = Generate(bananaPrefab, 30);
+        bite = Generate(bitePrefab, 50);
     }
 
     GameObject[] Generate(GameObject obj, int size)
@@ -134,6 +137,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "Banana":
                 targetPool = banana;
+                break;
+            case "Bite":
+                targetPool = bite;
                 break;
         }
 

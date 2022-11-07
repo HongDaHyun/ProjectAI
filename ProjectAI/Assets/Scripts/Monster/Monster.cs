@@ -14,7 +14,6 @@ public abstract class Monster : MonoBehaviourPunCallbacks
     protected SpriteRenderer sprite;
 
     protected Vector2 scale;
-    public Atk[] weapons;
 
     public string _name;
 
@@ -46,8 +45,6 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         isStun = false;
         isDie = false;
         curHP = stat.hp;
-        for (int i = 0; i < weapons.Length; i++)
-            weapons[i].gameObject.SetActive(false);
     }
 
     protected virtual void Update()
@@ -157,15 +154,19 @@ public abstract class Monster : MonoBehaviourPunCallbacks
     {
         isAttack = true;
         anim.SetTrigger("IsAtk");
-        if (Vector2.Distance(new Vector2(0, gameManager.playerAI.transform.position.y), new Vector2(0, transform.position.y)) < 0.3f)
-            weapons[0].gameObject.SetActive(true);
-        else if(transform.position.y < gameManager.playerAI.transform.position.y)
-            weapons[1].gameObject.SetActive(true);
-        else if(transform.position.y > gameManager.playerAI.transform.position.y)
-            weapons[2].gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        for (int i = 0; i < weapons.Length; i++)
-            weapons[i].gameObject.SetActive(false);
+        if (PhotonNetwork.IsConnected && !pv.IsMine)
+        {
+            GameObject bite = PhotonNetwork.Instantiate("Bite", gameManager.playerAI.transform.position, Quaternion.identity);
+            Bite biteScript = bite.GetComponent<Bite>();
+            biteScript.damage = stat.damage;
+        }
+        else if (!PhotonNetwork.IsConnected)
+        {
+            GameObject bite = gameManager.poolingManager.MakeObj("Bite");
+            bite.transform.position = gameManager.playerAI.transform.position;
+            Bite biteScript = bite.GetComponent<Bite>();
+            biteScript.damage = stat.damage;
+        }
         yield return new WaitForSeconds(stat.atkDelay);
         isAttack = false;
     }
@@ -222,7 +223,7 @@ public abstract class Monster : MonoBehaviourPunCallbacks
     void SetStat()
     {
         scale = transform.localScale;
-        weapons = GetComponentsInChildren<Bite>();
+        //weapons = GetComponentsInChildren<Bite>();
         stat = gameManager.csvReader.monsterExportData(_name);
     }
 }

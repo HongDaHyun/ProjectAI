@@ -25,10 +25,9 @@ public class Banana : Atk
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
-        {
-            gameObject.SetActive(false);
-        }
+            ActiveFalse();
+
         if (collision.CompareTag("ProjectileBorder"))
-            gameObject.SetActive(false);
+            ActiveFalse();
     }
 }

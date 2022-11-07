@@ -54,4 +54,12 @@ public abstract class Atk : MonoBehaviourPunCallbacks, IPunObservable
             }
         }
     }
+
+    public void ActiveFalse()
+    {
+        if (PhotonNetwork.IsConnected && pv.IsMine)
+            PhotonNetwork.Destroy(gameObject);
+        else
+            gameObject.SetActive(false);
+    }
 }
