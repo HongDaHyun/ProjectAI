@@ -6,14 +6,14 @@ public class FlameThrower : Projectile
 {
     Animator anim;
     SpriteRenderer sprite;
-    CapsuleCollider2D col;
+    BoxCollider2D col;
 
     protected override void Awake()
     {
         base.Awake();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-        col = GetComponent<CapsuleCollider2D>();
+        col = GetComponent<BoxCollider2D>();
     }
 
     protected override void Update()
