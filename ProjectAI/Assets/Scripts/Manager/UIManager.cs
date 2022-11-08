@@ -135,8 +135,6 @@ public struct ExpBarUI
             ai.level++;
             ai.stat.exp = (ai.level * ai.level + ai.level) * 5;
             levelTxt.text = ai.level.ToString();
-
-            ai.stat.damage = Mathf.RoundToInt(ai.stat.damage + MathF.Pow(1.11f, ai.level) + MathF.Pow(3.14f, MathF.Log(ai.level)));
         }
     }
 }
@@ -183,7 +181,7 @@ public struct SlotsUI
             }
             if(k >= 3)
             {
-                Debug.Log("ÁøÈ­ " + inventorys[i].stat.name);
+                Debug.Log("ï¿½ï¿½È­ " + inventorys[i].stat.name);
             }
             k = 0;
         }
