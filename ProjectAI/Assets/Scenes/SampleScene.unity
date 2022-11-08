@@ -3946,11 +3946,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294901410}
   m_CullTransparentMesh: 1
---- !u!4 &294905051 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8774207115366374944, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
-  m_PrefabInstance: {fileID: 1415478820}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &311217948 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4672593585730739279, guid: bbb0c795eccf51d438f4f3fb0f519d7f, type: 3}
@@ -13050,6 +13045,7 @@ MonoBehaviour:
   projectilePrefab:
   - {fileID: 3335284178614945353, guid: af166a81da60adf4e87b28f80c556c8c, type: 3}
   - {fileID: 3335284178614945353, guid: 94ef95fcfc5709f409fa1c95fb02abda, type: 3}
+  - {fileID: 3335284178614945353, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
   - {fileID: 3335284178614945353, guid: f4b6d104db4b72e418f447e4507ca467, type: 3}
   enemyPrefab:
   - {fileID: 4216956034388105023, guid: 8ddf22fc1827aa1489e6413329d31bc7, type: 3}
@@ -14924,71 +14920,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413207963}
   m_CullTransparentMesh: 1
---- !u!1001 &1415478820
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 5258003461314690533}
-    m_Modifications:
-    - target: {fileID: 3335284178614945353, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
-      propertyPath: m_Name
-      value: FlameThrower
-      objectReference: {fileID: 0}
-    - target: {fileID: 3335284178614945353, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8503908289647097403, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
-      propertyPath: sceneViewId
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8774207115366374944, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8774207115366374944, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8774207115366374944, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8774207115366374944, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8774207115366374944, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8774207115366374944, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8774207115366374944, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8774207115366374944, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8774207115366374944, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8774207115366374944, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8774207115366374944, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
 --- !u!1 &1423216763
 GameObject:
   m_ObjectHideFlags: 0
@@ -17648,7 +17579,7 @@ MonoBehaviour:
         curAmmo: 7
         damage: 1
         spread: 0
-        atkSpeed: 0
+        atkSpeed: 2
         bulletSpeed: 0
         reloadSpeed: 5
         level: 0
@@ -17700,7 +17631,7 @@ MonoBehaviour:
         isReload: 0
       hp: 1000
       exp: 10
-      damage: 1
+      damage: 0
       walkSpeed: 1.5
       attackSpeed: 0.7
       bulletSpeed: 3
@@ -17755,7 +17686,7 @@ MonoBehaviour:
       curAmmo: 7
       damage: 1
       spread: 0
-      atkSpeed: 0
+      atkSpeed: 2
       bulletSpeed: 0
       reloadSpeed: 5
       level: 0
@@ -17812,7 +17743,7 @@ MonoBehaviour:
       exp: 2
       count: 6
       moveSpeed: 1
-      range: 0.7
+      range: 0
       atkDelay: 0
       coolTime: 2
       type: 2
@@ -17834,7 +17765,7 @@ MonoBehaviour:
       exp: 2
       count: 6
       moveSpeed: 1
-      range: 0.4
+      range: 0
       atkDelay: 0
       coolTime: 1
       type: 2
@@ -17874,7 +17805,7 @@ MonoBehaviour:
       tier: 2
     - name: Monkey
       hp: 20
-      damage: 8
+      damage: 5
       exp: 10
       count: 3
       moveSpeed: 0.6
@@ -22970,7 +22901,6 @@ MonoBehaviour:
   isHit: 0
   isDead: 0
   lookCurTime: 0
-  isFire: 0
 --- !u!70 &5258003461314690531
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -23053,7 +22983,6 @@ Transform:
   m_Children:
   - {fileID: 1510969345}
   - {fileID: 185542974}
-  - {fileID: 294905051}
   - {fileID: 952698467}
   m_Father: {fileID: 0}
   m_RootOrder: 15

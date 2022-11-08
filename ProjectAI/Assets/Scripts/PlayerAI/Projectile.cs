@@ -69,12 +69,18 @@ public abstract class Projectile : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    protected void ShootFlame()
+    protected void ShootFlame(SpriteRenderer sprite)
     {
         if (gameManager.playerAI.spriteRenderer.flipX)
-            transform.localPosition = new Vector3(-3, 0.5f, 0);
+        {
+            transform.position = gameManager.playerAI.transform.position + new Vector3(-0.5f, 0.2f, 0);
+            sprite.flipY = true;
+        }
         else if (!gameManager.playerAI.spriteRenderer.flipX)
-            transform.localPosition = new Vector3(3, 0.5f, 0);
+        {
+            transform.position = gameManager.playerAI.transform.position + new Vector3(0.5f, 0.2f, 0);
+            sprite.flipY = false;
+        }
     }
 
     protected void Falcon(Falcon falcon)
@@ -127,7 +133,7 @@ public abstract class Projectile : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    protected void DestroyObj()
+    public void DestroyObj()
     {
         if (PhotonNetwork.IsConnected && pv.IsMine)
             PhotonNetwork.Destroy(gameObject);

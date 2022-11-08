@@ -17,7 +17,6 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
     protected PhotonView pv;
     protected Vector3 curPos;
     protected HuntingDog[] huntingDogs;
-    protected FlameThrower flameThrow;
     protected Collider2D[] colliderArray;
     protected float inputX, inputY;
     protected GameObject shadow;
@@ -39,8 +38,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         reload = GetComponentsInChildren<Reload>(true);
         pv = GetComponent<PhotonView>();
         huntingDogs = GetComponentsInChildren<HuntingDog>(true);
-        flameThrow = GetComponentInChildren<FlameThrower>(true);
-        shadow = transform.GetChild(3).gameObject;
+        shadow = transform.GetChild(2).gameObject;
     }
 
     private void Start()
@@ -184,10 +182,9 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
             stat.ammo[2].isReload = true;
             reload[2].gameObject.SetActive(true);
         }
-        if(stat.ammo[4].curShotTime <= 0 && stat.ammo[4].level >= 1)
+        if(stat.ammo[4].curAmmo <= 0)
         {
             stat.ammo[4].isReload = true;
-            flameThrow.gameObject.SetActive(false);
             reload[3].gameObject.SetActive(true);
         }
         if(stat.ammo[5].curAmmo <= 0)
@@ -321,20 +318,26 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    [HideInInspector]public bool isFire;
     protected void FlameThrower()
     {
         if (stat.ammo[4].level < 1)
-        {
-            if(flameThrow.gameObject.activeSelf)
-                flameThrow.gameObject.SetActive(false);
             return;
-        }
-        if (!isFire && !stat.ammo[4].isReload && stat.ammo[4].curShotTime > 0)
+        if (stat.ammo[4].curShotTime >= stat.attackSpeed + stat.ammo[4].atkSpeed && !stat.ammo[4].isReload)
         {
-            isFire = true;
-            flameThrow.gameObject.SetActive(true);
-            flameThrow.dmg = stat.ammo[4].damage + stat.damage;
+            if (PhotonNetwork.IsConnected && !pv.IsMine)
+            {
+                GameObject flame = PhotonNetwork.Instantiate("FlameThrower", transform.position, Quaternion.identity);
+                FlameThrower flameScript = flame.GetComponent<FlameThrower>();
+                flameScript.dmg = stat.ammo[4].damage + stat.damage;
+            }
+            else if (!PhotonNetwork.IsConnected)
+            {
+                GameObject flame = gameManager.poolingManager.MakeObj("FlameThrower");
+                FlameThrower flameScript = flame.GetComponent<FlameThrower>();
+                flameScript.dmg = stat.ammo[4].damage + stat.damage;
+            }
+            stat.ammo[4].curAmmo -= 1;
+            stat.ammo[4].curShotTime = 0;
         }
     }
 
@@ -374,12 +377,18 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
 
     protected void GunShot(GameObject target)
     {
-        LongGun(target);
-        ShotGun(target);
-        Tomahawk(target);
-        HuntingDog();
-        FlameThrower();
-        Falcon(target);
+        if(Vector2.Distance(target.transform.position, transform.position) <= stat.ammo[0].range)
+            LongGun(target);
+        if (Vector2.Distance(target.transform.position, transform.position) <= stat.ammo[1].range)
+            ShotGun(target);
+        if (Vector2.Distance(target.transform.position, transform.position) <= stat.ammo[2].range)
+            Tomahawk(target);
+        if (Vector2.Distance(target.transform.position, transform.position) <= stat.ammo[3].range)
+            HuntingDog();
+        if (Vector2.Distance(target.transform.position, transform.position) <= stat.ammo[4].range)
+            FlameThrower();
+        if (Vector2.Distance(target.transform.position, transform.position) <= stat.ammo[5].range)
+            Falcon(target);
 
         Reload();
     }
@@ -393,7 +402,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         if (stat.ammo[2].level >= 1)
             stat.ammo[2].curShotTime += Time.deltaTime;
         if (stat.ammo[4].level >= 1)
-            stat.ammo[4].curShotTime -= Time.deltaTime;
+            stat.ammo[4].curShotTime += Time.deltaTime;
         if (stat.ammo[5].level >= 1)
             stat.ammo[5].curShotTime += Time.deltaTime;
     }

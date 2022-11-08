@@ -24,6 +24,7 @@ public class PoolingManager : MonoBehaviour
 
     GameObject[] bullet;
     GameObject[] tomahawk;
+    GameObject[] flameThrower;
     GameObject[] falcon;
 
     GameObject[] rabbit;
@@ -50,23 +51,24 @@ public class PoolingManager : MonoBehaviour
     {
         bullet = Generate(projectilePrefab[0], 100);
         tomahawk = Generate(projectilePrefab[1], 100);
-        falcon = Generate(projectilePrefab[2], 30);
+        flameThrower = Generate(projectilePrefab[2], 10);
+        falcon = Generate(projectilePrefab[3], 30);
         forestTilemap = Generate(tileMaps[0], 9);
         dmgPopUp = Generate(dmgPopUpPrefab, 50);
         uiPopUp = Generate(uiPopUpPrefab, 50);
         monsterUI = Generate(monsterUIPrefab, 30);
-        rabbit = Generate(enemyPrefab[0], 100);
-        chicken = Generate(enemyPrefab[1], 100);
-        mouse = Generate(enemyPrefab[2], 100);
-        pig = Generate(enemyPrefab[3], 100);
-        deer = Generate(enemyPrefab[4], 100);
-        fox = Generate(enemyPrefab[5], 100);
-        monkey = Generate(enemyPrefab[6], 100);
-        bear = Generate(enemyPrefab[7], 100);
-        lion = Generate(enemyPrefab[8], 100);
-        elephant = Generate(enemyPrefab[9], 100);
+        rabbit = Generate(enemyPrefab[0], 200);
+        chicken = Generate(enemyPrefab[1], 200);
+        mouse = Generate(enemyPrefab[2], 200);
+        pig = Generate(enemyPrefab[3], 200);
+        deer = Generate(enemyPrefab[4], 200);
+        fox = Generate(enemyPrefab[5], 200);
+        monkey = Generate(enemyPrefab[6], 200);
+        bear = Generate(enemyPrefab[7], 200);
+        lion = Generate(enemyPrefab[8], 200);
+        elephant = Generate(enemyPrefab[9], 200);
         banana = Generate(bananaPrefab, 30);
-        bite = Generate(bitePrefab, 50);
+        bite = Generate(bitePrefab, 200);
     }
 
     GameObject[] Generate(GameObject obj, int size)
@@ -89,6 +91,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "Tomahawk":
                 targetPool = tomahawk;
+                break;
+            case "FlameThrower":
+                targetPool = flameThrower;
                 break;
             case "Falcon":
                 targetPool = falcon;

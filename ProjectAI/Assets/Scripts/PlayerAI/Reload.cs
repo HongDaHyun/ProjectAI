@@ -109,9 +109,8 @@ public class Reload : MonoBehaviour
             gauge.localPosition = Vector2.Lerp(startPos, endPos, curReload / reloadTime);
             yield return new WaitForFixedUpdate();
         }
-        gameManager.playerAI.stat.ammo[4].curShotTime = gameManager.playerAI.stat.ammo[4].ammo;
+        gameManager.playerAI.stat.ammo[4].curAmmo = gameManager.playerAI.stat.ammo[4].ammo;
         gameManager.playerAI.stat.ammo[4].isReload = false;
-        gameManager.playerAI.isFire = false;
         gameObject.SetActive(false);
     }
 

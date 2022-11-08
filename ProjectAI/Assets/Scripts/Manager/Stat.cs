@@ -26,6 +26,7 @@ public struct PlayerAmmo
     public int ammo;
     public int curAmmo;
     public int damage;
+    public int range;
     public float spread;
     public float atkSpeed;
     public float bulletSpeed;
