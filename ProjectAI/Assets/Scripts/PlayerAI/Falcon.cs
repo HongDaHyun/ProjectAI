@@ -16,7 +16,6 @@ public class Falcon : Projectile
     protected override void Update()
     {
         Falcon(this);
-        Debug.Log(target);
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)

@@ -95,6 +95,7 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         DmgPopUp(projectile.dmg);
         curHP -= projectile.dmg;
         anim.SetTrigger("IsHit");
+        sprite.color = Color.red;
         if(projectile.isKnockBack)
         {
             isStun = true;
@@ -102,6 +103,7 @@ public abstract class Monster : MonoBehaviourPunCallbacks
             rigid.AddForce(direction * 0.0002f, ForceMode2D.Impulse);
         }
         yield return new WaitForSeconds(stun);
+        sprite.color = Color.white;
         isHit = false;
         isStun = false;
     }

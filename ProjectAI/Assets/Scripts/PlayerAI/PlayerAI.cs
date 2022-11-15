@@ -347,13 +347,9 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
             return;
         if (stat.ammo[5].curShotTime >= stat.attackSpeed + stat.ammo[5].atkSpeed && !stat.ammo[5].isReload)
         {
-            Vector2 direction = target.transform.position - transform.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            angle += Random.Range(-stat.ammo[1].spread, stat.ammo[1].spread);
-            Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
             if (PhotonNetwork.IsConnected && !pv.IsMine)
             {
-                GameObject falcon = PhotonNetwork.Instantiate("Falcon", transform.position, rotation);
+                GameObject falcon = PhotonNetwork.Instantiate("Falcon", transform.position, Quaternion.identity);
                 Falcon falconScript = falcon.GetComponent<Falcon>();
                 falconScript.target = target;
                 falconScript.dmg = (stat.ammo[5].damage + stat.damage);
@@ -363,7 +359,6 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
             {
                 GameObject falcon = gameManager.poolingManager.MakeObj("Falcon");
                 falcon.transform.position = transform.position;
-                falcon.transform.rotation = rotation;
                 Falcon falconScript = falcon.GetComponent<Falcon>();
                 falconScript.target = target;
                 falconScript.dmg = (stat.ammo[5].damage + stat.damage);

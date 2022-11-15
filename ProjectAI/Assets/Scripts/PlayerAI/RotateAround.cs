@@ -22,12 +22,16 @@ public class RotateAround : MonoBehaviourPunCallbacks
     private void Update()
     {
         if(!PhotonNetwork.IsConnected)
+        {
             transform.RotateAround(target.position, Vector3.back, player.stat.ammo[3].bulletSpeed * Time.deltaTime);
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+        }
         else
         {
             if (pv.IsMine)
             {
                 transform.RotateAround(target.position, Vector3.back, player.stat.ammo[3].bulletSpeed * Time.deltaTime);
+                transform.rotation = new Quaternion(0, 0, 0, 0);
             }
             else if ((transform.position - curPos).sqrMagnitude >= 100)
             {

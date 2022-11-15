@@ -88,8 +88,8 @@ public abstract class Projectile : MonoBehaviourPunCallbacks, IPunObservable
 
         if (!PhotonNetwork.IsConnected)
         {
-            transform.position = Vector3.MoveTowards(transform.position, falcon.target.transform.position, speed * Time.deltaTime);
-            if (transform.position == falcon.target.transform.position)
+            transform.position = Vector3.MoveTowards(transform.position, falcon.target.transform.position + new Vector3(0, 0.5f), speed * Time.deltaTime);
+            if (transform.position == falcon.target.transform.position + new Vector3(0, 0.5f))
                 falcon.col.enabled = true;
             if (!falcon.target.activeSelf)
                 gameObject.SetActive(false);
@@ -98,7 +98,7 @@ public abstract class Projectile : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (pv.IsMine)
             {
-                transform.position = Vector3.MoveTowards(transform.position, falcon.target.transform.position, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, falcon.target.transform.position + new Vector3(0, 0.5f), speed * Time.deltaTime);
                 if (transform.position == falcon.target.transform.position)
                     falcon.col.enabled = true;
                 if (falcon.target.GetComponent<Monster>().isDie)

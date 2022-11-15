@@ -81,6 +81,7 @@ public class BtnManager : MonoBehaviour
         gameManager.isGameOver = false;
         gameManager.soundManager.bgm.Play();
         StartCoroutine(gameManager.SecPerMoney(gameManager.secMoneySize, gameManager.secMoney));
+        Time.timeScale = 2f;
     }
 
     public void WeaponTestBtnUp(int id)
