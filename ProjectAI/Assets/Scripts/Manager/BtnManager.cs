@@ -24,6 +24,7 @@ public class BtnManager : MonoBehaviour
     private void Update()
     {
         ShopBtn();
+        TestWeaponLevel();
     }
 
     #region KeyBoard
@@ -35,6 +36,31 @@ public class BtnManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.P))
         {
             ShopClk();
+        }
+    }
+    public void TestWeaponLevel()
+    {
+        KeyCode[] keys = { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6 };
+
+        for(int i = 0; i < keys.Length; i++)
+        {
+            if (Input.GetKeyDown(keys[i]))
+            {
+                if (i == 3)
+                {
+                    if (gameManager.playerAI.stat.ammo[3].level >= 4)
+                        gameManager.playerAI.stat.ammo[3].level = 0;
+                    else
+                        gameManager.playerAI.stat.ammo[3].level++;
+                }
+                else
+                {
+                    if (gameManager.playerAI.stat.ammo[i].level > 0)
+                        gameManager.playerAI.stat.ammo[i].level--;
+                    else
+                        gameManager.playerAI.stat.ammo[i].level++;
+                }
+            }
         }
     }
 

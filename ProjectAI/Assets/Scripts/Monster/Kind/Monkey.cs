@@ -19,7 +19,9 @@ public class Monkey : Monster
         DmgPopUp(projectile.dmg);
         curHP -= projectile.dmg;
         anim.SetTrigger("IsHit");
+        sprite.color = Color.red;
         yield return new WaitForSeconds(stun);
+        sprite.color = Color.white;
         isHit = false;
     }
 }
