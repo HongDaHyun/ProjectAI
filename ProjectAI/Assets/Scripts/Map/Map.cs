@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Map : MonoBehaviour
+public class Map : MonoBehaviour
 {
     static int SIZE = 9;
-    static int tileDistance = 90;
-    static int scrollingRange = 210;
+    static int tileDistance = 26;
+    static int scrollingRange = 52;
 
     GameManager gameManager;
 
@@ -17,12 +17,17 @@ public abstract class Map : MonoBehaviour
         gameManager = GameManager.Instance;
     }
 
+    private void Start()
+    {
+        Generate();
+    }
+
     private void Update()
     {
         MapScrolling();
     }
 
-    protected void Generate(string name)
+    protected void Generate()
     {
         int k = 0;
         for(int i = 1; i > -2; i--)
