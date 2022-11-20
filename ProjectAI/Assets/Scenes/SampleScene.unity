@@ -2369,7 +2369,7 @@ GameObject:
   - component: {fileID: 176631443}
   - component: {fileID: 176631444}
   m_Layer: 0
-  m_Name: Desert
+  m_Name: MapManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2402,6 +2402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db8ff360d72bca41a68b643a3a065e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapName: City
 --- !u!1 &176850982
 GameObject:
   m_ObjectHideFlags: 0
@@ -13569,6 +13570,7 @@ MonoBehaviour:
   tileMaps:
   - {fileID: 5081655027593198842, guid: 2e7d90f9bf5be4f4c9a44110fcefd6b9, type: 3}
   - {fileID: 5081655027593198842, guid: f27c68b48354ffe4887a8a37396f2ff4, type: 3}
+  - {fileID: 5081655027593198842, guid: 17fc1b07dbcbe294983ba4fe331219cc, type: 3}
   dmgPopUpPrefab: {fileID: 2429354406939232664, guid: d5302d64fbd905e448a3b6d80dd3228a, type: 3}
   uiPopUpPrefab: {fileID: 913321878492645542, guid: f564570fa6fa7b04d97a10d011923e74, type: 3}
   monsterUIPrefab: {fileID: 4473072673051085636, guid: 3d02ebe784a49204d84a5f0221497d0f, type: 3}

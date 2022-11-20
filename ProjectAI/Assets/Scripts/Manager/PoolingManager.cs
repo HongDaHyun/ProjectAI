@@ -40,6 +40,7 @@ public class PoolingManager : MonoBehaviour
 
     GameObject[] forestTilemap;
     GameObject[] desertTilemap;
+    GameObject[] cityTilemap;
 
     GameObject[] dmgPopUp;
     GameObject[] uiPopUp;
@@ -56,6 +57,7 @@ public class PoolingManager : MonoBehaviour
         falcon = Generate(projectilePrefab[3], 30);
         forestTilemap = Generate(tileMaps[0], 9);
         desertTilemap = Generate(tileMaps[1], 9);
+        cityTilemap = Generate(tileMaps[2], 9);
         dmgPopUp = Generate(dmgPopUpPrefab, 50);
         uiPopUp = Generate(uiPopUpPrefab, 50);
         monsterUI = Generate(monsterUIPrefab, 30);
@@ -135,6 +137,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "Desert":
                 targetPool = desertTilemap;
+                break;
+            case "City":
+                targetPool = cityTilemap;
                 break;
             case "DmgPopUp":
                 targetPool = dmgPopUp;

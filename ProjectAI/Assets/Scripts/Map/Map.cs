@@ -8,6 +8,8 @@ public class Map : MonoBehaviour
     static int tileDistance = 26;
     static int scrollingRange = 52;
 
+    public string mapName;
+
     GameManager gameManager;
 
     GameObject[] tilemap = new GameObject[SIZE];
@@ -34,7 +36,7 @@ public class Map : MonoBehaviour
         {
             for(int j = -1; j < 2; j++)
             {
-                tilemap[k] = gameManager.poolingManager.MakeObj(name);
+                tilemap[k] = gameManager.poolingManager.MakeObj(mapName);
                 tilemap[k].transform.position = new Vector2(tileDistance * j, tileDistance * i);
                 k++;
             }
