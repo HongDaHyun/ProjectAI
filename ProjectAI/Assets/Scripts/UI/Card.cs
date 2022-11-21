@@ -113,7 +113,8 @@ public class Card : MonoBehaviour
     {
         for (int i = 0; i < gameManager.uiManager.deckList.Count; i++)
             gameManager.uiManager.deckList[i].SetActive(false);
-        gameManager.uiManager.Shop[2].SetActive(false);
+        gameManager.uiManager.Shop[1].SetActive(false);
+        gameManager.uiManager.Pause(false);
     }
 
     void InstantiateMonsterUI()

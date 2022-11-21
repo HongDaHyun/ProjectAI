@@ -7,6 +7,7 @@ public class BtnManager : MonoBehaviour
 {
     private static BtnManager instance = null;
     GameManager gameManager;
+    private Animator shopPannel;
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class BtnManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         gameManager = GameManager.Instance;
+        shopPannel = gameManager.uiManager.Shop[0].GetComponent<Animator>();
     }
 
     private void Update()
@@ -70,15 +72,20 @@ public class BtnManager : MonoBehaviour
 
     public void ShopClk()
     {
-        if (gameManager.uiManager.Shop[0].activeSelf)
-            gameManager.uiManager.Shop[0].SetActive(false);
-        else if (!gameManager.uiManager.Shop[0].activeSelf)
-            gameManager.uiManager.Shop[0].SetActive(true);
+        if (shopPannel.GetBool("IsShow"))
+        {
+            shopPannel.SetBool("IsShow", false);
+        }
+        else if (!shopPannel.GetBool("IsShow"))
+        {
+            shopPannel.SetBool("IsShow", true);
+        }
     }
 
     public void DeckExit()
     {
-        gameManager.uiManager.Shop[2].SetActive(false);
+        gameManager.uiManager.Shop[1].SetActive(false);
+        gameManager.uiManager.Pause(false);
     }
 
     public void CardBoxClk()
@@ -91,7 +98,8 @@ public class BtnManager : MonoBehaviour
             return;
 
         gameManager.soundManager.SFXPlayer(SoundManager.SFX.CardOpen);
-        gameManager.uiManager.Shop[2].SetActive(true);
+        gameManager.uiManager.Shop[1].SetActive(true);
+        gameManager.uiManager.Pause(true);
         gameManager.money -= price.price;
 
         for (int i = 0; i < gameManager.uiManager.deckList.Count; i++)

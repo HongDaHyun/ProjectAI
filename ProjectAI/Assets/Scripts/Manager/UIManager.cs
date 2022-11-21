@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public SlotsUI slotsUI;
     public List<GameObject> deckList;
     public GameObject GameOver;
+    public GameObject pause;
     public GameObject[] Shop;
     public Text[] Soul;
     public Timer timer;
@@ -77,6 +78,14 @@ public class UIManager : MonoBehaviour
         obj.transform.localScale = new Vector3(1, 1, 1);
         obj.GetComponent<RectTransform>().position = rect.position;
         StartCoroutine(obj.GetComponent<UIPopUp>().Pop(sell));
+    }
+
+    public void Pause(bool active)
+    {
+        if (active)
+            pause.SetActive(true);
+        else if (!active)
+            pause.SetActive(false);
     }
 }
 
