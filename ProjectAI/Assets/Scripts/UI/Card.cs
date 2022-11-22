@@ -6,6 +6,8 @@ using TMPro;
 
 public class Card : MonoBehaviour
 {
+    Animator anim;
+
     public int id;
 
     public MonsterStat monsterStat;
@@ -16,23 +18,32 @@ public class Card : MonoBehaviour
     private void Awake()
     {
         gameManager = GameManager.Instance;
+        anim = GetComponent<Animator>();
         SetCardUI();
+    }
+
+    private void OnEnable()
+    {
+        anim.enabled = false;
+        transform.localScale = new Vector3(1, 1, 1);
+        transform.localEulerAngles = new Vector3(0, 0, 0);
     }
 
     private void OnMouseEnter()
     {
-        gameObject.transform.localScale = new Vector3(8.5f, 8.5f, 1);
+        transform.localScale = new Vector3(1.2f, 1.2f, 1);
     }
 
     private void OnMouseExit()
     {
-        gameObject.transform.localScale = new Vector3(8f, 8f, 1);
+        transform.localScale = new Vector3(1, 1, 1);
     }
 
     private void OnMouseUp()
     {
+        anim.enabled = true;
         gameManager.soundManager.SFXPlayer(SoundManager.SFX.SelectCard);
-        ActiveFalseCard();
+        CardClick();
         InstantiateMonsterUI();
     }
 
@@ -40,31 +51,27 @@ public class Card : MonoBehaviour
     {
         monsterStat = MakeRanCard(RanCard());
         SpriteStat spriteStat = gameManager.csvReader.spriteExportData(monsterStat.name);
-        SpriteStat atkSpriteStat = gameManager.csvReader.spriteExportData(monsterStat.type.ToString());
 
+        cardUI.charImg.sprite = spriteStat.sprite;
         cardUI.name.text = monsterStat.name;
-        SetColor();
-        cardUI.hp.text = monsterStat.hp.ToString();
-        cardUI.atk.text = monsterStat.damage.ToString();
-        cardUI.img.sprite = spriteStat.sprite;
-        cardUI.atkType.sprite = atkSpriteStat.sprite;
+        SetStar();
     }
 
-    void SetColor()
+    void SetStar()
     {
         switch(monsterStat.tier)
         {
             case Tier.Common:
-                cardUI.name.color = Color.green;
+                cardUI.star.sprite = gameManager.csvReader.spriteExportData("Star1").sprite;
                 break;
             case Tier.Rare:
-                cardUI.name.color = Color.blue;
+                cardUI.star.sprite = gameManager.csvReader.spriteExportData("Star2").sprite;
                 break;
             case Tier.Epic:
-                cardUI.name.color = Color.magenta;
+                cardUI.star.sprite = gameManager.csvReader.spriteExportData("Star3").sprite;
                 break;
             case Tier.Legend:
-                cardUI.name.color = Color.yellow;
+                cardUI.star.sprite = gameManager.csvReader.spriteExportData("Star4").sprite;
                 break;
         }
     }
@@ -101,20 +108,21 @@ public class Card : MonoBehaviour
 
     void SetCardUI()
     {
-        cardUI.name = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        cardUI.img = transform.GetChild(1).GetComponent<Image>();
-        GameObject description = transform.GetChild(2).gameObject;
-        cardUI.atk = description.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        cardUI.hp = description.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-        cardUI.atkType = description.transform.GetChild(2).GetComponent<Image>();
+        cardUI.charImg = transform.GetChild(0).GetComponent<Image>();
+        cardUI.name = transform.GetChild(1).GetComponent<Text>();
+        cardUI.star = transform.GetChild(2).GetComponent<Image>();
     }
 
-    void ActiveFalseCard()
+    void CardClick()
     {
-        for (int i = 0; i < gameManager.uiManager.deckList.Count; i++)
-            gameManager.uiManager.deckList[i].SetActive(false);
-        gameManager.uiManager.Shop[1].SetActive(false);
+        anim.SetTrigger("Click");
+        gameManager.uiManager.Shop[1].SetBool("IsShow", false);
         gameManager.uiManager.Pause(false);
+    }
+
+    public void ActiveFalseCard()
+    {
+        gameObject.SetActive(false);
     }
 
     void InstantiateMonsterUI()
@@ -144,9 +152,7 @@ public class Card : MonoBehaviour
 [System.Serializable]
 public struct CardUI
 {
-    public TextMeshProUGUI name;
-    public Image img;
-    public TextMeshProUGUI atk;
-    public TextMeshProUGUI hp;
-    public Image atkType;
+    public Text name;
+    public Image charImg;
+    public Image star;
 }

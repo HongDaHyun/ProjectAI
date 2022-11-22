@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
     public List<GameObject> deckList;
     public GameObject GameOver;
     public GameObject pause;
-    public GameObject[] Shop;
+    public Animator[] Shop;
     public Text[] Soul;
     public Timer timer;
 
