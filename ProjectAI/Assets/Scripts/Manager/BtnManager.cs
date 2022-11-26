@@ -7,6 +7,7 @@ public class BtnManager : MonoBehaviour
 {
     private static BtnManager instance = null;
     GameManager gameManager;
+    public float originTime = 1.5f;
 
     private void Awake()
     {
@@ -114,7 +115,7 @@ public class BtnManager : MonoBehaviour
         gameManager.isGameOver = false;
         gameManager.soundManager.bgm.Play();
         StartCoroutine(gameManager.SecPerMoney(gameManager.secMoneySize, gameManager.secMoney));
-        Time.timeScale = 2f;
+        Time.timeScale = originTime;
     }
 
     public void WeaponTestBtnUp(int id)

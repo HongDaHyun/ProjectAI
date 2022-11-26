@@ -61,7 +61,7 @@ public abstract class Monster : MonoBehaviourPunCallbacks
 
     protected void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Projectile") && !isDie)
+        if (collision.CompareTag("Projectile") && !isDie &&!isHit)
         {
             StartCoroutine(Damaged(collision.GetComponent<Projectile>(), 0.2f));
         }
@@ -95,6 +95,8 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         DmgPopUp(projectile.dmg);
         curHP -= projectile.dmg;
         anim.SetTrigger("IsHit");
+        GameObject hit = gameManager.poolingManager.MakeObj("Hit");
+        hit.transform.position = this.transform.position;
         sprite.color = Color.red;
         if(projectile.isKnockBack)
         {

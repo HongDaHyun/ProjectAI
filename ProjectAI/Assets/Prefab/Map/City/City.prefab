@@ -6930,7 +6930,7 @@ MonoBehaviour:
   - {fileID: 7068164576805507863, guid: 142c196c6cbb34544bf72566125f9841, type: 3}
   - {fileID: 7068164576805507863, guid: 9703e4c51c58af14d8327d33dafdb773, type: 3}
   - {fileID: 7068164576805507863, guid: e8670caff2e68084a92b46eb1727d3d1, type: 3}
-  objCount: 40
+  objCount: 20
   objErrorRange: 10
   grounds:
   - {fileID: 5176674141424198971, guid: e3890f7336ea173418c8f308b6fdcb5e, type: 3}

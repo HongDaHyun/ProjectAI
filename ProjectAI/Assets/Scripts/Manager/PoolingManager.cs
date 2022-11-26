@@ -11,6 +11,8 @@ public class PoolingManager : MonoBehaviour
 
     public GameObject[] enemyPrefab;
 
+    public GameObject[] effectPrefab;
+
     public GameObject[] tileMaps;
 
     public GameObject dmgPopUpPrefab;
@@ -37,6 +39,14 @@ public class PoolingManager : MonoBehaviour
     GameObject[] bear;
     GameObject[] lion;
     GameObject[] elephant;
+    GameObject[] ghostRabbit;
+    GameObject[] ghostDeer;
+    GameObject[] ghostPig;
+    GameObject[] ghostLion;
+    GameObject[] ghostElephant;
+
+    GameObject[] hit;
+    GameObject[] blood;
 
     GameObject[] forestTilemap;
     GameObject[] desertTilemap;
@@ -58,19 +68,26 @@ public class PoolingManager : MonoBehaviour
         forestTilemap = Generate(tileMaps[0], 9);
         desertTilemap = Generate(tileMaps[1], 9);
         cityTilemap = Generate(tileMaps[2], 9);
-        dmgPopUp = Generate(dmgPopUpPrefab, 50);
+        dmgPopUp = Generate(dmgPopUpPrefab, 500);
         uiPopUp = Generate(uiPopUpPrefab, 50);
         monsterUI = Generate(monsterUIPrefab, 30);
-        rabbit = Generate(enemyPrefab[0], 200);
-        chicken = Generate(enemyPrefab[1], 200);
-        mouse = Generate(enemyPrefab[2], 200);
-        pig = Generate(enemyPrefab[3], 200);
-        deer = Generate(enemyPrefab[4], 200);
-        fox = Generate(enemyPrefab[5], 200);
-        monkey = Generate(enemyPrefab[6], 200);
-        bear = Generate(enemyPrefab[7], 200);
-        lion = Generate(enemyPrefab[8], 200);
-        elephant = Generate(enemyPrefab[9], 200);
+        rabbit = Generate(enemyPrefab[0], 1000);
+        chicken = Generate(enemyPrefab[1], 1000);
+        mouse = Generate(enemyPrefab[2], 1000);
+        pig = Generate(enemyPrefab[3], 1000);
+        deer = Generate(enemyPrefab[4], 1000);
+        fox = Generate(enemyPrefab[5], 1000);
+        monkey = Generate(enemyPrefab[6], 1000);
+        bear = Generate(enemyPrefab[7], 1000);
+        lion = Generate(enemyPrefab[8], 1000);
+        elephant = Generate(enemyPrefab[9], 1000);
+        ghostRabbit = Generate(enemyPrefab[10], 1000);
+        ghostDeer = Generate(enemyPrefab[11], 1000);
+        ghostPig = Generate(enemyPrefab[12], 1000);
+        ghostLion = Generate(enemyPrefab[13], 1000);
+        ghostElephant = Generate(enemyPrefab[14], 1000);
+        hit = Generate(effectPrefab[0], 500);
+        blood = Generate(effectPrefab[1], 500);
         banana = Generate(bananaPrefab, 30);
         bite = Generate(bitePrefab, 200);
     }
@@ -131,6 +148,27 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "Elephant":
                 targetPool = elephant;
+                break;
+            case "GhostRabbit":
+                targetPool = ghostRabbit;
+                break;
+            case "GhostDeer":
+                targetPool = ghostDeer;
+                break;
+            case "GhostPig":
+                targetPool = ghostPig;
+                break;
+            case "GhostLion":
+                targetPool = ghostLion;
+                break;
+            case "GhostElephant":
+                targetPool = ghostElephant;
+                break;
+            case "Hit":
+                targetPool = hit;
+                break;
+            case "Blood":
+                targetPool = blood;
                 break;
             case "Forest":
                 targetPool = forestTilemap;

@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class FlameThrower : Projectile
 {
-    Animator anim;
-    SpriteRenderer sprite;
     BoxCollider2D col;
 
     protected override void Awake()
     {
         base.Awake();
-        anim = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>();
         col = GetComponent<BoxCollider2D>();
     }
 
     protected override void Update()
     {
-        ShootFlame(sprite);
+        ShootFlame();
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)

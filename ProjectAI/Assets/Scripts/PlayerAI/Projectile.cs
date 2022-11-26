@@ -69,17 +69,17 @@ public abstract class Projectile : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    protected void ShootFlame(SpriteRenderer sprite)
+    protected void ShootFlame()
     {
         if (gameManager.playerAI.spriteRenderer.flipX)
         {
             transform.position = gameManager.playerAI.transform.position + new Vector3(-0.5f, 0.2f, 0);
-            sprite.flipY = true;
+            transform.localScale = new Vector3(1, 1, 1);
         }
         else if (!gameManager.playerAI.spriteRenderer.flipX)
         {
             transform.position = gameManager.playerAI.transform.position + new Vector3(0.5f, 0.2f, 0);
-            sprite.flipY = false;
+            transform.localScale = new Vector3(1, -1, 1);
         }
     }
 

@@ -2243,7 +2243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db8ff360d72bca41a68b643a3a065e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapName: 2
+  mapName: 1
 --- !u!1 &176850982
 GameObject:
   m_ObjectHideFlags: 0
@@ -3814,7 +3814,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 333681755}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
   m_Name: 
@@ -7236,6 +7236,103 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629789457}
   m_CullTransparentMesh: 1
+--- !u!1 &633144801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 633144802}
+  - component: {fileID: 633144804}
+  - component: {fileID: 633144803}
+  - component: {fileID: 633144805}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &633144802
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633144801}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1734890584}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -10}
+  m_SizeDelta: {x: 106.6667, y: 123.3333}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &633144803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633144801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 5893efaff714f604e816cab2462e21e0, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &633144804
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633144801}
+  m_CullTransparentMesh: 1
+--- !u!95 &633144805
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633144801}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 36e2cf02daead5a4ead6939b4117e68e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &639187577
 GameObject:
   m_ObjectHideFlags: 0
@@ -7920,9 +8017,9 @@ RectTransform:
   m_Father: {fileID: 333681756}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 600, y: -245}
   m_SizeDelta: {x: 240, y: 490}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &704292626
@@ -8127,7 +8224,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 713898710}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 846751908}
+        m_TargetAssemblyTypeName: SoulClk_Test, Assembly-CSharp
+        m_MethodName: SoulClk
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &713898710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9429,6 +9538,8 @@ GameObject:
   - component: {fileID: 846751904}
   - component: {fileID: 846751906}
   - component: {fileID: 846751905}
+  - component: {fileID: 846751907}
+  - component: {fileID: 846751908}
   m_Layer: 5
   m_Name: CharBtn (1)
   m_TagString: Untagged
@@ -9452,9 +9563,9 @@ RectTransform:
   m_Father: {fileID: 333681756}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 360, y: -245}
   m_SizeDelta: {x: 240, y: 490}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &846751905
@@ -9495,6 +9606,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 846751903}
   m_CullTransparentMesh: 1
+--- !u!95 &846751907
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846751903}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b4a9889dc8f5cb943adfaa41688277dc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &846751908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846751903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2d5f755ea59504790dacdcb235b70a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 633144801}
 --- !u!1 &849820271
 GameObject:
   m_ObjectHideFlags: 0
@@ -9524,6 +9668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da48415907bd624aa8b1e224c1087c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originTime: 1.5
 --- !u!4 &849820273
 Transform:
   m_ObjectHideFlags: 0
@@ -13869,6 +14014,14 @@ MonoBehaviour:
   - {fileID: 4216956034388105023, guid: a0288330395f4a04f9c096f8825aef1d, type: 3}
   - {fileID: 4216956034388105023, guid: 2ee1b0d3ca217c244afc481e4a7ea793, type: 3}
   - {fileID: 4216956034388105023, guid: 85e246709a30a474f844067ddedd235d, type: 3}
+  - {fileID: 4216956034388105023, guid: f79ddc58efe792f489544021875aeae2, type: 3}
+  - {fileID: 4216956034388105023, guid: cd7032208927d5348890c1f4a935aa60, type: 3}
+  - {fileID: 4216956034388105023, guid: 7672a102436422e49a3f5b8ea08e8fb1, type: 3}
+  - {fileID: 4216956034388105023, guid: 23e0595fa64acba4892845efb850568a, type: 3}
+  - {fileID: 4216956034388105023, guid: 56b605797cb2c544bb1113a3267bc9e2, type: 3}
+  effectPrefab:
+  - {fileID: 100004, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
+  - {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 3}
   tileMaps:
   - {fileID: 5081655027593198842, guid: 2e7d90f9bf5be4f4c9a44110fcefd6b9, type: 3}
   - {fileID: 5081655027593198842, guid: f27c68b48354ffe4887a8a37396f2ff4, type: 3}
@@ -16903,9 +17056,9 @@ RectTransform:
   m_Father: {fileID: 333681756}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 120, y: -245}
   m_SizeDelta: {x: 240, y: 490}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1504487116
@@ -18794,7 +18947,7 @@ MonoBehaviour:
       hp: 1000
       exp: 10
       damage: 100
-      walkSpeed: 1.5
+      walkSpeed: 2
       attackSpeed: 0.7
       bulletSpeed: 3
       reloadSpeed: 1
@@ -18925,7 +19078,7 @@ MonoBehaviour:
       exp: 2
       count: 6
       moveSpeed: 2
-      range: 0.8
+      range: 0
       atkDelay: 0.5
       coolTime: 1
       type: 2
@@ -18947,7 +19100,7 @@ MonoBehaviour:
       exp: 6
       count: 4
       moveSpeed: 1.6
-      range: 1.5
+      range: 0
       atkDelay: 2
       coolTime: 3
       type: 2
@@ -18958,7 +19111,7 @@ MonoBehaviour:
       exp: 6
       count: 4
       moveSpeed: 1.6
-      range: 1.3
+      range: 0
       atkDelay: 2
       coolTime: 3
       type: 2
@@ -18969,7 +19122,7 @@ MonoBehaviour:
       exp: 10
       count: 3
       moveSpeed: 1.2
-      range: 1.3
+      range: 0
       atkDelay: 2
       coolTime: 4
       type: 2
@@ -18980,7 +19133,7 @@ MonoBehaviour:
       exp: 10
       count: 3
       moveSpeed: 1.2
-      range: 7
+      range: 6
       atkDelay: 2
       coolTime: 4
       type: 1
@@ -18991,7 +19144,7 @@ MonoBehaviour:
       exp: 20
       count: 1
       moveSpeed: 1
-      range: 2
+      range: 0
       atkDelay: 4
       coolTime: 8
       type: 2
@@ -19002,7 +19155,7 @@ MonoBehaviour:
       exp: 20
       count: 1
       moveSpeed: 1
-      range: 1.8
+      range: 0
       atkDelay: 3
       coolTime: 8
       type: 2
@@ -19013,9 +19166,64 @@ MonoBehaviour:
       exp: 20
       count: 1
       moveSpeed: 1
-      range: 2.2
+      range: 0
       atkDelay: 3.5
       coolTime: 10
+      type: 2
+      tier: 3
+    - name: GhostRabbit
+      hp: 1
+      damage: 10
+      exp: 5
+      count: 4
+      moveSpeed: 2.5
+      range: 0
+      atkDelay: 1
+      coolTime: 4
+      type: 2
+      tier: 0
+    - name: GhostPig
+      hp: 1
+      damage: 20
+      exp: 5
+      count: 2
+      moveSpeed: 2
+      range: 0
+      atkDelay: 2
+      coolTime: 6
+      type: 2
+      tier: 1
+    - name: GhostDeer
+      hp: 1
+      damage: 22
+      exp: 5
+      count: 2
+      moveSpeed: 2
+      range: 0
+      atkDelay: 2
+      coolTime: 6
+      type: 2
+      tier: 1
+    - name: GhostLion
+      hp: 1
+      damage: 30
+      exp: 7
+      count: 1
+      moveSpeed: 1.5
+      range: 0
+      atkDelay: 2
+      coolTime: 10
+      type: 2
+      tier: 3
+    - name: GhostElephant
+      hp: 1
+      damage: 40
+      exp: 7
+      count: 1
+      moveSpeed: 1.5
+      range: 0
+      atkDelay: 2
+      coolTime: 12
       type: 2
       tier: 3
     percentages:
@@ -19051,6 +19259,16 @@ MonoBehaviour:
       sprite: {fileID: 21300000, guid: 051a45e4ce5c17f4cba25bc44566c681, type: 3}
     - name: Elephant
       sprite: {fileID: 21300000, guid: 936bd2ce3878acc439783a91958c4cc1, type: 3}
+    - name: GhostRabbit
+      sprite: {fileID: 21300000, guid: 44ab86db8b5edb049a5d39977f44b8ad, type: 3}
+    - name: GhostDeer
+      sprite: {fileID: 21300000, guid: 0c4c18bebe5e69545b2d6dc8441b5f8e, type: 3}
+    - name: GhostPig
+      sprite: {fileID: 21300000, guid: 1878b8da4cb2b994fbdafc640388e310, type: 3}
+    - name: GhostLion
+      sprite: {fileID: 21300000, guid: c5e78802819a7d640995021f0ff391fc, type: 3}
+    - name: GhostElephant
+      sprite: {fileID: 21300000, guid: c4a41b7a6a24d7040b20637c06329eb5, type: 3}
     - name: Bite
       sprite: {fileID: 1267003320, guid: 4b583b8169947d445a21d744d358a6e4, type: 3}
     - name: Basic
@@ -19871,7 +20089,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 633144802}
   m_Father: {fileID: 1491270333}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
