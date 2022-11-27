@@ -192,6 +192,11 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
             stat.ammo[5].isReload = true;
             reload[4].gameObject.SetActive(true);
         }
+        if (stat.ammo[6].curAmmo <= 0)
+        {
+            stat.ammo[6].isReload = true;
+            reload[5].gameObject.SetActive(true);
+        }
     }
 
     protected void LongGun(GameObject target)
@@ -370,6 +375,45 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    protected void Boom(GameObject target)
+    {
+        if (stat.ammo[6].level < 1)
+            return;
+        if (stat.ammo[6].curShotTime >= stat.attackSpeed + stat.ammo[6].atkSpeed && !stat.ammo[6].isReload)
+        {
+            Vector2 direction = target.transform.position - transform.position;
+            direction.Normalize();
+            if (PhotonNetwork.IsConnected && !pv.IsMine)
+            {
+                GameObject bomb = PhotonNetwork.Instantiate("Bomb", transform.position, Quaternion.identity);
+                Bomb bombScript = bomb.GetComponent<Bomb>();
+                if (spriteRenderer.flipX)
+                    bombScript.sprite.flipX = true;
+                else if (!spriteRenderer.flipX)
+                    bombScript.sprite.flipX = false;
+                bombScript.direction = direction;
+                bombScript.dmg = (stat.ammo[6].damage + stat.damage);
+                bombScript.speed = stat.ammo[6].bulletSpeed + stat.bulletSpeed;
+            }
+            else if (!PhotonNetwork.IsConnected)
+            {
+                GameObject bomb = gameManager.poolingManager.MakeObj("Bomb");
+                bomb.transform.position = transform.position;
+                Bomb bombScript = bomb.GetComponent<Bomb>();
+                if (spriteRenderer.flipX)
+                    bombScript.sprite.flipX = true;
+                else if (!spriteRenderer.flipX)
+                    bombScript.sprite.flipX = false;
+                bombScript.direction = direction;
+                bombScript.dmg = (stat.ammo[6].damage + stat.damage);
+                bombScript.speed = stat.ammo[6].bulletSpeed + stat.bulletSpeed;
+            }
+            //gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
+            stat.ammo[6].curAmmo -= 1;
+            stat.ammo[6].curShotTime = 0;
+        }
+    }
+
     protected void GunShot(GameObject target)
     {
         if(Vector2.Distance(target.transform.position, transform.position) <= stat.ammo[0].range)
@@ -384,6 +428,8 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
             FlameThrower();
         if (Vector2.Distance(target.transform.position, transform.position) <= stat.ammo[5].range)
             Falcon(target);
+        if (Vector2.Distance(target.transform.position, transform.position) <= stat.ammo[6].range)
+            Boom(target);
 
         Reload();
     }
@@ -400,6 +446,8 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
             stat.ammo[4].curShotTime += Time.deltaTime;
         if (stat.ammo[5].level >= 1)
             stat.ammo[5].curShotTime += Time.deltaTime;
+        if (stat.ammo[6].level >= 1)
+            stat.ammo[6].curShotTime += Time.deltaTime;
     }
     #endregion
 

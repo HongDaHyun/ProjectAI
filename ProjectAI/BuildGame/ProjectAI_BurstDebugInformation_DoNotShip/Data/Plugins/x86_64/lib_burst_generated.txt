@@ -157,6 +157,7 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\com.rlabrecque.steamworks.net.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\Unity.Timeline.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\PhotonRealtime.dll
+--root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\CFXRDemo.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\PhotonUnityNetworking.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\PhotonUnityNetworking.Utilities.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\Unity.2D.SpriteShape.Runtime.dll
@@ -164,8 +165,10 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\Unity.2D.Common.Runtime.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\Unity.2D.IK.Runtime.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\PhotonChat.dll
+--root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\CFXRRuntime.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\Unity.2D.Tilemap.Extras.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\Unity.InternalAPIEngineBridge.001.dll
+--root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\KinoBloom.Runtime.dll
 --assembly-folder=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\
 --pdb-search-paths=Temp/ManagedSymbols/
 --method=Unity.Burst.BurstCompiler+BurstCompilerHelper, Unity.Burst, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::IsBurstEnabled()--8c2be93e18276203cbd918daa2748a10
@@ -330,6 +333,7 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\com.rlabrecque.steamworks.net.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\Unity.Timeline.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\PhotonRealtime.dll
+--root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\CFXRDemo.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\PhotonUnityNetworking.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\PhotonUnityNetworking.Utilities.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\Unity.2D.SpriteShape.Runtime.dll
@@ -337,8 +341,10 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\Unity.2D.Common.Runtime.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\Unity.2D.IK.Runtime.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\PhotonChat.dll
+--root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\CFXRRuntime.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\Unity.2D.Tilemap.Extras.dll
 --root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\Unity.InternalAPIEngineBridge.001.dll
+--root-assembly=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\KinoBloom.Runtime.dll
 --assembly-folder=C:\Users\min35\GitHub\ProjectAI\ProjectAI\Temp\StagingArea\Data\Managed\
 --pdb-search-paths=Temp/ManagedSymbols/
 --method=Unity.Burst.BurstCompiler+BurstCompilerHelper, Unity.Burst, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::IsBurstEnabled()--8c2be93e18276203cbd918daa2748a10

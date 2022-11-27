@@ -35,6 +35,9 @@ public class Reload : MonoBehaviour
             case "FalconReload":
                 StartCoroutine(FalconReloading());
                 break;
+            case "BombReload":
+                StartCoroutine(BombReloading());
+                break;
         }
     }
 
@@ -127,6 +130,22 @@ public class Reload : MonoBehaviour
         }
         gameManager.playerAI.stat.ammo[5].curAmmo = gameManager.playerAI.stat.ammo[5].ammo;
         gameManager.playerAI.stat.ammo[5].isReload = false;
+        gameObject.SetActive(false);
+    }
+
+    IEnumerator BombReloading()
+    {
+        float curReload = 0;
+        float reloadTime = gameManager.playerAI.stat.reloadSpeed + gameManager.playerAI.stat.ammo[6].reloadSpeed;
+        while (curReload < reloadTime)
+        {
+            curReload += Time.deltaTime;
+            if (curReload >= reloadTime)
+                curReload = reloadTime;
+            yield return new WaitForFixedUpdate();
+        }
+        gameManager.playerAI.stat.ammo[6].curAmmo = gameManager.playerAI.stat.ammo[6].ammo;
+        gameManager.playerAI.stat.ammo[6].isReload = false;
         gameObject.SetActive(false);
     }
 }

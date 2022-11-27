@@ -28,6 +28,7 @@ public class PoolingManager : MonoBehaviour
     GameObject[] tomahawk;
     GameObject[] flameThrower;
     GameObject[] falcon;
+    GameObject[] bomb;
 
     GameObject[] rabbit;
     GameObject[] chicken;
@@ -65,6 +66,7 @@ public class PoolingManager : MonoBehaviour
         tomahawk = Generate(projectilePrefab[1], 100);
         flameThrower = Generate(projectilePrefab[2], 10);
         falcon = Generate(projectilePrefab[3], 30);
+        bomb = Generate(projectilePrefab[4], 30);
         forestTilemap = Generate(tileMaps[0], 9);
         desertTilemap = Generate(tileMaps[1], 9);
         cityTilemap = Generate(tileMaps[2], 9);
@@ -118,6 +120,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "Falcon":
                 targetPool = falcon;
+                break;
+            case "Bomb":
+                targetPool = bomb;
                 break;
             case "Rabbit":
                 targetPool = rabbit;

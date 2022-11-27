@@ -2811,6 +2811,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 222481251}
   m_CullTransparentMesh: 1
+--- !u!1 &231925502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 231925503}
+  m_Layer: 6
+  m_Name: Guage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &231925503
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231925502}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.3, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1007808093}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &244033507
 GameObject:
   m_ObjectHideFlags: 0
@@ -11392,6 +11423,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996816180}
   m_CullTransparentMesh: 1
+--- !u!1 &1007808092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1007808093}
+  - component: {fileID: 1007808094}
+  m_Layer: 6
+  m_Name: BombReload
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1007808093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007808092}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 231925503}
+  m_Father: {fileID: 1510969345}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1007808094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007808092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2179f94342bdfcc4ca1bc98259850649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPos: {x: -0.5, y: 0}
+  endPos: {x: 0.5, y: 0}
 --- !u!1 &1028934515
 GameObject:
   m_ObjectHideFlags: 0
@@ -14003,6 +14081,7 @@ MonoBehaviour:
   - {fileID: 3335284178614945353, guid: 94ef95fcfc5709f409fa1c95fb02abda, type: 3}
   - {fileID: 3335284178614945353, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
   - {fileID: 3335284178614945353, guid: f4b6d104db4b72e418f447e4507ca467, type: 3}
+  - {fileID: 3335284178614945353, guid: 03fc09ab7bfb62144b605117d893e29c, type: 3}
   enemyPrefab:
   - {fileID: 4216956034388105023, guid: 8ddf22fc1827aa1489e6413329d31bc7, type: 3}
   - {fileID: 4216956034388105023, guid: 32c32f6414174aa41b38c8b3c089e2e4, type: 3}
@@ -17209,6 +17288,7 @@ Transform:
   - {fileID: 1218285874}
   - {fileID: 957364654}
   - {fileID: 1943034267}
+  - {fileID: 1007808093}
   m_Father: {fileID: 5258003461314690533}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18908,6 +18988,18 @@ MonoBehaviour:
         level: 0
         curShotTime: 0
         isReload: 0
+      - name: Bomb
+        ammo: 1
+        curAmmo: 1
+        damage: 10
+        range: 5
+        spread: 5
+        atkSpeed: 0
+        bulletSpeed: 1
+        reloadSpeed: 4
+        level: 0
+        curShotTime: 0
+        isReload: 0
       - name: PoisonDart
         ammo: 1
         curAmmo: 1
@@ -18921,18 +19013,6 @@ MonoBehaviour:
         curShotTime: 0
         isReload: 0
       - name: PoisonGas
-        ammo: 1
-        curAmmo: 1
-        damage: 1
-        range: 1
-        spread: 1
-        atkSpeed: 1
-        bulletSpeed: 1
-        reloadSpeed: 1
-        level: 0
-        curShotTime: 0
-        isReload: 0
-      - name: Bomb
         ammo: 1
         curAmmo: 1
         damage: 1
@@ -19024,6 +19104,18 @@ MonoBehaviour:
       level: 0
       curShotTime: 0
       isReload: 0
+    - name: Bomb
+      ammo: 1
+      curAmmo: 1
+      damage: 10
+      range: 5
+      spread: 5
+      atkSpeed: 0
+      bulletSpeed: 1
+      reloadSpeed: 4
+      level: 0
+      curShotTime: 0
+      isReload: 0
     - name: PoisonDart
       ammo: 1
       curAmmo: 1
@@ -19037,18 +19129,6 @@ MonoBehaviour:
       curShotTime: 0
       isReload: 0
     - name: PoisonGas
-      ammo: 1
-      curAmmo: 1
-      damage: 1
-      range: 1
-      spread: 1
-      atkSpeed: 1
-      bulletSpeed: 1
-      reloadSpeed: 1
-      level: 0
-      curShotTime: 0
-      isReload: 0
-    - name: Bomb
       ammo: 1
       curAmmo: 1
       damage: 1
