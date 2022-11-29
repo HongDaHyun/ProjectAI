@@ -9699,7 +9699,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da48415907bd624aa8b1e224c1087c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originTime: 1.5
 --- !u!4 &849820273
 Transform:
   m_ObjectHideFlags: 0
@@ -10154,6 +10153,7 @@ MonoBehaviour:
   secMoneySize: 1
   secMoney: 2
   isGameOver: 1
+  isSkill: 0
 --- !u!4 &904553107
 Transform:
   m_ObjectHideFlags: 0
@@ -12960,6 +12960,7 @@ GameObject:
   - component: {fileID: 1172261220}
   - component: {fileID: 1172261219}
   - component: {fileID: 1172261218}
+  - component: {fileID: 1172261221}
   m_Layer: 5
   m_Name: Cursor
   m_TagString: Untagged
@@ -13039,6 +13040,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1172261216}
   m_CullTransparentMesh: 1
+--- !u!95 &1172261221
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172261216}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5a9e7a111092cb648a6055b90ec56eaf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1176536839
 GameObject:
   m_ObjectHideFlags: 0
@@ -14082,6 +14103,9 @@ MonoBehaviour:
   - {fileID: 3335284178614945353, guid: 918ea61fd6b41ff4c8a2c9d1126201cb, type: 3}
   - {fileID: 3335284178614945353, guid: f4b6d104db4b72e418f447e4507ca467, type: 3}
   - {fileID: 3335284178614945353, guid: 03fc09ab7bfb62144b605117d893e29c, type: 3}
+  skillPrefab:
+  - {fileID: 503815534663866180, guid: f5c4100d7a22b3543be86a0630e01552, type: 3}
+  - {fileID: 3612343458433402252, guid: cb0d1f33ebb7bb14aa7da6e2a77aa48d, type: 3}
   enemyPrefab:
   - {fileID: 4216956034388105023, guid: 8ddf22fc1827aa1489e6413329d31bc7, type: 3}
   - {fileID: 4216956034388105023, guid: 32c32f6414174aa41b38c8b3c089e2e4, type: 3}
@@ -26816,6 +26840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 0}
+  colliderArray: []
   stat:
     name: 
     ammo: []

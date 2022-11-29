@@ -18,6 +18,8 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
     protected Vector3 curPos;
     protected HuntingDog[] huntingDogs;
     protected Collider2D[] colliderArray;
+    protected Transform nearEnemy;
+    protected static float detectRadius = 5f;
     protected float inputX, inputY;
     protected GameObject shadow;
 
@@ -45,6 +47,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
     {
         state = State.Idle;
         SetStat();
+        StartCoroutine(NearDetect());
     }
 
     public virtual void Update()
@@ -57,7 +60,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         GunLock();
         Die();
         TestWalk();
-        Detecting(5f);
+        Detecting();
     }
 
     private void FixedUpdate()
@@ -110,22 +113,6 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     #region Walk
-    void R_Walk()
-    {
-        rigid.MovePosition(rigid.position + Vector2.right * stat.walkSpeed * Time.deltaTime);
-    }
-    void L_Walk()
-    {
-        rigid.MovePosition(rigid.position + Vector2.right * stat.walkSpeed * Time.deltaTime);
-    }
-    void T_Walk()
-    {
-        rigid.MovePosition(rigid.position + Vector2.right * stat.walkSpeed * Time.deltaTime);
-    }
-    void D_Walk()
-    {
-        rigid.MovePosition(rigid.position + Vector2.right * stat.walkSpeed * Time.deltaTime);
-    }
 
     void TestWalk()
     {
@@ -138,6 +125,17 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
             inputY = Input.GetAxisRaw("Vertical");
 
             transform.Translate(new Vector2(inputX, inputY).normalized * Time.deltaTime * stat.walkSpeed);
+
+            if(nearEnemy != null)
+            {
+                Vector2 direction = nearEnemy.transform.position - transform.position;
+                direction.Normalize();
+
+                transform.Translate(direction * -stat.walkSpeed * Time.deltaTime, Space.World);
+                animator.SetInteger("State", 1);
+            }
+            else
+                animator.SetInteger("State", 0);
         }
         else if ((transform.position - curPos).sqrMagnitude >= 100) transform.position = curPos;
         else transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
@@ -146,9 +144,9 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
 
     #region Attack
 
-    protected void Detecting(float radius)
+    protected void Detecting()
     {
-        colliderArray = Physics2D.OverlapCircleAll(transform.position, radius);
+        colliderArray = Physics2D.OverlapCircleAll(transform.position, detectRadius);
         foreach(Collider2D collider2D in colliderArray)
         {
             if (collider2D.gameObject.CompareTag("Monster"))
@@ -161,7 +159,28 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
 
             }
         }
+    }
 
+    IEnumerator NearDetect()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            float shortDistance = Mathf.Infinity;
+            foreach (Collider2D col in colliderArray)
+            {
+                if (col.gameObject.CompareTag("Monster") || col.gameObject.CompareTag("MonsterWeapon"))
+                {
+                    float distance = Vector3.SqrMagnitude(transform.position - col.transform.position);
+
+                    if (shortDistance > distance)
+                    {
+                        shortDistance = distance;
+                        nearEnemy = col.transform;
+                    }
+                }
+            }
+        }
     }
 
     #region Gun

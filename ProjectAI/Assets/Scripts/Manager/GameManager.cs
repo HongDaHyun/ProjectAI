@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     public int money, secMoneySize, secMoney;
 
-    public bool isGameOver;
+    public bool isGameOver, isSkill;
 
     public static GameManager Instance
     {

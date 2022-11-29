@@ -7,7 +7,7 @@ public class BtnManager : MonoBehaviour
 {
     private static BtnManager instance = null;
     GameManager gameManager;
-    public float originTime = 1.5f;
+    public static float originTime = 1.5f;
 
     private void Awake()
     {
@@ -26,13 +26,15 @@ public class BtnManager : MonoBehaviour
     {
         ShopBtn();
         TestWeaponLevel();
+        IsSkill();
+        AnimalProtector();
     }
 
     #region KeyBoard
 
     public void ShopBtn()
     {
-        if (gameManager.isGameOver)
+        if (gameManager.isGameOver || gameManager.isSkill)
             return;
         if(Input.GetKeyDown(KeyCode.P))
         {
@@ -61,6 +63,38 @@ public class BtnManager : MonoBehaviour
                     else
                         gameManager.playerAI.stat.ammo[i].level++;
                 }
+            }
+        }
+    }
+    public void IsSkill()
+    {
+        if(gameManager.uiManager.Shop[0].GetBool("IsShow"))
+        {
+            return;
+        }
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            if(gameManager.isSkill)
+            {
+                gameManager.isSkill = false;
+                Time.timeScale = originTime;
+            }
+            else if(!gameManager.isSkill)
+            {
+                gameManager.isSkill = true;
+                Time.timeScale = originTime / 2;
+            }
+        }
+    }
+    public void AnimalProtector()
+    {
+        if(gameManager.isSkill)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                gameManager.poolingManager.MakeObj("AnimalProtector");
+                gameManager.isSkill = false;
+                Time.timeScale = originTime;
             }
         }
     }

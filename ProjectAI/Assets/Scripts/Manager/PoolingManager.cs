@@ -8,11 +8,9 @@ public class PoolingManager : MonoBehaviour
     private static PoolingManager instance;
 
     public GameObject[] projectilePrefab;
-
+    public GameObject[] skillPrefab;
     public GameObject[] enemyPrefab;
-
     public GameObject[] effectPrefab;
-
     public GameObject[] tileMaps;
 
     public GameObject dmgPopUpPrefab;
@@ -29,6 +27,9 @@ public class PoolingManager : MonoBehaviour
     GameObject[] flameThrower;
     GameObject[] falcon;
     GameObject[] bomb;
+
+    GameObject[] animalProtector;
+    GameObject[] people;
 
     GameObject[] rabbit;
     GameObject[] chicken;
@@ -67,6 +68,8 @@ public class PoolingManager : MonoBehaviour
         flameThrower = Generate(projectilePrefab[2], 10);
         falcon = Generate(projectilePrefab[3], 30);
         bomb = Generate(projectilePrefab[4], 30);
+        animalProtector = Generate(skillPrefab[0], 5);
+        people = Generate(skillPrefab[1], 50);
         forestTilemap = Generate(tileMaps[0], 9);
         desertTilemap = Generate(tileMaps[1], 9);
         cityTilemap = Generate(tileMaps[2], 9);
@@ -123,6 +126,12 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "Bomb":
                 targetPool = bomb;
+                break;
+            case "AnimalProtector":
+                targetPool = animalProtector;
+                break;
+            case "People":
+                targetPool = people;
                 break;
             case "Rabbit":
                 targetPool = rabbit;
