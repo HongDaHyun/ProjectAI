@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public Animator[] Shop;
     public Text[] Soul;
     public Timer timer;
+    public Vector3 mousePos;
 
     private static UIManager instance = null;
 
@@ -46,6 +47,7 @@ public class UIManager : MonoBehaviour
         {
             timer.UpdateTimer();
         }
+        CurMousePos();
     }
 
     public void SecSoul()
@@ -86,6 +88,12 @@ public class UIManager : MonoBehaviour
             pause.SetActive(true);
         else if (!active)
             pause.SetActive(false);
+    }
+
+    private void CurMousePos()
+    {
+        mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
+        Input.mousePosition.y, -Camera.main.transform.position.z));
     }
 }
 

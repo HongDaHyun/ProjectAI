@@ -117,7 +117,6 @@ public class Card : MonoBehaviour
     {
         anim.SetTrigger("Click");
         gameManager.uiManager.Shop[1].SetBool("IsShow", false);
-        gameManager.uiManager.Pause(false);
     }
 
     public void ActiveFalseCard()

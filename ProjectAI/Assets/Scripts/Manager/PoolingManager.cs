@@ -19,6 +19,7 @@ public class PoolingManager : MonoBehaviour
 
     public GameObject bananaPrefab;
     public GameObject bitePrefab;
+    public GameObject clickUIPrefab;
 
     GameObject[] targetPool;
 
@@ -61,6 +62,8 @@ public class PoolingManager : MonoBehaviour
     GameObject[] banana;
     GameObject[] bite;
 
+    GameObject[] clickUI;
+
     private void Awake()
     {
         bullet = Generate(projectilePrefab[0], 100);
@@ -95,6 +98,7 @@ public class PoolingManager : MonoBehaviour
         blood = Generate(effectPrefab[1], 500);
         banana = Generate(bananaPrefab, 30);
         bite = Generate(bitePrefab, 200);
+        clickUI = Generate(clickUIPrefab, 50);
     }
 
     GameObject[] Generate(GameObject obj, int size)
@@ -207,6 +211,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "Bite":
                 targetPool = bite;
+                break;
+            case "ClickUI":
+                targetPool = clickUI;
                 break;
         }
 

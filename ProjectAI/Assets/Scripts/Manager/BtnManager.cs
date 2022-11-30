@@ -28,13 +28,14 @@ public class BtnManager : MonoBehaviour
         TestWeaponLevel();
         IsSkill();
         AnimalProtector();
+        KingMove();
     }
 
-    #region KeyBoard
+    #region KeyBoard or Mouse
 
     public void ShopBtn()
     {
-        if (gameManager.isGameOver || gameManager.isSkill)
+        if (gameManager.isGameOver || gameManager.isSkill || gameManager.uiManager.Shop[1].GetBool("IsShow"))
             return;
         if(Input.GetKeyDown(KeyCode.P))
         {
@@ -98,6 +99,17 @@ public class BtnManager : MonoBehaviour
             }
         }
     }
+    public void KingMove()
+    {
+        if (gameManager.isGameOver || gameManager.uiManager.Shop[0].GetBool("IsShow"))
+            return;
+        if(Input.GetMouseButtonDown(1))
+        {
+            gameManager.king.target = gameManager.uiManager.mousePos;
+            GameObject clickUI = gameManager.poolingManager.MakeObj("ClickUI");
+            clickUI.transform.position = gameManager.uiManager.mousePos;
+        }
+    }
 
     #endregion
 
@@ -118,7 +130,6 @@ public class BtnManager : MonoBehaviour
     public void DeckExit()
     {
         gameManager.uiManager.Shop[1].SetBool("IsShow", false);
-        gameManager.uiManager.Pause(false);
     }
 
     public void CardBoxClk()
@@ -132,7 +143,6 @@ public class BtnManager : MonoBehaviour
 
         gameManager.soundManager.SFXPlayer(SoundManager.SFX.CardOpen);
         gameManager.uiManager.Shop[1].SetBool("IsShow", true);
-        gameManager.uiManager.Pause(true);
         gameManager.money -= price.price;
 
         for (int i = 0; i < gameManager.uiManager.deckList.Count; i++)

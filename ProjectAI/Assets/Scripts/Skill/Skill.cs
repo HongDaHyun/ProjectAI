@@ -13,8 +13,7 @@ public abstract class Skill : MonoBehaviour
 
     protected void SpawnMousePos()
     {
-        transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
-        Input.mousePosition.y, -Camera.main.transform.position.z));
+        transform.position = gameManager.uiManager.mousePos;
     }
 
     public virtual IEnumerator ActiveTime(float time)

@@ -20,7 +20,7 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        transform.position = gameManager.playerAI.transform.position;
+        transform.position = gameManager.king.transform.position;
 
         UpdateShake();
     }

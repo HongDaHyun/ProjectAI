@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
     public BtnManager btnManager;
     public NetworkManager networkManager;
+    public King king;
     public PlayerAI playerAI;
 
     public int money, secMoneySize, secMoney;
