@@ -47,7 +47,7 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
     {
         state = State.Idle;
         SetStat();
-        StartCoroutine(NearDetect());
+        StartCoroutine(NearDetect(1f));
     }
 
     public virtual void Update()
@@ -161,11 +161,11 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    IEnumerator NearDetect()
+    IEnumerator NearDetect(float delay)
     {
         while (true)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(delay);
             float shortDistance = Mathf.Infinity;
             foreach (Collider2D col in colliderArray)
             {
@@ -173,13 +173,18 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
                 {
                     float distance = Vector3.SqrMagnitude(transform.position - col.transform.position);
 
-                    if (shortDistance > distance)
+                    if (isHit && nearEnemy != null)
+                        yield return null;
+                    else if (shortDistance > distance)
                     {
                         shortDistance = distance;
                         nearEnemy = col.transform;
                     }
                 }
             }
+            if (nearEnemy != null)
+                if (Vector2.Distance(nearEnemy.position, transform.position) > detectRadius)
+                    nearEnemy = null;
         }
     }
 

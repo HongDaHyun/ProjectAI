@@ -68,7 +68,7 @@ public class BtnManager : MonoBehaviour
     }
     public void IsSkill()
     {
-        if(gameManager.uiManager.Shop[0].GetBool("IsShow"))
+        if(gameManager.uiManager.Shop[0].GetBool("IsShow") || gameManager.isGameOver)
         {
             return;
         }
