@@ -29,6 +29,7 @@ public class BtnManager : MonoBehaviour
         IsSkill();
         AnimalProtector();
         KingMove();
+        ShowInven();
     }
 
     #region KeyBoard or Mouse
@@ -109,8 +110,21 @@ public class BtnManager : MonoBehaviour
             GameObject clickUI = gameManager.poolingManager.MakeObj("ClickUI");
             clickUI.transform.position = gameManager.uiManager.mousePos;
         }
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            gameManager.king.TelePortAnim();
+        }
     }
-
+    public void ShowInven()
+    {
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            if (gameManager.uiManager.invenPannel.GetBool("IsShow"))
+                gameManager.uiManager.invenPannel.SetBool("IsShow", false);
+            else if (!gameManager.uiManager.invenPannel.GetBool("IsShow"))
+                gameManager.uiManager.invenPannel.SetBool("IsShow", true);
+        }
+    }
     #endregion
 
     #region Click

@@ -34,8 +34,7 @@ public abstract class King : MonoBehaviour
     {
         if (Vector2.Distance(transform.position, gameManager.playerAI.transform.position) > 20f && !isTeleport)
         {
-            isTeleport = true;
-            anim.SetTrigger("IsTeleport");
+            TelePortAnim();
         }
 
         if (transform.position == target)
@@ -51,8 +50,14 @@ public abstract class King : MonoBehaviour
 
     public void TelePort()
     {
-        transform.position = new Vector2(gameManager.playerAI.transform.position.x + Random.Range(-5f, 5f), gameManager.playerAI.transform.position.y + Random.Range(-5f, 5f));
+        transform.position = new Vector2(gameManager.playerAI.transform.position.x + Random.Range(-2f, 2f), gameManager.playerAI.transform.position.y + Random.Range(-2f, 2f));
         target = transform.position;
         isTeleport = false;
+    }
+
+    public void TelePortAnim()
+    {
+        isTeleport = true;
+        anim.SetTrigger("IsTeleport");
     }
 }

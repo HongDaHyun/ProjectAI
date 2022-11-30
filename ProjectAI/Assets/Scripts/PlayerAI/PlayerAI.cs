@@ -149,14 +149,10 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         colliderArray = Physics2D.OverlapCircleAll(transform.position, detectRadius);
         foreach(Collider2D collider2D in colliderArray)
         {
-            if (collider2D.gameObject.CompareTag("Monster"))
+            if (collider2D.gameObject.CompareTag("Monster") || collider2D.gameObject.CompareTag("MonsterWeapon"))
             {
                 Look(collider2D.transform.position);
                 GunShot(collider2D.gameObject);
-            }
-            else if(collider2D.gameObject.CompareTag("MonsterWeapon"))
-            {
-
             }
         }
     }
