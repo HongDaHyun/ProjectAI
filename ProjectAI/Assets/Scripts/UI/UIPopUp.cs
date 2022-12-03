@@ -23,7 +23,7 @@ public class UIPopUp : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(new Vector2(0, moveSpeed * Time.deltaTime));
+        transform.Translate(new Vector2(0, - moveSpeed * Time.deltaTime));
         canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 0, Time.deltaTime * alphaSpeed);
     }
 

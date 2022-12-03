@@ -12,6 +12,7 @@ public class PoolingManager : MonoBehaviour
     public GameObject[] enemyPrefab;
     public GameObject[] effectPrefab;
     public GameObject[] tileMaps;
+    public GameObject[] itemPrefab;
 
     public GameObject dmgPopUpPrefab;
     public GameObject uiPopUpPrefab;
@@ -69,6 +70,8 @@ public class PoolingManager : MonoBehaviour
     GameObject[] clickUI;
     GameObject[] weaponSlot;
 
+    GameObject[] apple;
+
     private void Awake()
     {
         bullet = Generate(projectilePrefab[0], 100);
@@ -106,6 +109,7 @@ public class PoolingManager : MonoBehaviour
         bite = Generate(bitePrefab, 200);
         clickUI = Generate(clickUIPrefab, 50);
         weaponSlot = Generate(weaponSlotPrefab, 7);
+        apple = Generate(itemPrefab[0], 100);
     }
 
     GameObject[] Generate(GameObject obj, int size)
@@ -227,6 +231,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "WeaponSlot":
                 targetPool = weaponSlot;
+                break;
+            case "Apple":
+                targetPool = apple;
                 break;
         }
 

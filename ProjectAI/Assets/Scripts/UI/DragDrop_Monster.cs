@@ -31,7 +31,7 @@ public class DragDrop_Monster : DragDrop, IPointerClickHandler
         {
             if (Input.GetMouseButtonUp(1))
             {
-                gameManager.uiManager.Dump(monsterUI.stat.tier, curSlot.rect);
+                gameManager.uiManager.UIPopUpApple(gameManager.uiManager.TierForSale(monsterUI.stat.tier));
 
                 if (curSlot.isEquip)
                 {

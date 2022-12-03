@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     public Animator invenPannel;
     public Animator[] Shop;
     public Text[] Soul;
+    public RectTransform popAppleRect;
     public Timer timer;
     public Vector3 mousePos;
 
@@ -131,10 +132,21 @@ public class UIManager : MonoBehaviour
         Soul[0].text = gameManager.money.ToString();
     }
 
-    int sell;
-    public void Dump(Tier tier, RectTransform rect)
+    public void UIPopUpApple(int count)
     {
-        switch(tier)
+        gameManager.money += count;
+
+        GameObject obj = gameManager.poolingManager.MakeObj("UIPopUp");
+        obj.transform.SetParent(popAppleRect.transform);
+        obj.transform.localScale = new Vector3(1, 1, 1);
+        obj.GetComponent<RectTransform>().position = popAppleRect.position;
+        StartCoroutine(obj.GetComponent<UIPopUp>().Pop(count));
+    }
+
+    int sell;
+    public int TierForSale(Tier tier)
+    {
+        switch (tier)
         {
             case Tier.Common:
                 sell = 1;
@@ -149,13 +161,7 @@ public class UIManager : MonoBehaviour
                 sell = 5;
                 break;
         }
-        gameManager.money += sell;
-
-        GameObject obj = gameManager.poolingManager.MakeObj("UIPopUp");
-        obj.transform.SetParent(rect.transform);
-        obj.transform.localScale = new Vector3(1, 1, 1);
-        obj.GetComponent<RectTransform>().position = rect.position;
-        StartCoroutine(obj.GetComponent<UIPopUp>().Pop(sell));
+        return sell;
     }
 
     public void Pause(bool active)

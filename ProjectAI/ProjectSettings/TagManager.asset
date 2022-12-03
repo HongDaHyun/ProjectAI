@@ -11,6 +11,9 @@ TagManager:
   - ProjectileBorder
   - Projectile
   - Projectile2
+  - FxTemporaire
+  - Item
+  - King
   layers:
   - Default
   - TransparentFX

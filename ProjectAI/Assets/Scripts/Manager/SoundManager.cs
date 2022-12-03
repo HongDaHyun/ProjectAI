@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource[] sfx;
     public AudioClip[] sfxClip;
     int sfxCursor;
-    public enum SFX { Fire, CardOpen, SelectCard, DropSlot, Reload }
+    public enum SFX { Fire, CardOpen, SelectCard, DropSlot, Reload, ItemPick }
 
     private void Awake()
     {
@@ -48,6 +48,10 @@ public class SoundManager : MonoBehaviour
 
             case SFX.Reload:
                 sfx[sfxCursor].clip = sfxClip[14];
+                break;
+
+            case SFX.ItemPick:
+                sfx[sfxCursor].clip = sfxClip[15];
                 break;
         }
         if(sfx[sfxCursor].isPlaying)
