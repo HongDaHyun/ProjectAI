@@ -20,6 +20,5 @@ public class MonsterUI : MonoBehaviour
     {
         stat = monsterStat;
         img.sprite = gameManager.csvReader.spriteExportData(stat.name).sprite;
-
     }
 }

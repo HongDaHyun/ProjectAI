@@ -19,16 +19,5 @@ public class EquipSlot : ItemSlot
         if (preSlot != null && stat.name != null)
             if (preSlot.stat.name != stat.name)
                 img.fillAmount = 1;
-        img.transform.SetAsFirstSibling();
-    }
-
-    public override void OnPointerEnter(PointerEventData eventData)
-    {
-        img.transform.SetAsFirstSibling();
-    }
-
-    public override void OnPointerExit(PointerEventData eventData)
-    {
-        img.transform.SetAsLastSibling();
     }
 }

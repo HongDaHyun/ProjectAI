@@ -139,6 +139,7 @@ public class Card : MonoBehaviour
                 monsterUI.SetUI(monsterStat);
                 monsterUI.transform.SetParent(gameManager.uiManager.slotsUI.inventorys[i].transform);
                 monsterUI.transform.localScale = new Vector3(1, 1, 1);
+                monsterUI.transform.SetAsFirstSibling();
                 dragDrop.rect.position = gameManager.uiManager.slotsUI.inventorys[i].rect.position;
                 gameManager.uiManager.slotsUI.FullSlot();
                 gameManager.uiManager.slotsUI.Evolution();

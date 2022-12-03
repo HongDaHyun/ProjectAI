@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     public HpBarUI hpBarUI;
     public ExpBarUI expBarUI;
     public SlotsUI slotsUI;
+    public RectTransform weaponSlotPanel;
+    public RectTransform skillSlotPanel;
     public List<GameObject> deckList;
     public GameObject GameOver;
     public GameObject pause;
@@ -49,6 +51,79 @@ public class UIManager : MonoBehaviour
             timer.UpdateTimer();
         }
         CurMousePos();
+    }
+
+    public void WeaponSlotCheck()
+    {
+        for(int i = 0; i < gameManager.playerAI.stat.ammo.Length; i++)
+        {
+            if (gameManager.playerAI.stat.ammo[i].level == 1 && !gameManager.playerAI.stat.ammo[i].isEquip)
+            {
+                WeaponSlot weaponSlot = gameManager.poolingManager.MakeObj("WeaponSlot").GetComponent<WeaponSlot>();
+                weaponSlot.rect.SetParent(weaponSlotPanel);
+                weaponSlot.rect.position = weaponSlotPanel.position;
+                weaponSlot.rect.localScale = new Vector3(1, 1, 1);
+                weaponSlot._name = gameManager.playerAI.stat.ammo[i].name;
+                weaponSlot.weaponImg.sprite = gameManager.csvReader.spriteExportData(weaponSlot._name).sprite;
+            }
+            else if (gameManager.playerAI.stat.ammo[i].level == 0)
+            {
+                WeaponSlot[] slots = weaponSlotPanel.GetComponentsInChildren<WeaponSlot>();
+                for(int k = 0; k < slots.Length; k++)
+                {
+                    if (slots[k]._name == gameManager.playerAI.stat.ammo[i].name)
+                        slots[k].gameObject.SetActive(false);
+                }
+            }
+        }
+    }
+
+    public void InstantiateSkill(SkillStat skillStat)
+    {
+        for (int i = 0; i < gameManager.playerAI.stat.skill.Length; i++)
+        {
+            if (gameManager.playerAI.stat.skill[i].level == 1 && !gameManager.playerAI.stat.skill[i].isEquip)
+            {
+                gameManager.playerAI.stat.skill[i].isEquip = true;
+                for (int j = 0; j < gameManager.uiManager.slotsUI.skills.Count; j++)
+                {
+                    if (!gameManager.uiManager.slotsUI.skills[j].GetComponent<SkillSlot>().isDropped)
+                    {
+                        SkillSlot skillSlot = gameManager.uiManager.slotsUI.skills[j].GetComponent<SkillSlot>();
+                        skillSlot.isDropped = true;
+                        skillSlot.skillStat = skillStat;
+                        SkillUI skillUI = gameManager.poolingManager.MakeObj("SkillUI").GetComponent<SkillUI>();
+                        DragDrop dragDrop = skillUI.GetComponent<DragDrop>();
+                        dragDrop.curSlot = skillSlot;
+                        skillUI.SetUI(skillStat);
+                        skillUI.transform.SetParent(gameManager.uiManager.slotsUI.skills[j].transform);
+                        skillUI.transform.localScale = new Vector3(1, 1, 1);
+                        skillUI.transform.SetAsFirstSibling();
+                        dragDrop.rect.position = gameManager.uiManager.slotsUI.skills[j].rect.position;
+                        gameManager.uiManager.slotsUI.FullSlot();
+                        gameManager.uiManager.slotsUI.Evolution();
+                        return;
+                    }
+                }
+
+            }
+            else if (gameManager.playerAI.stat.skill[i].level == 0)
+            {
+                gameManager.playerAI.stat.skill[i].isEquip = false;
+                SkillSlot[] slots = skillSlotPanel.GetComponentsInChildren<SkillSlot>();
+                for (int k = 0; k < slots.Length; k++)
+                {
+                    if (slots[k].skillStat.name == gameManager.playerAI.stat.skill[i].name)
+                    {
+                        slots[k].skillStat = new SkillStat();
+                        slots[k].isDropped = false;
+                        GameObject skillUI = slots[k].transform.GetChild(0).gameObject;
+                        skillUI.transform.SetParent(transform.root);
+                        skillUI.SetActive(false);
+                    }
+                }
+            }
+        }
     }
 
     public void SecSoul()
@@ -161,8 +236,9 @@ public struct ExpBarUI
 public struct SlotsUI
 {
     public List<ItemSlot> inventorys;
-    public List<ItemSlot> equipments;
-    public bool isInventroyFull, isEquipmentFull;
+    public List<EquipSlot> equipments;
+    public List<SkillSlot> skills;
+    public bool isInventroyFull, isEquipmentFull, isSkillFull;
 
     public void FullSlot()
     {
@@ -184,6 +260,15 @@ public struct SlotsUI
                 break;
             }
             isEquipmentFull = true;
+        }
+        for (int i = 0; i < skills.Count; i++)
+        {
+            if (!skills[i].isDropped)
+            {
+                isSkillFull = false;
+                break;
+            }
+            isSkillFull = true;
         }
     }
 

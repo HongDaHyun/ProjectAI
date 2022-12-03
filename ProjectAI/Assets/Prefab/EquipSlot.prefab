@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2102336055, guid: fb9206a9ddd1d5c4ba9f8b656b3c3f19, type: 3}
+  m_Sprite: {fileID: 106829118, guid: fb9206a9ddd1d5c4ba9f8b656b3c3f19, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -92,11 +92,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDropped: 0
   isEquip: 1
+  isSkill: 0
   img: {fileID: 0}
   stat:
     name: 
     hp: 0
     damage: 0
+    exp: 0
+    count: 0
     moveSpeed: 0
     range: 0
     atkDelay: 0
@@ -165,13 +168,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1824168566, guid: fb9206a9ddd1d5c4ba9f8b656b3c3f19, type: 3}
+  m_Sprite: {fileID: 1328190313, guid: fb9206a9ddd1d5c4ba9f8b656b3c3f19, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1

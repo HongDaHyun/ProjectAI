@@ -4,11 +4,17 @@ using UnityEngine;
 
 public abstract class Skill : MonoBehaviour
 {
-    GameManager gameManager;
+    protected GameManager gameManager;
+    public SkillStat skillStat;
 
     protected virtual void Awake()
     {
         gameManager = GameManager.Instance;
+    }
+
+    protected void SetSkillStat(int i)
+    {
+        skillStat = gameManager.playerAI.stat.skill[i];
     }
 
     protected void SpawnMousePos()
@@ -16,12 +22,7 @@ public abstract class Skill : MonoBehaviour
         transform.position = gameManager.uiManager.mousePos;
     }
 
-    public virtual IEnumerator ActiveTime(float time)
-    {
-        yield return new WaitForSeconds(time);
-
-        gameObject.SetActive(false);
-    }
+    public abstract IEnumerator ActiveTime();
 
     protected void AnimalProtector(ref GameObject[] people)
     {
@@ -31,7 +32,7 @@ public abstract class Skill : MonoBehaviour
         for(int i = 0; i < people.Length; i++)
         {
             people[i] = gameManager.poolingManager.MakeObj("People");
-            people[i].transform.SetParent(this.transform);
+            people[i].transform.SetParent(transform);
             people[i].transform.localPosition = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
         }
     }

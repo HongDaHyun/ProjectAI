@@ -15,6 +15,11 @@ public class People : Skill
         sprite = GetComponent<SpriteRenderer>();
     }
 
+    public override IEnumerator ActiveTime()
+    {
+        throw new System.NotImplementedException();
+    }
+
     private void OnEnable()
     {
         sprite.sprite = peopleSprite[Random.Range(0, peopleSprite.Length)];

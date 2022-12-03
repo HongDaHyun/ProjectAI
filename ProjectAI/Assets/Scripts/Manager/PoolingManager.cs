@@ -16,10 +16,13 @@ public class PoolingManager : MonoBehaviour
     public GameObject dmgPopUpPrefab;
     public GameObject uiPopUpPrefab;
     public GameObject monsterUIPrefab;
+    public GameObject skillUIPrefab;
 
     public GameObject bananaPrefab;
     public GameObject bitePrefab;
+
     public GameObject clickUIPrefab;
+    public GameObject weaponSlotPrefab;
 
     GameObject[] targetPool;
 
@@ -58,11 +61,13 @@ public class PoolingManager : MonoBehaviour
     GameObject[] dmgPopUp;
     GameObject[] uiPopUp;
     GameObject[] monsterUI;
+    GameObject[] skillUI;
 
     GameObject[] banana;
     GameObject[] bite;
 
     GameObject[] clickUI;
+    GameObject[] weaponSlot;
 
     private void Awake()
     {
@@ -79,6 +84,7 @@ public class PoolingManager : MonoBehaviour
         dmgPopUp = Generate(dmgPopUpPrefab, 500);
         uiPopUp = Generate(uiPopUpPrefab, 50);
         monsterUI = Generate(monsterUIPrefab, 30);
+        skillUI = Generate(skillUIPrefab, 4);
         rabbit = Generate(enemyPrefab[0], 1000);
         chicken = Generate(enemyPrefab[1], 1000);
         mouse = Generate(enemyPrefab[2], 1000);
@@ -99,6 +105,7 @@ public class PoolingManager : MonoBehaviour
         banana = Generate(bananaPrefab, 30);
         bite = Generate(bitePrefab, 200);
         clickUI = Generate(clickUIPrefab, 50);
+        weaponSlot = Generate(weaponSlotPrefab, 7);
     }
 
     GameObject[] Generate(GameObject obj, int size)
@@ -206,6 +213,9 @@ public class PoolingManager : MonoBehaviour
             case "MonsterUI":
                 targetPool = monsterUI;
                 break;
+            case "SkillUI":
+                targetPool = skillUI;
+                break;
             case "Banana":
                 targetPool = banana;
                 break;
@@ -214,6 +224,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "ClickUI":
                 targetPool = clickUI;
+                break;
+            case "WeaponSlot":
+                targetPool = weaponSlot;
                 break;
         }
 

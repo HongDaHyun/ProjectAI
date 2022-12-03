@@ -8,6 +8,7 @@ public struct PlayerStat
 {
     public string name;
     public PlayerAmmo[] ammo;
+    public SkillStat[] skill;
 
     public int hp;
     public int exp;
@@ -33,7 +34,7 @@ public struct PlayerAmmo
     public float reloadSpeed;
     public int level;
     public float curShotTime;
-    public bool isReload;
+    public bool isReload, isEquip;
 }
 
 [Serializable]
@@ -70,6 +71,16 @@ public struct Price
 }
 
 [Serializable]
+public struct SkillStat
+{
+    public string name;
+    public int level;
+    public float coolTime;
+    public float activeTime;
+    public bool isActive, isEquip;
+}
+
+[Serializable]
 public struct SpriteStat
 {
     public string name;
@@ -84,5 +95,6 @@ public class List
     public MonsterStat[] monsterStats;
     public Percentage[] percentages;
     public Price[] prices;
+    public SkillStat[] skills;
     public SpriteStat[] spriteStats;
 }

@@ -26,8 +26,8 @@ public class BtnManager : MonoBehaviour
     {
         ShopBtn();
         TestWeaponLevel();
+        TestSkillLevel();
         IsSkill();
-        AnimalProtector();
         KingMove();
         ShowInven();
     }
@@ -65,36 +65,70 @@ public class BtnManager : MonoBehaviour
                     else
                         gameManager.playerAI.stat.ammo[i].level++;
                 }
+                gameManager.uiManager.WeaponSlotCheck();
             }
         }
     }
+    public void TestSkillLevel()
+    {
+        KeyCode[] keys = { KeyCode.Alpha9 };
+
+        for (int i = 0; i < keys.Length; i++)
+        {
+            if (Input.GetKeyDown(keys[i]))
+            {
+                if (gameManager.playerAI.stat.skill[i].level > 0)
+                    gameManager.playerAI.stat.skill[i].level--;
+                else
+                    gameManager.playerAI.stat.skill[i].level++;
+                gameManager.uiManager.InstantiateSkill(gameManager.playerAI.stat.skill[i]);
+            }
+        }
+    }
+    SkillSlot[] skillSlots; int k;
     public void IsSkill()
     {
         if(gameManager.uiManager.Shop[0].GetBool("IsShow") || gameManager.isGameOver)
         {
             return;
         }
-        if(Input.GetKeyDown(KeyCode.Q))
+
+        KeyCode[] keys = { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.R };
+
+        for (int i = 0; i < keys.Length; i++)
         {
-            if(gameManager.isSkill)
+            if (Input.GetKeyDown(keys[i]))
             {
-                gameManager.isSkill = false;
-                Time.timeScale = originTime;
-            }
-            else if(!gameManager.isSkill)
-            {
-                gameManager.isSkill = true;
-                Time.timeScale = originTime / 2;
+                skillSlots = gameManager.uiManager.skillSlotPanel.GetComponentsInChildren<SkillSlot>();
+                if (skillSlots[i].isCool)
+                    return;
+                if(skillSlots[i].isDropped)
+                {
+                    if (gameManager.isSkill)
+                    {
+                        gameManager.isSkill = false;
+                        Time.timeScale = originTime;
+                    }
+                    else if (!gameManager.isSkill)
+                    {
+                        gameManager.isSkill = true;
+                        k = i;
+                        Time.timeScale = originTime / 3;
+                    }
+                }
             }
         }
+        DoSkill();
     }
-    public void AnimalProtector()
+    public void DoSkill()
     {
         if(gameManager.isSkill)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && skillSlots[k].isDropped && !skillSlots[k].isCool)
             {
-                gameManager.poolingManager.MakeObj("AnimalProtector");
+                gameManager.poolingManager.MakeObj(skillSlots[k].skillStat.name);
+                skillSlots[k].img.fillAmount = 1;
+                skillSlots[k].isCool = true;
                 gameManager.isSkill = false;
                 Time.timeScale = originTime;
             }

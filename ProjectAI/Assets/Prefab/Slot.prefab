@@ -60,13 +60,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.54901963}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1824168566, guid: fb9206a9ddd1d5c4ba9f8b656b3c3f19, type: 3}
+  m_Sprite: {fileID: 1328190313, guid: fb9206a9ddd1d5c4ba9f8b656b3c3f19, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2102336055, guid: fb9206a9ddd1d5c4ba9f8b656b3c3f19, type: 3}
+  m_Sprite: {fileID: 106829118, guid: fb9206a9ddd1d5c4ba9f8b656b3c3f19, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -166,3 +166,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f716b415f0c8b4089fc8ac51e7aac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDropped: 0
+  isEquip: 0
+  isSkill: 0
+  img: {fileID: 0}
+  stat:
+    name: 
+    hp: 0
+    damage: 0
+    exp: 0
+    count: 0
+    moveSpeed: 0
+    range: 0
+    atkDelay: 0
+    coolTime: 0
+    type: 0
+    tier: 0
+  rect: {fileID: 0}

@@ -77,6 +77,7 @@ public class CSVReader : MonoBehaviour
             list.playerStats[i] = new PlayerStat();
             list.playerStats[i].name = data[size * (i + 1)];
             list.playerStats[i].ammo = list.playerAmmos;
+            list.playerStats[i].skill = list.skills;
             list.playerStats[i].hp = int.Parse(data[size * (i + 1) + 2]);
             list.playerStats[i].exp = int.Parse(data[size * (i + 1) + 3]);
             list.playerStats[i].damage = int.Parse(data[size * (i + 1) + 4]);
@@ -169,6 +170,16 @@ public class CSVReader : MonoBehaviour
                 return list.prices[i];
         }
         return new Price();
+    }
+
+    public SkillStat SkillExportData(string name)
+    {
+        for (int i = 0; i < list.skills.Length; i++)
+        {
+            if (name == list.skills[i].name)
+                return list.skills[i];
+        }
+        return new SkillStat();
     }
 
     public SpriteStat spriteExportData(string name)

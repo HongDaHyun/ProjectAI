@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4473072673051085632}
   - component: {fileID: 4473072673051085633}
   - component: {fileID: 4473072673051085635}
-  - component: {fileID: 4473072673051085638}
+  - component: {fileID: 3198073377023826606}
   - component: {fileID: 2607524748415274097}
   m_Layer: 5
   m_Name: MonsterUI
@@ -91,7 +91,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &4473072673051085638
+--- !u!114 &3198073377023826606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4473072673051085636}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dd3ef245d432b242be9e643963f3c41, type: 3}
+  m_Script: {fileID: 11500000, guid: f524d411b74b05342af0214c1c3048ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2607524748415274097
@@ -115,4 +115,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a2e0ff51b7319647a4dd1c1c2b07880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: 
+  stat:
+    name: 
+    hp: 0
+    damage: 0
+    exp: 0
+    count: 0
+    moveSpeed: 0
+    range: 0
+    atkDelay: 0
+    coolTime: 0
+    type: 0
+    tier: 0

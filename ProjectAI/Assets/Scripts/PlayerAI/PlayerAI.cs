@@ -18,8 +18,8 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
     protected Vector3 curPos;
     protected HuntingDog[] huntingDogs;
     protected Collider2D[] colliderArray;
-    protected Transform nearEnemy;
-    protected static float detectRadius = 5f;
+    public Transform nearEnemy;
+    protected static float detectRadius = 8f;
     protected float inputX, inputY;
     protected GameObject shadow;
 
@@ -41,12 +41,13 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         pv = GetComponent<PhotonView>();
         huntingDogs = GetComponentsInChildren<HuntingDog>(true);
         shadow = transform.GetChild(2).gameObject;
+        SetStat();
     }
 
     private void Start()
     {
         state = State.Idle;
-        SetStat();
+        gameManager.uiManager.WeaponSlotCheck();
         StartCoroutine(NearDetect(1f));
     }
 
@@ -121,11 +122,6 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
 
         if(pv.IsMine)
         {
-            inputX = Input.GetAxisRaw("Horizontal");
-            inputY = Input.GetAxisRaw("Vertical");
-
-            transform.Translate(new Vector2(inputX, inputY).normalized * Time.deltaTime * stat.walkSpeed);
-
             if(nearEnemy != null)
             {
                 Vector2 direction = nearEnemy.transform.position - transform.position;
@@ -456,18 +452,19 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
 
     protected void GunLock()
     {
-        if(stat.ammo[0].level >= 1)
-            stat.ammo[0].curShotTime += Time.deltaTime;
-        if (stat.ammo[1].level >= 1)
-            stat.ammo[1].curShotTime += Time.deltaTime;
-        if (stat.ammo[2].level >= 1)
-            stat.ammo[2].curShotTime += Time.deltaTime;
-        if (stat.ammo[4].level >= 1)
-            stat.ammo[4].curShotTime += Time.deltaTime;
-        if (stat.ammo[5].level >= 1)
-            stat.ammo[5].curShotTime += Time.deltaTime;
-        if (stat.ammo[6].level >= 1)
-            stat.ammo[6].curShotTime += Time.deltaTime;
+        for(int i = 0; i < stat.ammo.Length; i++)
+        {
+            if(stat.ammo[i].level >= 1)
+            {
+                stat.ammo[i].isEquip = true;
+                stat.ammo[i].curShotTime += Time.deltaTime;
+            }
+            else if(stat.ammo[i].level == 0)
+            {
+                stat.ammo[i].isEquip = false;
+                stat.ammo[i].curShotTime = 0;
+            }
+        }
     }
     #endregion
 
