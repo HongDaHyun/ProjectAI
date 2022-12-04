@@ -46,6 +46,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         if (transform.parent.name == canvas.name)
             Replace();
+        transform.localScale = new Vector3(0.8f, 0.8f, 1);
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
     }

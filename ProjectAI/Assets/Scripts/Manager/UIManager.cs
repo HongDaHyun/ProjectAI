@@ -12,13 +12,15 @@ public class UIManager : MonoBehaviour
     public SlotsUI slotsUI;
     public RectTransform weaponSlotPanel;
     public RectTransform skillSlotPanel;
+    public RectTransform popAppleRect;
+    public RectTransform mouseCursorUI;
     public List<GameObject> deckList;
     public GameObject GameOver;
     public GameObject pause;
+    public GameObject toolTip;
     public Animator invenPannel;
     public Animator[] Shop;
     public Text[] Soul;
-    public RectTransform popAppleRect;
     public Timer timer;
     public Vector3 mousePos;
 
@@ -138,7 +140,7 @@ public class UIManager : MonoBehaviour
 
         GameObject obj = gameManager.poolingManager.MakeObj("UIPopUp");
         obj.transform.SetParent(popAppleRect.transform);
-        obj.transform.localScale = new Vector3(1, 1, 1);
+        obj.transform.localScale = new Vector3(0.8f, 0.8f, 1);
         obj.GetComponent<RectTransform>().position = popAppleRect.position;
         StartCoroutine(obj.GetComponent<UIPopUp>().Pop(count));
     }

@@ -103,6 +103,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f524d411b74b05342af0214c1c3048ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rect: {fileID: 0}
+  preParent: {fileID: 0}
+  curSlot: {fileID: 0}
+  preSlot: {fileID: 0}
 --- !u!114 &2607524748415274097
 MonoBehaviour:
   m_ObjectHideFlags: 0
