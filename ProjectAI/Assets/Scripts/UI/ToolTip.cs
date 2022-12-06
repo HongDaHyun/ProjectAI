@@ -5,17 +5,22 @@ using UnityEngine.UI;
 
 public abstract class ToolTip : MonoBehaviour
 {
-    GameManager gameManager;
+    protected GameManager gameManager;
+    protected RectTransform rect;
 
     float halfWidth;
-    RectTransform rect;
 
     private void Awake()
     {
         gameManager = GameManager.Instance;
 
-        halfWidth = GetComponentInParent<CanvasScaler>().referenceResolution.x * 0.5f;
         rect = GetComponent<RectTransform>();
+        halfWidth = GetComponentInParent<CanvasScaler>().referenceResolution.x * 0.5f;
+    }
+
+    private void OnEnable()
+    {
+        transform.position = gameManager.uiManager.mouseCursorUI.transform.position;
     }
 
     private void Update()
@@ -27,4 +32,6 @@ public abstract class ToolTip : MonoBehaviour
         else
             rect.pivot = new Vector2(0, 0);
     }
+
+    public abstract void SetToolTip(MonsterStat stat);
 }

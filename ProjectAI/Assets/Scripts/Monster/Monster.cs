@@ -208,11 +208,11 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         isAttack = false;
     }
 
-    protected IEnumerator Basic()
+    protected IEnumerator Attack()
     {
         isAttack = true;
         anim.SetTrigger("IsAtk");
-        yield return null;
+        yield return stat.atkDelay;
         isAttack = false;
     }
 
@@ -220,7 +220,7 @@ public abstract class Monster : MonoBehaviourPunCallbacks
     {
         if (!isAttack && Vector2.Distance(transform.position, gameManager.playerAI.transform.position) <= stat.range && !isDie)
         {
-            StartCoroutine(stat.type.ToString());
+            StartCoroutine(Attack());
         }
     }
 

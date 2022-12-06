@@ -75,15 +75,11 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public virtual void OnPointerEnter(PointerEventData eventData)
     {
-        if (!isDropped)
-            return;
-        gameManager.uiManager.toolTip.SetActive(true);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public virtual void OnPointerExit(PointerEventData eventData)
     {
-        gameManager.uiManager.toolTip.SetActive(false);
     }
 }

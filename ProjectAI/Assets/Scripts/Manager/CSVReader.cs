@@ -90,7 +90,7 @@ public class CSVReader : MonoBehaviour
 
     public void MonsterReadCSV()
     {
-        int order = 2;  int size = 11;
+        int order = 2;  int size = 12;
         string[] data = textAssets[order].text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
         int tableSize = data.Length / size - 1;
         list.monsterStats = new MonsterStat[tableSize];
@@ -109,6 +109,15 @@ public class CSVReader : MonoBehaviour
             list.monsterStats[i].coolTime = float.Parse(data[size * (i + 1) + 8]);
             list.monsterStats[i].type = (MonsterType)Enum.Parse(typeof(MonsterType), (data[size * (i + 1) + 9]));
             list.monsterStats[i].tier = (Tier)Enum.Parse(typeof(Tier), (data[size * (i + 1) + 10]));
+            list.monsterStats[i].description = data[size * (i + 1) + 11];
+            list.monsterStats[i].synergy = new List<Synergy>();
+            for(int k = 0; k < list.synergies.Length; k++)
+            {
+                if(list.synergies[k].contents.Contains(list.monsterStats[i].name))
+                {
+                    list.monsterStats[i].synergy.Add(list.synergies[k]);
+                }
+            }
         }
     }
 

@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     public List<GameObject> deckList;
     public GameObject GameOver;
     public GameObject pause;
-    public GameObject toolTip;
+    public ToolTip toolTip;
     public Animator invenPannel;
     public Animator[] Shop;
     public Text[] Soul;
@@ -278,6 +278,22 @@ public struct SlotsUI
             }
             isSkillFull = true;
         }
+    }
+
+    public bool SearchByName(string name)
+    {
+        for(int i = 0; i < inventorys.Count; i++)
+        {
+            if (inventorys[i].isDropped && name == inventorys[i].name)
+                return true;
+        }
+
+        for(int i = 0; i < equipments.Count; i++)
+        {
+            if (equipments[i].isDropped && name == equipments[i].name)
+                return true;
+        }
+        return false;
     }
 
     public void Evolution()

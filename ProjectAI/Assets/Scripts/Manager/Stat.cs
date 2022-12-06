@@ -41,6 +41,7 @@ public struct PlayerAmmo
 public struct MonsterStat
 {
     public string name;
+    public string description;
 
     public int hp;
     public int damage;
@@ -54,6 +55,15 @@ public struct MonsterStat
 
     public MonsterType type;
     public Tier tier;
+    public List<Synergy> synergy;
+}
+
+[Serializable]
+public struct Synergy
+{
+    public string name;
+    public List<string> contents;
+    public bool isLock;
 }
 
 [Serializable]
@@ -93,6 +103,7 @@ public class List
     public PlayerStat[] playerStats;
     public PlayerAmmo[] playerAmmos;
     public MonsterStat[] monsterStats;
+    public Synergy[] synergies;
     public Percentage[] percentages;
     public Price[] prices;
     public SkillStat[] skills;

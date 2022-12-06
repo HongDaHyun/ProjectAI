@@ -779,7 +779,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1360605961}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 5
+    OrthographicSize: 9
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -2224,6 +2224,90 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &175256598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 175256602}
+  - component: {fileID: 175256601}
+  - component: {fileID: 175256600}
+  - component: {fileID: 175256599}
+  m_Layer: 5
+  m_Name: ToolTipMonster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &175256599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175256598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596a6855d2da5cd4ab104cbec991872f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 1760666378}
+  img: {fileID: 422881364}
+  content:
+  - {fileID: 394114980}
+  - {fileID: 1079412690}
+  - {fileID: 932178221}
+  - {fileID: 602502371}
+  - {fileID: 881328068}
+  - {fileID: 1811544823}
+  - {fileID: 501601872}
+  synergyPannel: {fileID: 1157853084}
+--- !u!225 &175256600
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175256598}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!222 &175256601
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175256598}
+  m_CullTransparentMesh: 1
+--- !u!224 &175256602
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175256598}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1498412412}
+  - {fileID: 1157853084}
+  m_Father: {fileID: 938763990}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 500, y: 540}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &176631441
 GameObject:
   m_ObjectHideFlags: 0
@@ -6301,7 +6385,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6345,8 +6429,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AssetsPPU: 16
-  m_RefResolutionX: 320
-  m_RefResolutionY: 180
+  m_RefResolutionX: 480
+  m_RefResolutionY: 270
   m_UpscaleRT: 0
   m_PixelSnapping: 0
   m_CropFrameX: 0
@@ -9382,7 +9466,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5448934105437332065, guid: d31bebf3ca3f8ca48870cfd864b6881c, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 5448934105437332065, guid: d31bebf3ca3f8ca48870cfd864b6881c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12037,7 +12121,7 @@ RectTransform:
   - {fileID: 245769736}
   - {fileID: 1624839437}
   - {fileID: 1831651320}
-  - {fileID: 1498412412}
+  - {fileID: 175256602}
   - {fileID: 556851047}
   - {fileID: 547671694}
   - {fileID: 359160837}
@@ -12046,7 +12130,7 @@ RectTransform:
   - {fileID: 1819044465}
   - {fileID: 1172261217}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12311,7 +12395,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963293944
 GameObject:
@@ -13453,7 +13537,7 @@ MonoBehaviour:
   - {fileID: 1154293017}
   GameOver: {fileID: 547671693}
   pause: {fileID: 359160836}
-  toolTip: {fileID: 1498412411}
+  toolTip: {fileID: 175256599}
   invenPannel: {fileID: 1624839439}
   Shop:
   - {fileID: 501599351}
@@ -14434,6 +14518,78 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4672593585730739279, guid: bbb0c795eccf51d438f4f3fb0f519d7f, type: 3}
   m_PrefabInstance: {fileID: 1949968087}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1157853080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1157853084}
+  - component: {fileID: 1157853083}
+  - component: {fileID: 1157853082}
+  m_Layer: 5
+  m_Name: Synergy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1157853082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157853080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 7
+  m_Spacing: 10
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!222 &1157853083
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157853080}
+  m_CullTransparentMesh: 1
+--- !u!224 &1157853084
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157853080}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 175256602}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 125, y: 0}
+  m_SizeDelta: {x: -250, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1172261216
 GameObject:
   m_ObjectHideFlags: 0
@@ -15621,6 +15777,7 @@ MonoBehaviour:
   uiPopUpPrefab: {fileID: 913321878492645542, guid: f564570fa6fa7b04d97a10d011923e74, type: 3}
   monsterUIPrefab: {fileID: 4473072673051085636, guid: 3d02ebe784a49204d84a5f0221497d0f, type: 3}
   skillUIPrefab: {fileID: 4473072673051085636, guid: 8819a741307caec429b70112bb4edfe8, type: 3}
+  synergyUIPrefab: {fileID: 3505589141911734009, guid: ccd4881d769691b4ba68d2fe16e7bce6, type: 3}
   bananaPrefab: {fileID: 4309134596325366364, guid: 88e7be10b01b79448a3bc5af96fbaad5, type: 3}
   bitePrefab: {fileID: 8680826129607992226, guid: e5ef6a18fb8df384087ebe12e9e98e92, type: 3}
   clickUIPrefab: {fileID: 4944441838154802809, guid: da05256ed075f544f95eb03d7f193e54, type: 3}
@@ -16379,7 +16536,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1293502004
 GameObject:
@@ -17900,7 +18057,7 @@ Transform:
   - {fileID: 215172085}
   - {fileID: 1916623990}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1423216765
 MonoBehaviour:
@@ -18694,15 +18851,13 @@ GameObject:
   - component: {fileID: 1498412412}
   - component: {fileID: 1498412414}
   - component: {fileID: 1498412413}
-  - component: {fileID: 1498412416}
-  - component: {fileID: 1498412415}
   m_Layer: 5
-  m_Name: ToolTipMonster
+  m_Name: ToolTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1498412412
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18710,7 +18865,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1498412411}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -18720,14 +18875,14 @@ RectTransform:
   - {fileID: 674632288}
   - {fileID: 501601871}
   - {fileID: 486978893}
-  m_Father: {fileID: 938763990}
-  m_RootOrder: 6
+  m_Father: {fileID: 175256602}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 250, y: 270}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -125, y: -135}
+  m_SizeDelta: {x: -250, y: -270}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1498412413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18766,30 +18921,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1498412411}
   m_CullTransparentMesh: 1
---- !u!114 &1498412415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498412411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 596a6855d2da5cd4ab104cbec991872f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!225 &1498412416
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498412411}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1500350551
 GameObject:
   m_ObjectHideFlags: 0
@@ -20231,7 +20362,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25.000004, y: 0}
+  m_AnchoredPosition: {x: -25, y: 0}
   m_SizeDelta: {x: -49.999992, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1596579145
@@ -20708,7 +20839,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1630697607
 MonoBehaviour:
@@ -20983,6 +21114,7 @@ MonoBehaviour:
       isEquip: 0
     monsterStats:
     - name: Rabbit
+      description: "Can you hear me?\r"
       hp: 7
       damage: 2
       exp: 2
@@ -20991,9 +21123,17 @@ MonoBehaviour:
       range: 0
       atkDelay: 0
       coolTime: 2
-      type: 2
+      type: 1
       tier: 0
+      synergy:
+      - name: Cute Babies
+        contents:
+        - Rabbit
+        - Chicken
+        - Mouse
+        isLock: 0
     - name: Chicken
+      description: "Cock-a-doodle-doo\r"
       hp: 8
       damage: 2
       exp: 2
@@ -21002,9 +21142,23 @@ MonoBehaviour:
       range: 0
       atkDelay: 0.5
       coolTime: 1
-      type: 2
+      type: 1
       tier: 0
+      synergy:
+      - name: Hangeul
+        contents:
+        - Chicken
+        - Mouse
+        - Bear
+        isLock: 0
+      - name: Cute Babies
+        contents:
+        - Rabbit
+        - Chicken
+        - Mouse
+        isLock: 0
     - name: Mouse
+      description: "It's not Disney's rat.\r"
       hp: 5
       damage: 3
       exp: 2
@@ -21013,9 +21167,28 @@ MonoBehaviour:
       range: 0
       atkDelay: 0
       coolTime: 1
-      type: 2
+      type: 1
       tier: 0
+      synergy:
+      - name: Hangeul
+        contents:
+        - Chicken
+        - Mouse
+        - Bear
+        isLock: 0
+      - name: Cute Babies
+        contents:
+        - Rabbit
+        - Chicken
+        - Mouse
+        isLock: 0
+      - name: Ratatouille
+        contents:
+        - Mouse
+        - Elephant
+        isLock: 0
     - name: Pig
+      description: "You become a pig.\r"
       hp: 15
       damage: 10
       exp: 6
@@ -21026,7 +21199,9 @@ MonoBehaviour:
       coolTime: 3
       type: 2
       tier: 1
+      synergy: []
     - name: Deer
+      description: "An elk! A moose!\r"
       hp: 15
       damage: 10
       exp: 6
@@ -21035,9 +21210,11 @@ MonoBehaviour:
       range: 0
       atkDelay: 2
       coolTime: 3
-      type: 2
+      type: 1
       tier: 1
+      synergy: []
     - name: Fox
+      description: "Ari : nine-tailed fox\r"
       hp: 20
       damage: 8
       exp: 10
@@ -21048,7 +21225,14 @@ MonoBehaviour:
       coolTime: 4
       type: 2
       tier: 2
+      synergy:
+      - name: Best Friend
+        contents:
+        - Fox
+        - Monkey
+        isLock: 0
     - name: Monkey
+      description: "Uki-ki!!\r"
       hp: 20
       damage: 5
       exp: 10
@@ -21057,9 +21241,16 @@ MonoBehaviour:
       range: 6
       atkDelay: 2
       coolTime: 4
-      type: 1
+      type: 2
       tier: 2
+      synergy:
+      - name: Best Friend
+        contents:
+        - Fox
+        - Monkey
+        isLock: 0
     - name: Bear
+      description: "Tear a person apart.\r"
       hp: 50
       damage: 15
       exp: 20
@@ -21068,9 +21259,23 @@ MonoBehaviour:
       range: 0
       atkDelay: 4
       coolTime: 8
-      type: 2
+      type: 0
       tier: 3
+      synergy:
+      - name: Hangeul
+        contents:
+        - Chicken
+        - Mouse
+        - Bear
+        isLock: 0
+      - name: Forest King
+        contents:
+        - Bear
+        - Lion
+        - Elephant
+        isLock: 0
     - name: Lion
+      description: "Lion king!!\r"
       hp: 40
       damage: 20
       exp: 20
@@ -21079,9 +21284,17 @@ MonoBehaviour:
       range: 0
       atkDelay: 3
       coolTime: 8
-      type: 2
+      type: 0
       tier: 3
+      synergy:
+      - name: Forest King
+        contents:
+        - Bear
+        - Lion
+        - Elephant
+        isLock: 0
     - name: Elephant
+      description: "His nose is his hand.\r"
       hp: 100
       damage: 10
       exp: 20
@@ -21090,9 +21303,22 @@ MonoBehaviour:
       range: 0
       atkDelay: 3.5
       coolTime: 10
-      type: 2
+      type: 0
       tier: 3
+      synergy:
+      - name: Forest King
+        contents:
+        - Bear
+        - Lion
+        - Elephant
+        isLock: 0
+      - name: Ratatouille
+        contents:
+        - Mouse
+        - Elephant
+        isLock: 0
     - name: GhostRabbit
+      description: "Army of the Dead\r"
       hp: 1
       damage: 10
       exp: 5
@@ -21101,9 +21327,11 @@ MonoBehaviour:
       range: 0
       atkDelay: 1
       coolTime: 4
-      type: 2
+      type: 3
       tier: 0
+      synergy: []
     - name: GhostPig
+      description: "Army of the Dead\r"
       hp: 1
       damage: 20
       exp: 5
@@ -21112,9 +21340,11 @@ MonoBehaviour:
       range: 0
       atkDelay: 2
       coolTime: 6
-      type: 2
+      type: 3
       tier: 1
+      synergy: []
     - name: GhostDeer
+      description: "Army of the Dead\r"
       hp: 1
       damage: 22
       exp: 5
@@ -21123,9 +21353,11 @@ MonoBehaviour:
       range: 0
       atkDelay: 2
       coolTime: 6
-      type: 2
+      type: 3
       tier: 1
+      synergy: []
     - name: GhostLion
+      description: "Army of the Dead\r"
       hp: 1
       damage: 30
       exp: 7
@@ -21134,9 +21366,11 @@ MonoBehaviour:
       range: 0
       atkDelay: 2
       coolTime: 10
-      type: 2
+      type: 3
       tier: 3
+      synergy: []
     - name: GhostElephant
+      description: "Army of the Dead\r"
       hp: 1
       damage: 40
       exp: 7
@@ -21145,17 +21379,47 @@ MonoBehaviour:
       range: 0
       atkDelay: 2
       coolTime: 12
-      type: 2
+      type: 3
       tier: 3
+      synergy: []
+    synergies:
+    - name: Hangul
+      contents:
+      - Chicken
+      - Mouse
+      - Bear
+      isLock: 0
+    - name: Forest King
+      contents:
+      - Bear
+      - Lion
+      - Elephant
+      isLock: 0
+    - name: Cute Babies
+      contents:
+      - Rabbit
+      - Chicken
+      - Mouse
+      isLock: 0
+    - name: Ratatouille
+      contents:
+      - Mouse
+      - Elephant
+      isLock: 0
+    - name: Best Friend
+      contents:
+      - Fox
+      - Monkey
+      isLock: 0
     percentages:
     - tier: 3
-      weight: 3
+      weight: 1
     - tier: 2
-      weight: 7
+      weight: 1
     - tier: 1
-      weight: 30
+      weight: 1
     - tier: 0
-      weight: 60
+      weight: 1
     prices:
     - name: MonsterBox
       price: 10
@@ -21307,6 +21571,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1648492904}
   m_CullTransparentMesh: 1
+--- !u!1 &1666396341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1666396342}
+  m_Layer: 0
+  m_Name: SynergyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1666396342
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666396341}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1666619541
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22794,7 +23089,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000015258789, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1811544823
@@ -22822,13 +23117,13 @@ MonoBehaviour:
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Description
 --- !u!222 &1811544824
@@ -27471,7 +27766,7 @@ MonoBehaviour:
     GameObject: {fileID: 1498412411}
     Ordinal: 191
     Priority: 0
-    IconType: 24000
+    IconType: 260000
     IconTexture: {fileID: 0}
     IsIconRecursive: 0
     BackgroundType: 0
@@ -27538,6 +27833,42 @@ MonoBehaviour:
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 0
     IsHidden: 0
+  - Type: 0
+    Name: 
+    GameObject: {fileID: 1666396341}
+    Ordinal: 197
+    Priority: 0
+    IconType: 103000
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 2000
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 0
+    Name: 
+    GameObject: {fileID: 1157853080}
+    Ordinal: 198
+    Priority: 0
+    IconType: 260000
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 0
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 0
+    Name: 
+    GameObject: {fileID: 175256598}
+    Ordinal: 199
+    Priority: 0
+    IconType: 19000
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 0
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
 --- !u!4 &1965609546
 Transform:
   m_ObjectHideFlags: 0
@@ -27551,7 +27882,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1968531830
 PrefabInstance:
@@ -29689,7 +30020,7 @@ Transform:
   - {fileID: 185542974}
   - {fileID: 952698467}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &5258003461314690535
 Rigidbody2D:

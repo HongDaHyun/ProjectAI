@@ -18,6 +18,7 @@ public class PoolingManager : MonoBehaviour
     public GameObject uiPopUpPrefab;
     public GameObject monsterUIPrefab;
     public GameObject skillUIPrefab;
+    public GameObject synergyUIPrefab;
 
     public GameObject bananaPrefab;
     public GameObject bitePrefab;
@@ -63,6 +64,7 @@ public class PoolingManager : MonoBehaviour
     GameObject[] uiPopUp;
     GameObject[] monsterUI;
     GameObject[] skillUI;
+    GameObject[] synergyUI;
 
     GameObject[] banana;
     GameObject[] bite;
@@ -88,6 +90,7 @@ public class PoolingManager : MonoBehaviour
         uiPopUp = Generate(uiPopUpPrefab, 50);
         monsterUI = Generate(monsterUIPrefab, 30);
         skillUI = Generate(skillUIPrefab, 4);
+        synergyUI = Generate(synergyUIPrefab, 3);
         rabbit = Generate(enemyPrefab[0], 1000);
         chicken = Generate(enemyPrefab[1], 1000);
         mouse = Generate(enemyPrefab[2], 1000);
@@ -219,6 +222,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "SkillUI":
                 targetPool = skillUI;
+                break;
+            case "SynergyUI":
+                targetPool = synergyUI;
                 break;
             case "Banana":
                 targetPool = banana;
