@@ -9,7 +9,7 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
     public bool isDropped, isEquip, isSkill;
     public Image img;
     public RectTransform rect;
-    [HideInInspector] public MonsterStat stat;
+    public string _name;
     [HideInInspector] public SkillStat skillStat;
     protected GameManager gameManager;
     protected Slot preSlot;

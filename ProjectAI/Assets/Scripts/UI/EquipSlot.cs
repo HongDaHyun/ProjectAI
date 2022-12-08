@@ -16,8 +16,9 @@ public class EquipSlot : ItemSlot
     public override void OnDrop(PointerEventData eventData)
     {
         base.OnDrop(eventData);
-        if (preSlot != null && stat.name != null)
-            if (preSlot.stat.name != stat.name)
+        if (preSlot != null && _name != "")
+            if (preSlot._name != _name)
                 img.fillAmount = 1;
+        gameManager.synergyManager.SynergyNotice();
     }
 }

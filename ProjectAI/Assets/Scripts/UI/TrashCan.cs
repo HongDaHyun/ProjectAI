@@ -21,7 +21,10 @@ public class TrashCan : MonoBehaviour, IDropHandler
             MonsterUI monsterUI = eventData.pointerDrag.GetComponent<MonsterUI>();
             DragDrop dragDrop = monsterUI.GetComponent<DragDrop>();
 
-            gameManager.uiManager.UIPopUpApple(gameManager.uiManager.TierForSale(monsterUI.stat.tier));
+            gameManager.uiManager.UIPopUpApple(gameManager.uiManager.TierForSale(gameManager.csvReader.monsterExportData(monsterUI._name).tier));
+            gameManager.csvReader.monsterExportData(monsterUI._name).num--;
+            gameManager.synergyManager.SynergyCheck();
+            gameManager.synergyManager.SynergyNotice();
 
             if (dragDrop.preSlot.isEquip)
                 dragDrop.preSlot.img.fillAmount = 0;

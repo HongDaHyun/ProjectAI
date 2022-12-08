@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     public List<GameObject> deckList;
     public GameObject GameOver;
     public GameObject pause;
+    public SynergyNotice synergyNotice;
     public ToolTip toolTip;
     public Animator invenPannel;
     public Animator[] Shop;
@@ -104,7 +105,6 @@ public class UIManager : MonoBehaviour
                         skillUI.transform.SetAsFirstSibling();
                         dragDrop.rect.position = gameManager.uiManager.slotsUI.skills[j].rect.position;
                         gameManager.uiManager.slotsUI.FullSlot();
-                        gameManager.uiManager.slotsUI.Evolution();
                         return;
                     }
                 }
@@ -280,39 +280,16 @@ public struct SlotsUI
         }
     }
 
-    public bool SearchByName(string name)
+    public bool CheckSlot_Equip(string name)
     {
-        for(int i = 0; i < inventorys.Count; i++)
-        {
-            if (inventorys[i].isDropped && name == inventorys[i].name)
-                return true;
-        }
-
         for(int i = 0; i < equipments.Count; i++)
         {
-            if (equipments[i].isDropped && name == equipments[i].name)
+            if (name == equipments[i]._name)
                 return true;
         }
         return false;
     }
 
-    public void Evolution()
-    {
-        int k = 0;
-        for(int i = 0; i < inventorys.Count; i++)
-        {
-            for(int j = 0; j < inventorys.Count; j++)
-            {
-                if (inventorys[i].stat.name == inventorys[j].stat.name && inventorys[i].stat.name != "" && i != j)
-                    k++;
-            }
-            if(k >= 3)
-            {
-                Debug.Log("��ȭ " + inventorys[i].stat.name);
-            }
-            k = 0;
-        }
-    }
 }
 
 [Serializable]

@@ -16,13 +16,13 @@ public class DragDrop_Monster : DragDrop, IPointerClickHandler
     protected override void OnDisable()
     {
         base.OnDisable();
-        monsterUI.stat = new MonsterStat();
+        monsterUI._name = "";
     }
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
         base.OnBeginDrag(eventData);
-        preSlot.stat = new MonsterStat();
+        preSlot._name = "";
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -31,14 +31,17 @@ public class DragDrop_Monster : DragDrop, IPointerClickHandler
         {
             if (Input.GetMouseButtonUp(1))
             {
-                gameManager.uiManager.UIPopUpApple(gameManager.uiManager.TierForSale(monsterUI.stat.tier));
+                gameManager.uiManager.UIPopUpApple(gameManager.uiManager.TierForSale(gameManager.csvReader.monsterExportData(monsterUI._name).tier));
+                gameManager.csvReader.monsterExportData(monsterUI._name).num--;
+                gameManager.synergyManager.SynergyCheck();
+                gameManager.synergyManager.SynergyNotice();
 
                 if (curSlot.isEquip)
                 {
                     curSlot.img.fillAmount = 0;
                 }
                 curSlot.isDropped = false;
-                curSlot.stat = new MonsterStat();
+                curSlot._name = "";
 
                 gameManager.uiManager.slotsUI.FullSlot();
                 eventData.pointerDrag.SetActive(false);
@@ -49,6 +52,6 @@ public class DragDrop_Monster : DragDrop, IPointerClickHandler
     public override void Replace()
     {
         base.Replace();
-        preSlot.stat = monsterUI.stat;
+        preSlot._name = monsterUI._name;
     }
 }

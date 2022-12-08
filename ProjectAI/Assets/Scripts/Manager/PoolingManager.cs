@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
 public class PoolingManager : MonoBehaviour
 {
@@ -52,6 +51,12 @@ public class PoolingManager : MonoBehaviour
     GameObject[] ghostPig;
     GameObject[] ghostLion;
     GameObject[] ghostElephant;
+    GameObject[] luna;
+    GameObject[] winter;
+    GameObject[] magician;
+    GameObject[] fighter;
+    GameObject[] bishop;
+
 
     GameObject[] hit;
     GameObject[] blood;
@@ -106,6 +111,12 @@ public class PoolingManager : MonoBehaviour
         ghostPig = Generate(enemyPrefab[12], 1000);
         ghostLion = Generate(enemyPrefab[13], 1000);
         ghostElephant = Generate(enemyPrefab[14], 1000);
+        luna = Generate(enemyPrefab[15], 1000);
+        winter = Generate(enemyPrefab[16], 1000);
+        magician = Generate(enemyPrefab[17], 1000);
+        fighter = Generate(enemyPrefab[18], 1000);
+        bishop = Generate(enemyPrefab[19], 1000);
+
         hit = Generate(effectPrefab[0], 500);
         blood = Generate(effectPrefab[1], 500);
         banana = Generate(bananaPrefab, 30);
@@ -195,6 +206,21 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "GhostElephant":
                 targetPool = ghostElephant;
+                break;
+            case "Luna":
+                targetPool = luna;
+                break;
+            case "Winter":
+                targetPool = winter;
+                break;
+            case "Magician":
+                targetPool = magician;
+                break;
+            case "Fighter":
+                targetPool = fighter;
+                break;
+            case "Bishop":
+                targetPool = bishop;
                 break;
             case "Hit":
                 targetPool = hit;

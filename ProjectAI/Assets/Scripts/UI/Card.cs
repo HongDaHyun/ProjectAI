@@ -9,9 +9,8 @@ public class Card : MonoBehaviour
     Animator anim;
 
     public int id;
-
-    public MonsterStat monsterStat;
     public CardUI cardUI;
+    string monsterStat;
 
     GameManager gameManager;
 
@@ -49,15 +48,15 @@ public class Card : MonoBehaviour
 
     public void SetCard()
     {
-        monsterStat = MakeRanCard(RanCard());
-        SpriteStat spriteStat = gameManager.csvReader.spriteExportData(monsterStat.name);
+        monsterStat = MakeRanCard(RanCard()).name;
+        SpriteStat spriteStat = gameManager.csvReader.spriteExportData(monsterStat);
 
         cardUI.charImg.sprite = spriteStat.sprite;
-        cardUI.name.text = monsterStat.name;
-        SetStar();
+        cardUI.name.text = monsterStat;
+        SetStar(gameManager.csvReader.monsterExportData(monsterStat));
     }
 
-    void SetStar()
+    void SetStar(MonsterStat monsterStat)
     {
         switch(monsterStat.tier)
         {
@@ -103,7 +102,8 @@ public class Card : MonoBehaviour
                 list.Add(gameManager.csvReader.list.monsterStats[i]);
         }
         int ran = Random.Range(0, list.Count);
-        return list[ran];
+        MonsterStat mon = list[ran];
+        return mon;
     }
 
     void SetCardUI()
@@ -132,7 +132,7 @@ public class Card : MonoBehaviour
             {
                 ItemSlot itemSlot = gameManager.uiManager.slotsUI.inventorys[i].GetComponent<ItemSlot>();
                 itemSlot.isDropped = true;
-                itemSlot.stat = monsterStat;
+                itemSlot._name = monsterStat;
                 MonsterUI monsterUI = gameManager.poolingManager.MakeObj("MonsterUI").GetComponent<MonsterUI>();
                 DragDrop dragDrop = monsterUI.GetComponent<DragDrop>();
                 dragDrop.curSlot = itemSlot;
@@ -141,8 +141,9 @@ public class Card : MonoBehaviour
                 monsterUI.transform.localScale = new Vector3(0.8f, 0.8f, 1);
                 monsterUI.transform.SetAsFirstSibling();
                 dragDrop.rect.position = gameManager.uiManager.slotsUI.inventorys[i].rect.position;
+                gameManager.csvReader.monsterExportData(monsterStat).num++;
                 gameManager.uiManager.slotsUI.FullSlot();
-                gameManager.uiManager.slotsUI.Evolution();
+                gameManager.synergyManager.SynergyCheck();
                 return;
             }
         }

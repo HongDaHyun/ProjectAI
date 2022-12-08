@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
     public BtnManager btnManager;
     public NetworkManager networkManager;
+    public SynergyManager synergyManager;
+    public Map mapManager;
     public King king;
     public PlayerAI playerAI;
 

@@ -139,36 +139,36 @@ public class CSVReader : MonoBehaviour
     #endregion
 
     #region Name 
-    public PlayerAmmo PlayerAmmoExportData(string name)
+    public ref PlayerAmmo PlayerAmmoExportData(string name)
     {
         for (int i = 0; i < list.playerAmmos.Length; i++)
         {
             if (name == list.playerAmmos[i].name.ToString())
             {
-                return list.playerAmmos[i];
+                return ref list.playerAmmos[i];
             }
         }
-        return new PlayerAmmo();
+        return ref list.playerAmmos[0];
     }
 
-    public PlayerStat PlayerExportData(string name)
+    public ref PlayerStat PlayerExportData(string name)
     {
         for(int i = 0; i < list.playerStats.Length; i++)
         {
             if (name == list.playerStats[i].name)
-                return list.playerStats[i];
+                return ref list.playerStats[i];
         }
-        return new PlayerStat();
+        return ref list.playerStats[0];
     }
 
-    public MonsterStat monsterExportData(string name)
+    public ref MonsterStat monsterExportData(string name)
     {
         for (int i = 0; i < list.monsterStats.Length; i++)
         {
             if (name == list.monsterStats[i].name)
-                return list.monsterStats[i];
+                return ref list.monsterStats[i];
         }
-        return new MonsterStat();
+        return ref list.monsterStats[0];
     }
 
     public Price PriceExportData(string name)
@@ -199,6 +199,16 @@ public class CSVReader : MonoBehaviour
                 return list.spriteStats[i];
         }
         return new SpriteStat();
+    }
+
+    public ref Synergy SynergyExportData(string name)
+    {
+        for (int i = 0; i < list.synergies.Length; i++)
+        {
+            if (name == list.playerStats[i].name)
+                return ref list.synergies[i];
+        }
+        return ref list.synergies[0];
     }
     #endregion
 }

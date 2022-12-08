@@ -792,6 +792,10 @@ MonoBehaviour:
   - {fileID: 578959277}
   - {fileID: 1159097766}
   - {fileID: 484691991}
+  imgSquare:
+  - {fileID: 578959279}
+  - {fileID: 1159097768}
+  - {fileID: 484691993}
   img:
   - {fileID: 940388264}
   - {fileID: 1572580058}
@@ -805,7 +809,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3505589141911734009}
   m_Enabled: 1
-  m_Alpha: 0.6
+  m_Alpha: 0.8
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0

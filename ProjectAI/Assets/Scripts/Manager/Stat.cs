@@ -47,6 +47,7 @@ public struct MonsterStat
     public int damage;
     public int exp;
     public int count;
+    public int num;
 
     public float moveSpeed;
     public float range;
@@ -63,7 +64,9 @@ public struct Synergy
 {
     public string name;
     public List<string> contents;
-    public bool isLock;
+    public List<string> increase;
+    public List<string> decrease;
+    public bool isUnlock;
 }
 
 [Serializable]

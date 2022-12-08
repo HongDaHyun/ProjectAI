@@ -19,24 +19,25 @@ public class SpawnManager : MonoBehaviour
 
     public void Spawn(EquipSlot equip)
     {
+        MonsterStat mon = gameManager.csvReader.monsterExportData(equip._name);
         if (equip.isDropped && equip.isSpawn)
         {
             equip.isSpawn = false;
             equip.img.fillAmount = 1;
-            for (int i = 0; i < equip.stat.count; i++)
+            for (int i = 0; i < mon.count; i++)
             {
                 if (PhotonNetwork.IsConnected && !PhotonNetwork.IsMasterClient)
-                    PhotonNetwork.Instantiate(equip.stat.name, RanPosCircle(12f), Quaternion.identity);
+                    PhotonNetwork.Instantiate(mon.name, RanPosCircle(12f), Quaternion.identity);
                 else if (!PhotonNetwork.IsConnected)
                 {
-                    GameObject obj = gameManager.poolingManager.MakeObj(equip.stat.name);
+                    GameObject obj = gameManager.poolingManager.MakeObj(mon.name);
                     obj.transform.position = RanPosCircle(12f);
                 }
             }
         }
         if (equip.isDropped && !equip.isSpawn)
         {
-            equip.img.fillAmount -= 1 / equip.stat.coolTime * Time.deltaTime;
+            equip.img.fillAmount -= 1 / mon.coolTime * Time.deltaTime;
 
             if (equip.img.fillAmount <= 0)
             {

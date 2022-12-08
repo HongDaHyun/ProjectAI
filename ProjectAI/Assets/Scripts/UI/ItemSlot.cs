@@ -16,13 +16,13 @@ public class ItemSlot : Slot
             dd.Replace();
             return;
         }
-        stat = eventData.pointerDrag.GetComponent<MonsterUI>().stat;
+        _name = eventData.pointerDrag.GetComponent<MonsterUI>()._name;
     }
 
     public override void SwapUI(DragDrop dd)
     {
         base.SwapUI(dd);
-        preSlot.stat = stat;
+        preSlot._name = _name;
     }
 
     public override void OnPointerEnter(PointerEventData eventData)
@@ -51,7 +51,7 @@ public class ItemSlot : Slot
         {
             isHover = false;
             gameManager.uiManager.toolTip.gameObject.SetActive(true);
-            gameManager.uiManager.toolTip.SetToolTip(stat);
+            gameManager.uiManager.toolTip.SetToolTip(gameManager.csvReader.monsterExportData(_name));
         }
     }
 }

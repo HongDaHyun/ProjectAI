@@ -216,7 +216,7 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         isAttack = false;
     }
 
-    protected void AttackPattern()
+    protected virtual void AttackPattern()
     {
         if (!isAttack && Vector2.Distance(transform.position, gameManager.playerAI.transform.position) <= stat.range && !isDie)
         {

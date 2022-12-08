@@ -24,4 +24,12 @@ public class Monkey : Monster
         sprite.color = Color.white;
         isHit = false;
     }
+
+    protected override void AttackPattern()
+    {
+        if (!isAttack && Vector2.Distance(transform.position, gameManager.playerAI.transform.position) <= stat.range && !isDie)
+        {
+            StartCoroutine(Banana());
+        }
+    }
 }
