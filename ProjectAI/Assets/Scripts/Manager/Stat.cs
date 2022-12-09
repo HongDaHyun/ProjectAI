@@ -66,7 +66,7 @@ public struct Synergy
     public List<string> contents;
     public List<string> increase;
     public List<string> decrease;
-    public bool isUnlock;
+    public bool isUnlock, isEquip;
 }
 
 [Serializable]

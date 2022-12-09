@@ -24,6 +24,7 @@ public class PoolingManager : MonoBehaviour
 
     public GameObject clickUIPrefab;
     public GameObject weaponSlotPrefab;
+    public GameObject synergySlotPrefab;
 
     GameObject[] targetPool;
 
@@ -76,6 +77,7 @@ public class PoolingManager : MonoBehaviour
 
     GameObject[] clickUI;
     GameObject[] weaponSlot;
+    GameObject[] synergySlot;
 
     GameObject[] apple;
 
@@ -123,6 +125,7 @@ public class PoolingManager : MonoBehaviour
         bite = Generate(bitePrefab, 200);
         clickUI = Generate(clickUIPrefab, 50);
         weaponSlot = Generate(weaponSlotPrefab, 7);
+        synergySlot = Generate(synergySlotPrefab, 5);
         apple = Generate(itemPrefab[0], 100);
     }
 
@@ -263,6 +266,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "WeaponSlot":
                 targetPool = weaponSlot;
+                break;
+            case "SynergySlot":
+                targetPool = synergySlot;
                 break;
             case "Apple":
                 targetPool = apple;

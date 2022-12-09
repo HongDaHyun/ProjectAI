@@ -17,6 +17,7 @@ public class ItemSlot : Slot
             return;
         }
         _name = eventData.pointerDrag.GetComponent<MonsterUI>()._name;
+        gameManager.synergyManager.SynergyNotice();
     }
 
     public override void SwapUI(DragDrop dd)

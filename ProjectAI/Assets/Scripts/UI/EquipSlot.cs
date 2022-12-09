@@ -19,6 +19,5 @@ public class EquipSlot : ItemSlot
         if (preSlot != null && _name != "")
             if (preSlot._name != _name)
                 img.fillAmount = 1;
-        gameManager.synergyManager.SynergyNotice();
     }
 }

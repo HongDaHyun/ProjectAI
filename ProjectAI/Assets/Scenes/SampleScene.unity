@@ -2352,7 +2352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db8ff360d72bca41a68b643a3a065e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapName: 2
+  mapName: 0
 --- !u!1 &176850982
 GameObject:
   m_ObjectHideFlags: 0
@@ -5167,82 +5167,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &389610985
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 389610986}
-  - component: {fileID: 389610988}
-  - component: {fileID: 389610987}
-  m_Layer: 5
-  m_Name: Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &389610986
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389610985}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 890310983}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 64, y: 64}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &389610987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389610985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c0f66a0b7f86ed1488a54cb00474d5d8, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &389610988
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389610985}
-  m_CullTransparentMesh: 1
 --- !u!1 &394114978
 GameObject:
   m_ObjectHideFlags: 0
@@ -6755,6 +6679,7 @@ MonoBehaviour:
   - {fileID: 296393431}
   - {fileID: 276837424}
   - {fileID: 1687033237}
+  synergySlot: []
 --- !u!1 &490228664
 GameObject:
   m_ObjectHideFlags: 0
@@ -9850,8 +9775,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 890310983}
+  m_Children: []
   m_Father: {fileID: 938763990}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12129,83 +12053,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 881328066}
-  m_CullTransparentMesh: 1
---- !u!1 &890310982
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 890310983}
-  - component: {fileID: 890310985}
-  - component: {fileID: 890310984}
-  m_Layer: 5
-  m_Name: MiNISynergy
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &890310983
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890310982}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 389610986}
-  m_Father: {fileID: 699455519}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &890310984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890310982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: -697602968, guid: fb9206a9ddd1d5c4ba9f8b656b3c3f19, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &890310985
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890310982}
   m_CullTransparentMesh: 1
 --- !u!1 &894086323
 GameObject:
@@ -14527,6 +14374,7 @@ MonoBehaviour:
     isEquipmentFull: 0
     isSkillFull: 0
   weaponSlotPanel: {fileID: 1831651320}
+  synergySlotPannel: {fileID: 699455519}
   skillSlotPanel: {fileID: 197017842}
   popAppleRect: {fileID: 686297159}
   mouseCursorUI: {fileID: 1172261217}
@@ -17054,6 +16902,7 @@ MonoBehaviour:
   bitePrefab: {fileID: 8680826129607992226, guid: e5ef6a18fb8df384087ebe12e9e98e92, type: 3}
   clickUIPrefab: {fileID: 4944441838154802809, guid: da05256ed075f544f95eb03d7f193e54, type: 3}
   weaponSlotPrefab: {fileID: 4383161547388447009, guid: b6cdb67a77d1c5344912ab410399939c, type: 3}
+  synergySlotPrefab: {fileID: 581053905385830127, guid: 5ede6ce28bf9c7443aee90dc00179d1a, type: 3}
 --- !u!4 &1231099118
 Transform:
   m_ObjectHideFlags: 0
@@ -22483,6 +22332,7 @@ MonoBehaviour:
         increase: []
         decrease: []
         isUnlock: 0
+        isEquip: 0
     - name: Chicken
       description: "Cock-a-doodle-doo\r"
       hp: 8
@@ -22505,6 +22355,7 @@ MonoBehaviour:
         increase: []
         decrease: []
         isUnlock: 0
+        isEquip: 0
       - name: Cute Babies
         contents:
         - Rabbit
@@ -22513,6 +22364,7 @@ MonoBehaviour:
         increase: []
         decrease: []
         isUnlock: 0
+        isEquip: 0
     - name: Mouse
       description: "It's not Disney's rat.\r"
       hp: 5
@@ -22535,6 +22387,7 @@ MonoBehaviour:
         increase: []
         decrease: []
         isUnlock: 0
+        isEquip: 0
       - name: Cute Babies
         contents:
         - Rabbit
@@ -22543,6 +22396,7 @@ MonoBehaviour:
         increase: []
         decrease: []
         isUnlock: 0
+        isEquip: 0
       - name: Ratatouille
         contents:
         - Mouse
@@ -22550,6 +22404,7 @@ MonoBehaviour:
         increase: []
         decrease: []
         isUnlock: 0
+        isEquip: 0
     - name: Pig
       description: "You become a pig.\r"
       hp: 15
@@ -22599,6 +22454,7 @@ MonoBehaviour:
         increase: []
         decrease: []
         isUnlock: 0
+        isEquip: 0
     - name: Monkey
       description: "Uki-ki!!\r"
       hp: 20
@@ -22620,6 +22476,7 @@ MonoBehaviour:
         increase: []
         decrease: []
         isUnlock: 0
+        isEquip: 0
     - name: Bear
       description: "Tear a person apart.\r"
       hp: 50
@@ -22642,6 +22499,7 @@ MonoBehaviour:
         increase: []
         decrease: []
         isUnlock: 0
+        isEquip: 0
       - name: Forest King
         contents:
         - Bear
@@ -22650,6 +22508,7 @@ MonoBehaviour:
         increase: []
         decrease: []
         isUnlock: 0
+        isEquip: 0
     - name: Lion
       description: "Lion king!!\r"
       hp: 40
@@ -22672,6 +22531,7 @@ MonoBehaviour:
         increase: []
         decrease: []
         isUnlock: 0
+        isEquip: 0
     - name: Elephant
       description: "His nose is his hand.\r"
       hp: 100
@@ -22694,6 +22554,7 @@ MonoBehaviour:
         increase: []
         decrease: []
         isUnlock: 0
+        isEquip: 0
       - name: Ratatouille
         contents:
         - Mouse
@@ -22701,6 +22562,7 @@ MonoBehaviour:
         increase: []
         decrease: []
         isUnlock: 0
+        isEquip: 0
     - name: GhostRabbit
       description: "Army of the Dead\r"
       hp: 1
@@ -22852,6 +22714,7 @@ MonoBehaviour:
         by 10%
       decrease: []
       isUnlock: 0
+      isEquip: 0
     - name: Forest King
       contents:
       - Bear
@@ -22863,6 +22726,7 @@ MonoBehaviour:
       decrease:
       - Speed-type monsters reduce their HP by 10%.
       isUnlock: 0
+      isEquip: 0
     - name: Cute Babies
       contents:
       - Rabbit
@@ -22877,6 +22741,7 @@ MonoBehaviour:
       - It reduces the probability that legend and epic animals will appear in the
         box
       isUnlock: 0
+      isEquip: 0
     - name: Ratatouille
       contents:
       - Mouse
@@ -22887,6 +22752,7 @@ MonoBehaviour:
       decrease:
       - Medium-sized animals are sad
       isUnlock: 0
+      isEquip: 0
     - name: Best Friend
       contents:
       - Fox
@@ -22897,6 +22763,7 @@ MonoBehaviour:
       decrease:
       - Sometimes a fox and a monkey fight
       isUnlock: 0
+      isEquip: 0
     percentages:
     - tier: 3
       weight: 1

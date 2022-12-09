@@ -37,14 +37,14 @@ public class SynergyNotice : MonoBehaviour
         {
             contents[i].gameObject.SetActive(true);
             contents[i].color = Color.black;
-            contents[i].text = synergy.increase[i];
+            contents[i].text = "> " + synergy.increase[i];
             i++;
         }
         while(i < synergy.increase.Count + synergy.decrease.Count)
         {
             contents[i].gameObject.SetActive(true);
             contents[i].color = Color.red;
-            contents[i].text = synergy.decrease[i - synergy.increase.Count];
+            contents[i].text = "> " + synergy.decrease[i - synergy.increase.Count];
             i++;
         }
     }

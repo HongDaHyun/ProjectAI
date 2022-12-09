@@ -32,7 +32,7 @@ public class SynergyManager : MonoBehaviour
     {
         for(int i = 0; i < gameManager.csvReader.list.synergies.Length; i++)
         {
-            if (gameManager.csvReader.list.synergies[i].isUnlock)
+            if(gameManager.csvReader.list.synergies[i].isUnlock)
             {
                 int z = 0;
                 for (int k = 0; k < gameManager.csvReader.list.synergies[i].contents.Count; k++)
@@ -42,12 +42,22 @@ public class SynergyManager : MonoBehaviour
                         z++;
                     }
                 }
-                if (z == gameManager.csvReader.list.synergies[i].contents.Count)
+                if (z == gameManager.csvReader.list.synergies[i].contents.Count && !gameManager.csvReader.list.synergies[i].isEquip)
                 {
                     gameManager.uiManager.synergyNotice.gameObject.SetActive(true);
                     gameManager.uiManager.synergyNotice.SetStat(gameManager.csvReader.list.synergies[i]);
+                    gameManager.csvReader.list.synergies[i].isEquip = true;
+                }
+                else if(z != gameManager.csvReader.list.synergies[i].contents.Count)
+                {
+                    gameManager.csvReader.list.synergies[i].isEquip = false;
                 }
             }
+            else
+            {
+                gameManager.csvReader.list.synergies[i].isEquip = false;
+            }
+            gameManager.uiManager.SynergySlotCheck(gameManager.csvReader.list.synergies[i]);
         }
     }
 }

@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public ExpBarUI expBarUI;
     public SlotsUI slotsUI;
     public RectTransform weaponSlotPanel;
+    public RectTransform synergySlotPannel;
     public RectTransform skillSlotPanel;
     public RectTransform popAppleRect;
     public RectTransform mouseCursorUI;
@@ -63,21 +64,48 @@ public class UIManager : MonoBehaviour
         {
             if (gameManager.playerAI.stat.ammo[i].level == 1 && !gameManager.playerAI.stat.ammo[i].isEquip)
             {
-                WeaponSlot weaponSlot = gameManager.poolingManager.MakeObj("WeaponSlot").GetComponent<WeaponSlot>();
+                ImgSlot weaponSlot = gameManager.poolingManager.MakeObj("WeaponSlot").GetComponent<ImgSlot>();
                 weaponSlot.rect.SetParent(weaponSlotPanel);
                 weaponSlot.rect.position = weaponSlotPanel.position;
                 weaponSlot.rect.localScale = new Vector3(1, 1, 1);
                 weaponSlot._name = gameManager.playerAI.stat.ammo[i].name;
-                weaponSlot.weaponImg.sprite = gameManager.csvReader.spriteExportData(weaponSlot._name).sprite;
+                weaponSlot.img.sprite = gameManager.csvReader.spriteExportData(weaponSlot._name).sprite;
             }
             else if (gameManager.playerAI.stat.ammo[i].level == 0)
             {
-                WeaponSlot[] slots = weaponSlotPanel.GetComponentsInChildren<WeaponSlot>();
+                ImgSlot[] slots = weaponSlotPanel.GetComponentsInChildren<ImgSlot>();
                 for(int k = 0; k < slots.Length; k++)
                 {
                     if (slots[k]._name == gameManager.playerAI.stat.ammo[i].name)
                         slots[k].gameObject.SetActive(false);
                 }
+            }
+        }
+    }
+
+    public void SynergySlotCheck(Synergy synergy)
+    {
+        ImgSlot[] slots = synergySlotPannel.GetComponentsInChildren<ImgSlot>();
+        if (synergy.isEquip)
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (slots[i]._name == synergy.name)
+                    return;
+            }
+            ImgSlot synergySlot = gameManager.poolingManager.MakeObj("SynergySlot").GetComponent<ImgSlot>();
+            synergySlot.rect.SetParent(synergySlotPannel);
+            synergySlot.rect.position = synergySlotPannel.position;
+            synergySlot.rect.localScale = new Vector3(1, 1, 1);
+            synergySlot._name = synergy.name;
+            synergySlot.img.sprite = gameManager.csvReader.spriteExportData(synergySlot._name).sprite;
+        }
+        else if (!synergy.isEquip)
+        {
+            for (int k = 0; k < slots.Length; k++)
+            {
+                if (slots[k]._name == synergy.name)
+                    slots[k].gameObject.SetActive(false);
             }
         }
     }
