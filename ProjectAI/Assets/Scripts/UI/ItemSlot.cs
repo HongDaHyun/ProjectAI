@@ -42,7 +42,7 @@ public class ItemSlot : Slot
         gameManager.uiManager.toolTip.gameObject.SetActive(false);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (!isHover)
             return;

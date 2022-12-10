@@ -8,8 +8,9 @@ public class EquipSlot : ItemSlot
 {
     public bool isSpawn;
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         gameManager.spawnManager.Spawn(this);
     }
 
