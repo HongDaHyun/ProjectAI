@@ -210,6 +210,14 @@ public class BtnManager : MonoBehaviour
         Time.timeScale = originTime;
     }
 
+    public void TestMulti()
+    {
+        if (!gameManager.networkManager.network.serverPannel.activeSelf)
+            gameManager.networkManager.network.serverPannel.SetActive(true);
+        else
+            gameManager.networkManager.network.serverPannel.SetActive(false);
+    }
+
     public void WeaponTestBtnUp(int id)
     {
         gameManager.playerAI.stat.ammo[id].level++;
