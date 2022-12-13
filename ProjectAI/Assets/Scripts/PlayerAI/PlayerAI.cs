@@ -241,7 +241,6 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
                 bulletScript.dmg = stat.ammo[0].damage + stat.damage;
                 bulletScript.speed = stat.ammo[0].bulletSpeed + stat.bulletSpeed;
             }
-            gameManager.cameraManager.ShakeCam(2f, 0.2f);
             gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
             animator.SetTrigger("IsAtk");
             stat.ammo[0].curAmmo -= 1;
@@ -278,7 +277,6 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
                     bulletScript.speed = stat.ammo[1].bulletSpeed + stat.bulletSpeed;
                 }
             }
-            gameManager.cameraManager.ShakeCam(2f, 0.2f);
             gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
             animator.SetTrigger("IsAtk");
             stat.ammo[1].curAmmo -= 1;
