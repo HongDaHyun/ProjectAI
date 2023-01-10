@@ -15,6 +15,7 @@ public class PoolingManager : MonoBehaviour
 
     public GameObject dmgPopUpPrefab;
     public GameObject uiPopUpPrefab;
+    public GameObject playerStatPopUpPrefab;
     public GameObject monsterUIPrefab;
     public GameObject skillUIPrefab;
     public GameObject synergyUIPrefab;
@@ -68,6 +69,7 @@ public class PoolingManager : MonoBehaviour
 
     GameObject[] dmgPopUp;
     GameObject[] uiPopUp;
+    GameObject[] playerStatPopUp;
     GameObject[] monsterUI;
     GameObject[] skillUI;
     GameObject[] synergyUI;
@@ -95,6 +97,7 @@ public class PoolingManager : MonoBehaviour
         cityTilemap = Generate(tileMaps[2], 9);
         dmgPopUp = Generate(dmgPopUpPrefab, 500);
         uiPopUp = Generate(uiPopUpPrefab, 50);
+        playerStatPopUp = Generate(playerStatPopUpPrefab, 5);
         monsterUI = Generate(monsterUIPrefab, 30);
         skillUI = Generate(skillUIPrefab, 4);
         synergyUI = Generate(synergyUIPrefab, 3);
@@ -245,6 +248,9 @@ public class PoolingManager : MonoBehaviour
                 break;
             case "UIPopUp":
                 targetPool = uiPopUp;
+                break;
+            case "PlayerStatPopUp":
+                targetPool = playerStatPopUp;
                 break;
             case "MonsterUI":
                 targetPool = monsterUI;

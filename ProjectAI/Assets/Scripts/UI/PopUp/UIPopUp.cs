@@ -3,27 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIPopUp : MonoBehaviour
+public class UIPopUp : PopUp
 {
-    public float moveSpeed;
-    public float alphaSpeed;
-    public float activeTime;
-
-    GameManager gameManager;
     CanvasGroup canvasGroup;
-
     Text text;
 
-    private void Awake()
+    public override void Awake()
     {
-        gameManager = GameManager.Instance;
+        base.Awake();
         canvasGroup = GetComponent<CanvasGroup>();
         text = transform.GetComponentInChildren<Text>();
     }
 
-    private void Update()
+    public override void Update()
     {
-        transform.Translate(new Vector2(0, - moveSpeed * Time.deltaTime));
+        base.Update();
         canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 0, Time.deltaTime * alphaSpeed);
     }
 

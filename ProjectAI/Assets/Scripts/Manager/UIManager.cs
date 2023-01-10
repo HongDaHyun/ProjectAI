@@ -264,7 +264,63 @@ public struct ExpBarUI
             ai.level++;
             ai.stat.exp = (ai.level * ai.level + ai.level) * 5;
             levelTxt.text = ai.level.ToString();
+
+            if(ai.level % 5 == 0)
+            {
+                int ran = UnityEngine.Random.Range(0, ai.stat.ammo.Length);
+                ai.stat.ammo[ran].level++;
+                StatPopUp("Gun Up", ai.transform);
+            }
+            else
+            {
+                int ran = UnityEngine.Random.Range(0, 6);
+                switch(ran)
+                {
+                    case 0:
+                        ai.stat.hp += 10;
+                        StatPopUp("HP+", ai.transform);
+                        break;
+                    case 1:
+                        ai.stat.damage += 1;
+                        StatPopUp("Dmg+", ai.transform);
+                        break;
+                    case 2:
+                        ai.stat.walkSpeed += 0.1f;
+                        StatPopUp("MoveSpeed+", ai.transform);
+                        break;
+                    case 3:
+                        if (ai.stat.attackSpeed <= 0.1f)
+                        {
+                            StatPopUp("Boom", ai.transform);
+                            break;
+                        }
+                        ai.stat.attackSpeed -= 0.1f;
+                        StatPopUp("AttackSpeed+", ai.transform);
+                        break;
+                    case 4:
+                        ai.stat.bulletSpeed += 0.1f;
+                        StatPopUp("BulletSpeed+", ai.transform);
+                        break;
+                    case 5:
+                        if (ai.stat.reloadSpeed <= 0.1f)
+                        {
+                            StatPopUp("Boom", ai.transform);
+                            break;
+                        }
+                        ai.stat.reloadSpeed -= 0.1f;
+                        StatPopUp("ReloadSpeed+", ai.transform);
+                        break;
+                }
+            }
+            GameManager.Instance.uiManager.WeaponSlotCheck();
         }
+    }
+
+    public void StatPopUp(string s, Transform pos)
+    {
+        GameObject playerStatPopUp = GameManager.Instance.poolingManager.MakeObj("PlayerStatPopUp");
+        playerStatPopUp.GetComponent<PlayerStatPopUp>().text.text = s;
+        playerStatPopUp.transform.position = new Vector2(pos.position.x, pos.position.y + 2);
     }
 }
 

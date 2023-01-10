@@ -17172,6 +17172,7 @@ MonoBehaviour:
   - {fileID: 4532065773946813439, guid: d89e1b65670e1df498e68fcacd908e1e, type: 3}
   dmgPopUpPrefab: {fileID: 2429354406939232664, guid: d5302d64fbd905e448a3b6d80dd3228a, type: 3}
   uiPopUpPrefab: {fileID: 913321878492645542, guid: f564570fa6fa7b04d97a10d011923e74, type: 3}
+  playerStatPopUpPrefab: {fileID: 2429354406939232664, guid: 75dc1f86edbea9d4e80a97956443a0b4, type: 3}
   monsterUIPrefab: {fileID: 4473072673051085636, guid: 3d02ebe784a49204d84a5f0221497d0f, type: 3}
   skillUIPrefab: {fileID: 4473072673051085636, guid: 8819a741307caec429b70112bb4edfe8, type: 3}
   synergyUIPrefab: {fileID: 3505589141911734009, guid: ccd4881d769691b4ba68d2fe16e7bce6, type: 3}

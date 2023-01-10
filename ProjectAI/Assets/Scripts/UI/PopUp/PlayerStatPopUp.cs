@@ -3,20 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DmgPopUp : MonoBehaviour
+public class PlayerStatPopUp : PopUp
 {
-    public float moveSpeed;
-    public float alphaSpeed;
-    public float activeTime;
-
-    GameManager gameManager;
-    public TextMeshPro text;
+    [HideInInspector] public TextMeshPro text;
     Color alpha;
 
-
-    private void Awake()
+    public override void Awake()
     {
-        gameManager = GameManager.Instance;
+        base.Awake();
         text = GetComponent<TextMeshPro>();
         alpha = text.color;
     }
@@ -26,14 +20,14 @@ public class DmgPopUp : MonoBehaviour
         StartCoroutine(Pop());
     }
 
-    private void Update()
+    public override void Update()
     {
-        transform.Translate(new Vector2(0, moveSpeed * Time.deltaTime));
+        base.Update();
         alpha.a = Mathf.Lerp(alpha.a, 0, Time.deltaTime * alphaSpeed);
         text.color = alpha;
     }
 
-    IEnumerator Pop()
+    public IEnumerator Pop()
     {
         alpha.a = 1;
         yield return new WaitForSeconds(activeTime);
