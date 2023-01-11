@@ -12,9 +12,8 @@ public class Bite : Atk
         col = GetComponent<CapsuleCollider2D>();
     }
 
-    public override void OnEnable()
+    private void OnEnable()
     {
-        base.OnEnable();
         col.enabled = false;
     }
 

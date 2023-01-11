@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
 public enum State { Idle, Walk }
 
-public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
+public abstract class PlayerAI : MonoBehaviour
 {
     protected State state;
     protected Animator animator;
@@ -14,7 +13,6 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
     protected UIManager uiManager;
     [HideInInspector]public SpriteRenderer spriteRenderer;
     protected Reload[] reload;
-    protected PhotonView pv;
     protected Vector3 curPos;
     protected HuntingDog[] huntingDogs;
     protected Collider2D[] colliderArray;
@@ -38,7 +36,6 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         gameManager = GameManager.Instance;
         spriteRenderer = GetComponent<SpriteRenderer>();
         reload = GetComponentsInChildren<Reload>(true);
-        pv = GetComponent<PhotonView>();
         huntingDogs = GetComponentsInChildren<HuntingDog>(true);
         shadow = transform.GetChild(2).gameObject;
         SetStat();
@@ -120,21 +117,16 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         if (gameManager.isGameOver)
             return;
 
-        if(pv.IsMine)
+        if (nearEnemy != null)
         {
-            if(nearEnemy != null)
-            {
-                Vector2 direction = nearEnemy.transform.position - transform.position;
-                direction.Normalize();
+            Vector2 direction = nearEnemy.transform.position - transform.position;
+            direction.Normalize();
 
-                transform.Translate(direction * -stat.walkSpeed * Time.deltaTime, Space.World);
-                animator.SetInteger("State", 1);
-            }
-            else
-                animator.SetInteger("State", 0);
+            transform.Translate(direction * -stat.walkSpeed * Time.deltaTime, Space.World);
+            animator.SetInteger("State", 1);
         }
-        else if ((transform.position - curPos).sqrMagnitude >= 100) transform.position = curPos;
-        else transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
+        else
+            animator.SetInteger("State", 0);
     }    
     #endregion
 
@@ -225,22 +217,14 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             angle += Random.Range(-stat.ammo[0].spread, stat.ammo[0].spread);
             Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-            if (PhotonNetwork.IsConnected && !pv.IsMine)
-            {
-                GameObject bullet = PhotonNetwork.Instantiate("Bullet", transform.position, rotation);
-                Bullet bulletScript = bullet.GetComponent<Bullet>();
-                bulletScript.dmg = stat.ammo[0].damage + stat.damage;
-                bulletScript.speed = stat.ammo[0].bulletSpeed + stat.bulletSpeed;
-            }
-            else if (!PhotonNetwork.IsConnected)
-            {
-                GameObject bullet = gameManager.poolingManager.MakeObj("Bullet");
-                bullet.transform.position = transform.position;
-                bullet.transform.rotation = rotation;
-                Bullet bulletScript = bullet.GetComponent<Bullet>();
-                bulletScript.dmg = stat.ammo[0].damage + stat.damage;
-                bulletScript.speed = stat.ammo[0].bulletSpeed + stat.bulletSpeed;
-            }
+
+            GameObject bullet = gameManager.poolingManager.MakeObj("Bullet");
+            bullet.transform.position = transform.position;
+            bullet.transform.rotation = rotation;
+            Bullet bulletScript = bullet.GetComponent<Bullet>();
+            bulletScript.dmg = stat.ammo[0].damage + stat.damage;
+            bulletScript.speed = stat.ammo[0].bulletSpeed + stat.bulletSpeed;
+
             gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
             animator.SetTrigger("IsAtk");
             stat.ammo[0].curAmmo -= 1;
@@ -260,22 +244,13 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 angle += Random.Range(-stat.ammo[1].spread, stat.ammo[1].spread);
                 Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-                if (PhotonNetwork.IsConnected && !pv.IsMine)
-                {
-                    GameObject bullet = PhotonNetwork.Instantiate("Bullet", transform.position, rotation);
-                    Bullet bulletScript = bullet.GetComponent<Bullet>();
-                    bulletScript.dmg = Mathf.RoundToInt((float)(stat.ammo[1].damage + stat.damage) / 5);
-                    bulletScript.speed = stat.ammo[1].bulletSpeed + stat.bulletSpeed;
-                }
-                else if (!PhotonNetwork.IsConnected)
-                {
-                    GameObject bullet = gameManager.poolingManager.MakeObj("Bullet");
-                    bullet.transform.position = transform.position;
-                    bullet.transform.rotation = rotation;
-                    Bullet bulletScript = bullet.GetComponent<Bullet>();
-                    bulletScript.dmg = Mathf.RoundToInt((float)(stat.ammo[1].damage + stat.damage) / 5);
-                    bulletScript.speed = stat.ammo[1].bulletSpeed + stat.bulletSpeed;
-                }
+
+                GameObject bullet = gameManager.poolingManager.MakeObj("Bullet");
+                bullet.transform.position = transform.position;
+                bullet.transform.rotation = rotation;
+                Bullet bulletScript = bullet.GetComponent<Bullet>();
+                bulletScript.dmg = Mathf.RoundToInt((float)(stat.ammo[1].damage + stat.damage) / 5);
+                bulletScript.speed = stat.ammo[1].bulletSpeed + stat.bulletSpeed;
             }
             gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
             animator.SetTrigger("IsAtk");
@@ -292,31 +267,18 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         {
             Vector2 direction = target.transform.position - transform.position;
             direction.Normalize();
-            if (PhotonNetwork.IsConnected && !pv.IsMine)
-            {
-                GameObject tomahawk = PhotonNetwork.Instantiate("Tomahawk", transform.position, Quaternion.identity);
-                Tomahawk tomahawkScript = tomahawk.GetComponent<Tomahawk>();
-                if (spriteRenderer.flipX)
-                    tomahawkScript.isLeft = true;
-                else if (!spriteRenderer.flipX)
-                    tomahawkScript.isLeft = false;
-                tomahawkScript.direction = direction;
-                tomahawkScript.dmg = (stat.ammo[2].damage + stat.damage);
-                tomahawkScript.speed = stat.ammo[2].bulletSpeed + stat.bulletSpeed;
-            }
-            else if (!PhotonNetwork.IsConnected)
-            {
-                GameObject tomahawk = gameManager.poolingManager.MakeObj("Tomahawk");
-                tomahawk.transform.position = transform.position;
-                Tomahawk tomahawkScript = tomahawk.GetComponent<Tomahawk>();
-                if (spriteRenderer.flipX)
-                    tomahawkScript.isLeft = true;
-                else if (!spriteRenderer.flipX)
-                    tomahawkScript.isLeft = false;
-                tomahawkScript.direction = direction;
-                tomahawkScript.dmg = (stat.ammo[2].damage + stat.damage);
-                tomahawkScript.speed = stat.ammo[2].bulletSpeed + stat.bulletSpeed;
-            }
+
+            GameObject tomahawk = gameManager.poolingManager.MakeObj("Tomahawk");
+            tomahawk.transform.position = transform.position;
+            Tomahawk tomahawkScript = tomahawk.GetComponent<Tomahawk>();
+            if (spriteRenderer.flipX)
+                tomahawkScript.isLeft = true;
+            else if (!spriteRenderer.flipX)
+                tomahawkScript.isLeft = false;
+            tomahawkScript.direction = direction;
+            tomahawkScript.dmg = (stat.ammo[2].damage + stat.damage);
+            tomahawkScript.speed = stat.ammo[2].bulletSpeed + stat.bulletSpeed;
+
             //gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
             stat.ammo[2].curAmmo -= 1;
             stat.ammo[2].curShotTime = 0;
@@ -343,18 +305,10 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
             return;
         if (stat.ammo[4].curShotTime >= stat.attackSpeed + stat.ammo[4].atkSpeed && !stat.ammo[4].isReload)
         {
-            if (PhotonNetwork.IsConnected && !pv.IsMine)
-            {
-                GameObject flame = PhotonNetwork.Instantiate("FlameThrower", transform.position, Quaternion.identity);
-                FlameThrower flameScript = flame.GetComponent<FlameThrower>();
-                flameScript.dmg = stat.ammo[4].damage + stat.damage;
-            }
-            else if (!PhotonNetwork.IsConnected)
-            {
-                GameObject flame = gameManager.poolingManager.MakeObj("FlameThrower");
-                FlameThrower flameScript = flame.GetComponent<FlameThrower>();
-                flameScript.dmg = stat.ammo[4].damage + stat.damage;
-            }
+            GameObject flame = gameManager.poolingManager.MakeObj("FlameThrower");
+            FlameThrower flameScript = flame.GetComponent<FlameThrower>();
+            flameScript.dmg = stat.ammo[4].damage + stat.damage;
+
             stat.ammo[4].curAmmo -= 1;
             stat.ammo[4].curShotTime = 0;
         }
@@ -366,23 +320,13 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
             return;
         if (stat.ammo[5].curShotTime >= stat.attackSpeed + stat.ammo[5].atkSpeed && !stat.ammo[5].isReload)
         {
-            if (PhotonNetwork.IsConnected && !pv.IsMine)
-            {
-                GameObject falcon = PhotonNetwork.Instantiate("Falcon", transform.position, Quaternion.identity);
-                Falcon falconScript = falcon.GetComponent<Falcon>();
-                falconScript.target = target;
-                falconScript.dmg = (stat.ammo[5].damage + stat.damage);
-                falconScript.speed = stat.ammo[5].bulletSpeed + stat.bulletSpeed;
-            }
-            else if (!PhotonNetwork.IsConnected)
-            {
-                GameObject falcon = gameManager.poolingManager.MakeObj("Falcon");
-                falcon.transform.position = transform.position;
-                Falcon falconScript = falcon.GetComponent<Falcon>();
-                falconScript.target = target;
-                falconScript.dmg = (stat.ammo[5].damage + stat.damage);
-                falconScript.speed = stat.ammo[5].bulletSpeed + stat.bulletSpeed;
-            }
+            GameObject falcon = gameManager.poolingManager.MakeObj("Falcon");
+            falcon.transform.position = transform.position;
+            Falcon falconScript = falcon.GetComponent<Falcon>();
+            falconScript.target = target;
+            falconScript.dmg = (stat.ammo[5].damage + stat.damage);
+            falconScript.speed = stat.ammo[5].bulletSpeed + stat.bulletSpeed;
+
             //gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
             stat.ammo[5].curAmmo -= 1;
             stat.ammo[5].curShotTime = 0;
@@ -397,31 +341,18 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         {
             Vector2 direction = target.transform.position - transform.position;
             direction.Normalize();
-            if (PhotonNetwork.IsConnected && !pv.IsMine)
-            {
-                GameObject bomb = PhotonNetwork.Instantiate("Bomb", transform.position, Quaternion.identity);
-                Bomb bombScript = bomb.GetComponent<Bomb>();
-                if (spriteRenderer.flipX)
-                    bombScript.sprite.flipX = true;
-                else if (!spriteRenderer.flipX)
-                    bombScript.sprite.flipX = false;
-                bombScript.direction = direction;
-                bombScript.dmg = (stat.ammo[6].damage + stat.damage);
-                bombScript.speed = stat.ammo[6].bulletSpeed + stat.bulletSpeed;
-            }
-            else if (!PhotonNetwork.IsConnected)
-            {
-                GameObject bomb = gameManager.poolingManager.MakeObj("Bomb");
-                bomb.transform.position = transform.position;
-                Bomb bombScript = bomb.GetComponent<Bomb>();
-                if (spriteRenderer.flipX)
-                    bombScript.sprite.flipX = true;
-                else if (!spriteRenderer.flipX)
-                    bombScript.sprite.flipX = false;
-                bombScript.direction = direction;
-                bombScript.dmg = (stat.ammo[6].damage + stat.damage);
-                bombScript.speed = stat.ammo[6].bulletSpeed + stat.bulletSpeed;
-            }
+
+            GameObject bomb = gameManager.poolingManager.MakeObj("Bomb");
+            bomb.transform.position = transform.position;
+            Bomb bombScript = bomb.GetComponent<Bomb>();
+            if (spriteRenderer.flipX)
+                bombScript.sprite.flipX = true;
+            else if (!spriteRenderer.flipX)
+                bombScript.sprite.flipX = false;
+            bombScript.direction = direction;
+            bombScript.dmg = (stat.ammo[6].damage + stat.damage);
+            bombScript.speed = stat.ammo[6].bulletSpeed + stat.bulletSpeed;
+
             //gameManager.soundManager.SFXPlayer(SoundManager.SFX.Fire);
             stat.ammo[6].curAmmo -= 1;
             stat.ammo[6].curShotTime = 0;
@@ -492,17 +423,5 @@ public abstract class PlayerAI : MonoBehaviourPunCallbacks, IPunObservable
         uiManager = gameManager.uiManager;
         uiManager.hpBarUI.SetMaxHP();
         uiManager.expBarUI.SetExp();
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(transform.position);
-        }
-        else
-        {
-            curPos = (Vector3)stream.ReceiveNext();
-        }
     }
 }

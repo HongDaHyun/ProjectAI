@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
-public abstract class Projectile : MonoBehaviourPunCallbacks, IPunObservable
+public abstract class Projectile : MonoBehaviour
 {
-    protected PhotonView pv;
     protected GameManager gameManager;
     protected Vector3 curPos;
     protected Quaternion curRot;
@@ -16,7 +14,6 @@ public abstract class Projectile : MonoBehaviourPunCallbacks, IPunObservable
     protected virtual void Awake()
     {
         gameManager = GameManager.Instance;
-        pv = GetComponent<PhotonView>();
     }
 
     protected abstract void Update();
@@ -25,48 +22,12 @@ public abstract class Projectile : MonoBehaviourPunCallbacks, IPunObservable
 
     protected void ShootStraight()
     {
-        if(!PhotonNetwork.IsConnected)
-            transform.Translate(Vector2.up * speed * Time.deltaTime);
-        else
-        {
-            if (pv.IsMine)
-            {
-                transform.Translate(Vector2.up * speed * Time.deltaTime);
-            }
-            else if ((transform.position - curPos).sqrMagnitude >= 100)
-            {
-                transform.position = curPos;
-                transform.rotation = curRot;
-            }
-            else
-            {
-                transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
-                transform.rotation = curRot;
-            }
-        }
+        transform.Translate(Vector2.up * speed * Time.deltaTime);
     }
 
     protected void ShootStraightNoRotate(Vector2 target)
     {
-        if(!PhotonNetwork.IsConnected)
-            transform.Translate(target * speed * Time.deltaTime, Space.World);
-        else
-        {
-            if (pv.IsMine)
-            {
-                transform.Translate(target * speed * Time.deltaTime, Space.World);
-            }
-            else if ((transform.position - curPos).sqrMagnitude >= 100)
-            {
-                transform.position = curPos;
-                transform.rotation = curRot;
-            }
-            else
-            {
-                transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
-                transform.rotation = curRot;
-            }
-        }
+        transform.Translate(target * speed * Time.deltaTime, Space.World);
     }
 
     protected void ShootFlame()
@@ -85,36 +46,11 @@ public abstract class Projectile : MonoBehaviourPunCallbacks, IPunObservable
 
     protected void Falcon(Falcon falcon)
     {
-
-        if (!PhotonNetwork.IsConnected)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, falcon.target.transform.position + new Vector3(0, 0.5f), speed * Time.deltaTime);
-            if (transform.position == falcon.target.transform.position + new Vector3(0, 0.5f))
-                falcon.col.enabled = true;
-            if (!falcon.target.activeSelf)
-                gameObject.SetActive(false);
-        }
-        else
-        {
-            if (pv.IsMine)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, falcon.target.transform.position + new Vector3(0, 0.5f), speed * Time.deltaTime);
-                if (transform.position == falcon.target.transform.position)
-                    falcon.col.enabled = true;
-                if (falcon.target.GetComponent<Monster>().isDie)
-                    PhotonNetwork.Destroy(gameObject);
-            }
-            else if ((transform.position - curPos).sqrMagnitude >= 100)
-            {
-                transform.position = curPos;
-                transform.rotation = curRot;
-            }
-            else
-            {
-                transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
-                transform.rotation = curRot;
-            }
-        }
+        transform.position = Vector3.MoveTowards(transform.position, falcon.target.transform.position + new Vector3(0, 0.5f), speed * Time.deltaTime);
+        if (transform.position == falcon.target.transform.position + new Vector3(0, 0.5f))
+            falcon.col.enabled = true;
+        if (!falcon.target.activeSelf)
+            gameObject.SetActive(false);
     }
 
     protected void BulletCollision(Collider2D collision)
@@ -135,23 +71,6 @@ public abstract class Projectile : MonoBehaviourPunCallbacks, IPunObservable
 
     public void DestroyObj()
     {
-        if (PhotonNetwork.IsConnected && pv.IsMine)
-            PhotonNetwork.Destroy(gameObject);
-        else
-            gameObject.SetActive(false);
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
-        }
-        else
-        {
-            curPos = (Vector3)stream.ReceiveNext();
-            curRot = (Quaternion)stream.ReceiveNext();
-        }
+        gameObject.SetActive(false);
     }
 }

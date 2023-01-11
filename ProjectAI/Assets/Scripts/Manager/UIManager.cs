@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public RectTransform popAppleRect;
     public RectTransform mouseCursorUI;
     public List<GameObject> deckList;
+    public GameObject mainMenu;
     public GameObject GameOver;
     public GameObject pause;
     public SynergyNotice synergyNotice;

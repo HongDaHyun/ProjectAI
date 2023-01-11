@@ -7,9 +7,8 @@ public class Tomahawk : Projectile
     public bool isLeft;
     public Vector2 direction;
 
-    public override void OnEnable()
+    private void OnEnable()
     {
-        base.OnEnable();
         transform.localEulerAngles = new Vector3(0, 0, 0);
     }
 

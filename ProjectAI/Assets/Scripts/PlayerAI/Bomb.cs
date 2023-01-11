@@ -21,9 +21,8 @@ public class Bomb : Projectile
         fire = transform.GetChild(1).gameObject;
     }
 
-    public override void OnEnable()
+    private void OnEnable()
     {
-        base.OnEnable();
         col.enabled = false;
         isBomb = false;
         boom.SetActive(false);

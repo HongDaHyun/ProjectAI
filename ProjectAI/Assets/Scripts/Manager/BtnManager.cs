@@ -203,7 +203,7 @@ public class BtnManager : MonoBehaviour
 
     public void TestStart()
     {
-        gameManager.networkManager.network.networkPannel.SetActive(false);
+        gameManager.uiManager.mainMenu.SetActive(false);
         gameManager.isGameOver = false;
         gameManager.soundManager.bgm.Play();
         StartCoroutine(gameManager.SecPerMoney(gameManager.secMoneySize, gameManager.secMoney));
@@ -212,10 +212,7 @@ public class BtnManager : MonoBehaviour
 
     public void TestMulti()
     {
-        if (!gameManager.networkManager.network.serverPannel.activeSelf)
-            gameManager.networkManager.network.serverPannel.SetActive(true);
-        else
-            gameManager.networkManager.network.serverPannel.SetActive(false);
+        //Not Yet
     }
 
     public void WeaponTestBtnUp(int id)

@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     public SpawnManager spawnManager;
     public UIManager uiManager;
     public BtnManager btnManager;
-    public NetworkManager networkManager;
     public SynergyManager synergyManager;
     public Map mapManager;
     public King king;

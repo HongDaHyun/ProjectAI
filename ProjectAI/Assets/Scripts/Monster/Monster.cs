@@ -1,15 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
-public abstract class Monster : MonoBehaviourPunCallbacks
+public abstract class Monster : MonoBehaviour
 {
     protected GameManager gameManager;
     protected UIManager uiManager;
     protected CircleCollider2D col;
     protected Rigidbody2D rigid;
-    protected PhotonView pv;
     protected Animator anim;
     protected SpriteRenderer sprite;
 
@@ -29,15 +27,13 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         uiManager = gameManager.uiManager;
         col = GetComponent<CircleCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
-        pv = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         SetStat();
     }
 
-    public override void OnEnable()
+    private void OnEnable()
     {
-        base.OnEnable();
         sprite.color = new Color(1, 1, 1, 1);
         col.enabled = true;
         isAttack = false;
@@ -136,10 +132,7 @@ public abstract class Monster : MonoBehaviourPunCallbacks
 
     public void Die()
     {
-        if (PhotonNetwork.IsConnected && pv.IsMine)
-            PhotonNetwork.Destroy(gameObject);
-        else
-            gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     IEnumerator FadeOut()
@@ -158,19 +151,12 @@ public abstract class Monster : MonoBehaviourPunCallbacks
     {
         isAttack = true;
         anim.SetTrigger("IsAtk");
-        if (PhotonNetwork.IsConnected && !pv.IsMine)
-        {
-            GameObject bite = PhotonNetwork.Instantiate("Bite", gameManager.playerAI.transform.position, Quaternion.identity);
-            Bite biteScript = bite.GetComponent<Bite>();
-            biteScript.damage = stat.damage;
-        }
-        else if (!PhotonNetwork.IsConnected)
-        {
-            GameObject bite = gameManager.poolingManager.MakeObj("Bite");
-            bite.transform.position = gameManager.playerAI.transform.position;
-            Bite biteScript = bite.GetComponent<Bite>();
-            biteScript.damage = stat.damage;
-        }
+
+        GameObject bite = gameManager.poolingManager.MakeObj("Bite");
+        bite.transform.position = gameManager.playerAI.transform.position;
+        Bite biteScript = bite.GetComponent<Bite>();
+        biteScript.damage = stat.damage;
+
         yield return new WaitForSeconds(stat.atkDelay);
         isAttack = false;
     }
@@ -181,29 +167,17 @@ public abstract class Monster : MonoBehaviourPunCallbacks
         anim.SetTrigger("IsAtk");
         Vector2 direction = gameManager.playerAI.transform.position - transform.position;
         direction.Normalize();
-        if (PhotonNetwork.IsConnected && !pv.IsMine)
-        {
-            GameObject banana = PhotonNetwork.Instantiate("Banana", transform.position, Quaternion.identity);
-            Banana bananaScript = banana.GetComponent<Banana>();
-            if (sprite.flipX)
-                bananaScript.isLeft = true;
-            else if (!sprite.flipX)
-                bananaScript.isLeft = false;
-            bananaScript.direction = direction;
-            bananaScript.damage = stat.damage;
-        }
-        else if (!PhotonNetwork.IsConnected)
-        {
-            GameObject banana = gameManager.poolingManager.MakeObj("Banana");
-            banana.transform.position = transform.position;
-            Banana bananaScript = banana.GetComponent<Banana>();
-            if (sprite.flipX)
-                bananaScript.isLeft = true;
-            else if (!sprite.flipX)
-                bananaScript.isLeft = false;
-            bananaScript.direction = direction;
-            bananaScript.damage = stat.damage;
-        }
+
+        GameObject banana = gameManager.poolingManager.MakeObj("Banana");
+        banana.transform.position = transform.position;
+        Banana bananaScript = banana.GetComponent<Banana>();
+        if (sprite.flipX)
+            bananaScript.isLeft = true;
+        else if (!sprite.flipX)
+            bananaScript.isLeft = false;
+        bananaScript.direction = direction;
+        bananaScript.damage = stat.damage;
+
         yield return new WaitForSeconds(stat.atkDelay);
         isAttack = false;
     }
